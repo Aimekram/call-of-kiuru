@@ -1,0 +1,14 @@
+location,year,leaf_out_doy,source,notes
+# Example reference observations (collected manually from DWD, Nature's Calendar, etc.)
+# location: Must match a location in validation/config.py
+# year: Observation year
+# leaf_out_doy: Day-of-year (1-366) when leaf-out was observed
+# source: Where you got the data (DWD, Nature's Calendar, PEP725, Horticultural, etc.)
+# notes: Any additional context
+
+# EXAMPLE DATA (replace with actual observations)
+Berlin Germany,2023,118,DWD,Average over DWD stations
+Berlin Germany,2022,108,DWD,Average over DWD stations
+Berlin Germany,2021,115,DWD,Average over DWD stations
+Valencia Spain,2023,85,Horticultural,Local gardening records
+Edinburgh Scotland,2023,125,Nature's Calendar,Woodland Trust data
