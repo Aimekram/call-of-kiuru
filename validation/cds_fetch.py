@@ -46,42 +46,63 @@ def fetch_location_data(client, location_name, lat, lon, start_year, end_year):
         lon: Longitude
         start_year: Start year (inclusive)
         end_year: End year (inclusive)
-    
+
     Returns:
-        Path to downloaded file
+        Dict mapping statistic ("maximum"/"minimum") to a list of monthly
+        output file paths (one per year/month requested).
     """
     # Safe filename
     safe_name = location_name.lower().replace(", ", "_").replace(" ", "_")
-    output_files = {
-        "maximum": RAW_DATA_DIR / f"{safe_name}_{start_year}-{end_year}_maximum.grib",
-        "minimum": RAW_DATA_DIR / f"{safe_name}_{start_year}-{end_year}_minimum.grib",
-    }
-    
+
     print(f"\nFetching data for {location_name} ({lat}, {lon})")
-    print(f"Period: {start_year}-{end_year} (spring months: Feb-May only)")
-    print(f"Outputs: {output_files['maximum']}, {output_files['minimum']}")
-    
-    # Request only spring months (Feb=02 to May=05) with valid days
+    print(f"Period: {start_year}-{end_year} (Jan-June)")
+
+    # SI-x accumulates heat from January 1, and nordic locations can leaf
+    # out as late as June, so Jan-June covers the whole leaf-out window.
     # This reduces CDS cost significantly while preserving full winter-to-spring data for model
+    #
+    # CDS queues requests spanning more than one month in a heavily congested
+    # "large request" tier (capped at 40 concurrent, thousands queued). Splitting
+    # into one request per year/month keeps each request in the fast tier.
+    #
+    # Despite requesting data_format "grib", this dataset actually returns
+    # netCDF (HDF5) files. netCDF files can't be concatenated by simply
+    # appending bytes the way GRIB messages can, so each month is kept as
+    # its own file rather than merged into one.
+    output_files = {"maximum": [], "minimum": []}
     try:
-        for statistic, output_file in output_files.items():
-            request = {
-                "product_type": "daily_statistics",
-                "variable": "2m_temperature",
-                "year": [str(y) for y in range(start_year, end_year + 1)],
-                "month": ["02", "03", "04", "05"],
-                "day": [str(d).zfill(2) for d in range(1, 32)],
-                "daily_statistic": f"daily_{statistic}",
-                "frequency": "1_hourly",
-                "time_zone": "UTC+00:00",
-                # CDS area order is north, west, south, east. Keep the request local.
-                "area": [lat + 0.25, lon - 0.25, lat - 0.25, lon + 0.25],
-                "grid": [0.25, 0.25],
-                "data_format": "grib",
-            }
+        for statistic in output_files:
             print(f"  Fetching daily {statistic}...")
-            client.retrieve("derived-era5-single-levels-daily-statistics", request, str(output_file))
-            print(f"  ✓ Downloaded to {output_file}")
+            for year in range(start_year, end_year + 1):
+                for month in ["01", "02", "03", "04", "05", "06"]:
+                    output_file = (
+                        RAW_DATA_DIR / f"{safe_name}_{year}-{month}_{statistic}.nc"
+                    )
+                    if output_file.exists():
+                        print(f"    {year}-{month}... (already downloaded)")
+                        output_files[statistic].append(output_file)
+                        continue
+
+                    request = {
+                        "product_type": "reanalysis",
+                        "variable": "2m_temperature",
+                        "year": [str(year)],
+                        "month": [month],
+                        "day": [str(d).zfill(2) for d in range(1, 32)],
+                        "daily_statistic": f"daily_{statistic}",
+                        "frequency": "1_hourly",
+                        "time_zone": "utc+00:00",
+                        # CDS area order is north, west, south, east. Keep the request local.
+                        "area": [lat + 0.25, lon - 0.25, lat - 0.25, lon + 0.25],
+                        "grid": [0.25, 0.25],
+                        "data_format": "netcdf",
+                    }
+                    print(f"    {year}-{month}...")
+                    client.retrieve(
+                        "derived-era5-single-levels-daily-statistics", request, str(output_file)
+                    )
+                    output_files[statistic].append(output_file)
+            print(f"  ✓ Downloaded {len(output_files[statistic])} monthly files")
         return output_files
     except Exception as e:
         print(f"✗ Error fetching data: {e}")

@@ -33,47 +33,66 @@ from validation.si_x_model import SIxModel
 from validation.validator import ValidationLog
 
 
-def parse_grib_to_dataframe(grib_files, location_name):
+def _read_netcdf_series(nc_files):
     """
-    Parse GRIB file from CDS into daily temperature dataframe.
-    
-    Note: Requires cfgrib library. Install with: pip install cfgrib
-    
+    Read one or more monthly netCDF files into a single (date, value) series,
+    spatially averaged over the small grid box around the location.
+
     Args:
-        grib_file: Path to .grib file
+        nc_files: List of paths to .nc files (one per year/month)
+
+    Returns:
+        DataFrame with columns: date, value_c
+    """
+    import netCDF4
+
+    dates = []
+    values = []
+    for nc_file in nc_files:
+        ds = netCDF4.Dataset(nc_file)
+        try:
+            t2m_kelvin = np.array(ds.variables["t2m"][:]).squeeze()
+            # Spatial mean over the grid box -> one value per day
+            daily_c = t2m_kelvin.reshape(t2m_kelvin.shape[0], -1).mean(axis=1) - 273.15
+            times = netCDF4.num2date(
+                ds.variables["valid_time"][:],
+                ds.variables["valid_time"].units,
+            )
+            dates.extend(pd.Timestamp(t.isoformat()) for t in times)
+            values.extend(daily_c.tolist())
+        finally:
+            ds.close()
+
+    return pd.DataFrame({"date": dates, "value_c": values})
+
+
+def parse_grib_to_dataframe(nc_files, location_name):
+    """
+    Parse the monthly netCDF files fetched from CDS into a single daily
+    temperature dataframe for a location.
+
+    Note: despite the name (kept for compatibility with callers), CDS returns
+    netCDF for this dataset regardless of the requested data_format.
+
+    Args:
+        nc_files: {"maximum": [Path, ...], "minimum": [Path, ...]}
         location_name: Name of location (for logging)
-    
+
     Returns:
         DataFrame with columns: date, tmax_c, tmin_c
     """
+    print(f"  Parsing netCDF files for {location_name} "
+          f"({len(nc_files['maximum'])} max + {len(nc_files['minimum'])} min files)")
+
     try:
-        import cfgrib
-    except ImportError:
-        print("ERROR: cfgrib required to parse GRIB files.")
-        print("Install with: pip install cfgrib")
-        raise
-    
-    print(f"  Parsing GRIB files: {grib_files['maximum']}, {grib_files['minimum']}")
-    
-    try:
-        ds_tmax = cfgrib.open_file(str(grib_files["maximum"]))
-        ds_tmin = cfgrib.open_file(str(grib_files["minimum"]))
-        
-        # Extract time series for the nearest grid point
-        tmax = ds_tmax['2t'].values - 273.15  # Convert from Kelvin to Celsius
-        tmin = ds_tmin['2t'].values - 273.15
-        times = ds_tmax['time'].values
-        
-        df = pd.DataFrame({
-            'date': pd.to_datetime(times),
-            'tmax_c': tmax,
-            'tmin_c': tmin,
-        })
-        
-        return df.sort_values('date').reset_index(drop=True)
-    
+        tmax_df = _read_netcdf_series(nc_files["maximum"]).rename(columns={"value_c": "tmax_c"})
+        tmin_df = _read_netcdf_series(nc_files["minimum"]).rename(columns={"value_c": "tmin_c"})
+
+        df = pd.merge(tmax_df, tmin_df, on="date")
+        return df.sort_values("date").reset_index(drop=True)
+
     except Exception as e:
-        print(f"  ERROR parsing {grib_files}: {e}")
+        print(f"  ERROR parsing {nc_files}: {e}")
         raise
 
 
@@ -160,11 +179,11 @@ def main():
         fetch_results = {}
         for location_name, lat, lon, climate_zone in VALIDATION_LOCATIONS:
             safe_name = location_name.lower().replace(", ", "_").replace(" ", "_")
-            maximum_file = next(RAW_DATA_DIR.glob(f"{safe_name}_*_maximum.grib"), None)
-            minimum_file = next(RAW_DATA_DIR.glob(f"{safe_name}_*_minimum.grib"), None)
-            if maximum_file and minimum_file:
+            maximum_files = sorted(RAW_DATA_DIR.glob(f"{safe_name}_*_maximum.nc"))
+            minimum_files = sorted(RAW_DATA_DIR.glob(f"{safe_name}_*_minimum.nc"))
+            if maximum_files and minimum_files:
                 fetch_results[location_name] = {
-                    "files": {"maximum": maximum_file, "minimum": minimum_file},
+                    "files": {"maximum": maximum_files, "minimum": minimum_files},
                     "lat": lat,
                     "lon": lon,
                     "climate_zone": climate_zone,
