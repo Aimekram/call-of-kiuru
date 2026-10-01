@@ -31,6 +31,13 @@ VALIDATION_LOCATIONS = [
     ("Stockholm, Sweden", 59.33, 18.07, "nordic"),
     ("Prague, Czechia", 50.08, 14.44, "continental"),
     ("Lyon, France", 45.76, 4.84, "temperate"),
+    ("Zurich, Switzerland", 47.3769, 8.5417, "alpine"),
+    ("Munich, Germany", 48.1351, 11.5820, "continental"),
+    ("Cologne, Germany", 50.9375, 6.9603, "temperate"),
+    ("Frankfurt, Germany", 50.1109, 8.6821, "temperate"),
+    ("Hamburg, Germany", 53.5511, 9.9937, "maritime"),
+    ("Gothenburg, Sweden", 57.7089, 11.9746, "maritime"),
+    ("Malmo, Sweden", 55.6050, 13.0038, "temperate"),
 ]
 
 # Time period for validation
@@ -40,21 +47,9 @@ BASELINE_END_YEAR = 2020
 HISTORICAL_START_YEAR = 2020
 HISTORICAL_END_YEAR = 2020
 
-# SI-x Model Parameters
-# Growing-degree-day model thresholds and weights
-SI_X_BASE_TEMP = 10.0  # °C, temperature below which GDD = 0
-SI_X_MIN_TEMP = -17.0  # °C, min temp cutoff
-SI_X_MAX_TEMP = 30.0   # °C, max temp cutoff
-SI_X_SPRING_START_DOY = 59  # Day of year (Feb 28/29) when SI-x accumulation starts
-
-# European research suggests daytime (max) temp is more predictive than mean
-# Weighting: proportion of max temp vs. mean temp in GDD calculation
-SI_X_MAX_TEMP_WEIGHT = 0.7  # 70% max, 30% mean
-SI_X_MEAN_TEMP_WEIGHT = 0.3
-
-# Growing-degree-day accumulation threshold for leaf-out
-# (varies by species/cultivar, this is a reasonable European default)
-SI_X_GDD_THRESHOLD = 130.0  # Growing degree days
+# SI-x base temperature, as used by USA-NPN (usa-npn/gridded_models,
+# compute_prism_six.py BASE_TEMP). The model runs in Fahrenheit.
+SI_X_BASE_TEMP_F = 31
 
 # Reference data sources (for documentation)
 REFERENCE_SOURCES = {

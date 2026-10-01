@@ -130,8 +130,8 @@ def run_model_on_location(model, temperatures_df):
     model.compute_baseline_and_anomalies(BASELINE_START_YEAR, BASELINE_END_YEAR)
     
     print(f"  ✓ Predictions for {len(model.leaf_out_doys)} years")
-    if model.baseline_doy:
-        print(f"    Baseline (1991-2020): DOY {model.baseline_doy:.0f}")
+    for year, plants in model.plant_doys.items():
+        print(f"    {year}: " + ", ".join(f"{p} {d}" for p, d in plants.items()))
 
 
 def main():
@@ -221,7 +221,8 @@ def main():
             
             # Collect results
             for year, doy in model.leaf_out_doys.items():
-                anomaly = model.anomalies.get(year) if hasattr(model, 'anomalies') else None
+                plants = model.plant_doys[year]
+                bloom = model.bloom_doys[year]
                 model_results.append({
                     'location': location_name,
                     'lat': model.lat,
@@ -229,8 +230,15 @@ def main():
                     'climate_zone': model.climate_zone,
                     'year': year,
                     'leaf_out_doy': doy,
+                    'lilac_doy': plants['lilac'],
+                    'arnoldred_doy': plants['arnoldred'],
+                    'zabelli_doy': plants['zabelli'],
+                    'bloom_doy': bloom['average'],
+                    'lilac_bloom_doy': bloom['lilac'],
+                    'arnoldred_bloom_doy': bloom['arnoldred'],
+                    'zabelli_bloom_doy': bloom['zabelli'],
                     'baseline_doy': model.baseline_doy,
-                    'anomaly_days': anomaly,
+                    'anomaly_days': model.anomalies.get(year),
                 })
         
         except Exception as e:
@@ -249,7 +257,8 @@ def main():
         print("-" * 70)
         for location_name, model in models.items():
             print(f"{location_name} ({model.climate_zone}):")
-            print(f"  Baseline (1991-2020): DOY {model.baseline_doy:.0f if model.baseline_doy else 'N/A'}")
+            baseline_str = f"{model.baseline_doy:.0f}" if model.baseline_doy else "N/A"
+            print(f"  Baseline ({BASELINE_START_YEAR}-{BASELINE_END_YEAR}): DOY {baseline_str}")
             valid_years = [y for y, doy in model.leaf_out_doys.items() if doy is not None]
             print(f"  Years with predictions: {len(valid_years)}")
     
@@ -274,7 +283,34 @@ For now, model predictions are saved in: {results_file}
     """)
     
     if args.compare:
-        print("Validation comparison mode (implement with reference data)")
+        from validation.validator import validate_against_reference
+
+        predictions_file = DATA_DIR / "model_predictions.csv"
+        reference_file = DATA_DIR / "reference_observations.csv"
+        if not predictions_file.exists() or not reference_file.exists():
+            print(f"Missing {predictions_file} or {reference_file}. Skipping comparison.")
+            return
+
+        validation_log = validate_against_reference(predictions_file, reference_file)
+        if not validation_log.entries:
+            print("No (location, year) pairs matched between predictions and reference data.")
+            return
+
+        validation_log.save()
+        validation_log.write_markdown_summary()
+
+        for (event, species), s in sorted(validation_log.compute_statistics().items()):
+            print(f"\n{event} vs {species}:")
+            for label, key in (("SI-x index", "index"), ("SI-x lilac", "lilac")):
+                if s[key]:
+                    print(f"  {label}: RMSE {s[key]['rmse']:.1f} days, bias {s[key]['bias']:+.1f} "
+                          f"(n={s[key]['count']})")
+        print()
+        for e in sorted(validation_log.entries, key=lambda e: (e['event'], e['species'], e['location'])):
+            err = "—" if e['error_days'] is None else f"{e['error_days']:+.1f}"
+            print(f"  {e['event']:5s} {e['species']:16s} {e['location']:20s} "
+                  f"index {e['model_doy']}, lilac {e['model_lilac_doy']}, "
+                  f"observed {e['observed_doy']} (n={e['n_obs']}), error {err}")
 
 
 if __name__ == "__main__":

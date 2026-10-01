@@ -98,10 +98,10 @@ from scratch — port from `pyPhenology` (github.com/sdtaylor/pyPhenology) and/o
 USA-NPN's own `gridded_models` repo (github.com/usa-npn/gridded_models), both
 open source, both implementing the published formula.
 
-Known refinement worth building in from day one, not retrofitting later: European
-research found leaf-out is more sensitive to **daytime (max) temperature** than to
-flat daily mean — weight the degree-day accumulation toward daily max rather than
-mean from the start.
+Implemented as the published SI-x leaf and bloom models, unmodified
+(`validation/si_x_model.py`; see `docs/validation_audit.md`). An earlier plan
+to weight accumulation toward daily max temperature was dropped: no source
+for it could be found, and the unmodified model validates well for bloom.
 
 **Step 5 — Compute baseline, then current year.**
 Run the model across the full historical pull per location → one modeled leaf-out
@@ -270,3 +270,8 @@ not over-engineering "works everywhere" before launch — USA-NPN didn't either.
 - Screenshots matter as much as text for this content (dashboard states, chart
   outputs, terminal validation results) — captured alongside the entry they
   belong to, not as an afterthought.
+- Keep entries concise and focused on project value and process — what
+  changed, why it matters, what's surprising. A debugging session's technical
+  minutiae (exact stack traces, every wrong turn) belongs in commit messages
+  or code comments, not the journal — one line acknowledging a bug got fixed
+  is enough unless the bug itself *is* the interesting story.

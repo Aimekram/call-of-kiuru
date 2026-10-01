@@ -1,239 +1,186 @@
 """
 Validation: Compare SI-x model predictions against reference (observed) phenology data.
-Computes RMSE, bias, and tracks validation entries for the public log.
+Computes RMSE and bias per (event, species) and writes the public validation log.
+
+Each reference row names an event ("leaf" or "bloom") and a species. Leaf
+references are compared with the SI-x leaf index, bloom references with the
+SI-x bloom index. Both the published SI-x index (average of three plants) and
+the lilac sub-model are recorded, since lilac is the closest match to the
+European lilac observations.
 """
 
-import csv
-import pandas as pd
-from pathlib import Path
 from datetime import datetime
+
+import numpy as np
+import pandas as pd
+
 from .config import DATA_DIR, VALIDATION_LOG_FILE
+
+_MODEL_COLUMNS = {
+    "leaf": ("leaf_out_doy", "lilac_doy"),
+    "bloom": ("bloom_doy", "lilac_bloom_doy"),
+}
 
 
 class ValidationEntry:
-    """
-    A single validation comparison: model prediction vs. reference observation.
-    """
-    
-    def __init__(self, location, climate_zone, year, model_doy, observed_doy, 
-                 source, notes=""):
+    """A single comparison: model prediction vs. reference observation."""
+
+    def __init__(self, location, climate_zone, year, event, species,
+                 model_doy, model_lilac_doy, observed_doy, n_obs, source, notes=""):
         self.location = location
         self.climate_zone = climate_zone
         self.year = year
+        self.event = event
+        self.species = species
         self.model_doy = model_doy
+        self.model_lilac_doy = model_lilac_doy
         self.observed_doy = observed_doy
+        self.n_obs = n_obs
         self.source = source
         self.notes = notes
         self.checked_date = datetime.now().strftime("%Y-%m-%d")
-    
-    def error_days(self):
-        """Return prediction error in days (negative = model too early)."""
-        if self.model_doy is None or self.observed_doy is None:
+
+    @staticmethod
+    def _diff(model, observed):
+        if pd.isna(model) or pd.isna(observed):
             return None
-        return self.model_doy - self.observed_doy
-    
+        return model - observed
+
     def to_dict(self):
         return {
             "location": self.location,
             "climate_zone": self.climate_zone,
             "year": self.year,
+            "event": self.event,
+            "species": self.species,
             "model_doy": self.model_doy,
+            "model_lilac_doy": self.model_lilac_doy,
             "observed_doy": self.observed_doy,
-            "error_days": self.error_days(),
+            "error_days": self._diff(self.model_doy, self.observed_doy),
+            "lilac_error_days": self._diff(self.model_lilac_doy, self.observed_doy),
+            "n_obs": self.n_obs,
             "source": self.source,
             "notes": self.notes,
             "checked_date": self.checked_date,
         }
 
 
+def _error_stats(errors):
+    errors = pd.Series(errors, dtype=float).dropna()
+    if errors.empty:
+        return None
+    return {
+        "count": len(errors),
+        "rmse": float(np.sqrt((errors ** 2).mean())),
+        "bias": float(errors.mean()),
+    }
+
+
 class ValidationLog:
-    """
-    Manages the running validation log (CSV + markdown documentation).
-    """
-    
+    """The validation log for the current comparison run (CSV + markdown)."""
+
     def __init__(self, log_file=None):
         self.log_file = log_file or DATA_DIR / "validation_entries.csv"
         self.entries = []
-        self.load_existing()
-    
-    def load_existing(self):
-        """Load any previously logged entries."""
-        if self.log_file.exists():
-            df = pd.read_csv(self.log_file)
-            self.entries = df.to_dict('records')
-    
+
     def add_entry(self, entry: ValidationEntry):
-        """Add a new validation entry."""
         self.entries.append(entry.to_dict())
-    
+
     def save(self):
-        """Write all entries to CSV."""
-        df = pd.DataFrame(self.entries)
-        df.to_csv(self.log_file, index=False)
+        pd.DataFrame(self.entries).to_csv(self.log_file, index=False)
         print(f"✓ Saved {len(self.entries)} validation entries to {self.log_file}")
-    
+
     def compute_statistics(self):
-        """
-        Compute overall validation statistics.
-        
-        Returns:
-            {
-                "count": int,
-                "rmse": float,
-                "bias": float,
-                "std_dev": float,
-                "by_climate_zone": dict of zone -> stats,
-            }
-        """
+        """RMSE/bias per (event, species), for the SI-x index and the lilac sub-model."""
         if not self.entries:
-            return None
-        
+            return {}
         df = pd.DataFrame(self.entries)
-        errors = df['error_days'].dropna()
-        
-        if len(errors) == 0:
-            return None
-        
-        stats = {
-            "count": len(errors),
-            "rmse": float(np.sqrt((errors ** 2).mean())),
-            "bias": float(errors.mean()),
-            "std_dev": float(errors.std()),
-        }
-        
-        # Break down by climate zone
-        stats["by_climate_zone"] = {}
-        for zone in df['climate_zone'].unique():
-            zone_errors = df[df['climate_zone'] == zone]['error_days'].dropna()
-            if len(zone_errors) > 0:
-                stats["by_climate_zone"][zone] = {
-                    "count": len(zone_errors),
-                    "rmse": float(np.sqrt((zone_errors ** 2).mean())),
-                    "bias": float(zone_errors.mean()),
-                }
-        
+        stats = {}
+        for (event, species), group in df.groupby(["event", "species"]):
+            stats[(event, species)] = {
+                "index": _error_stats(group["error_days"]),
+                "lilac": _error_stats(group["lilac_error_days"]),
+            }
         return stats
-    
+
     def write_markdown_summary(self, output_file=None):
-        """
-        Write validation statistics to a markdown file (for the public methodology page).
-        
-        Args:
-            output_file: Path to write (default: VALIDATION_LOG_FILE in config)
-        """
         output_file = output_file or VALIDATION_LOG_FILE
         stats = self.compute_statistics()
-        
         if not stats:
             print("No validation data to summarize yet.")
             return
-        
+
+        def fmt(s):
+            return f"{s['rmse']:.1f} days RMSE, bias {s['bias']:+.1f} (n={s['count']})" if s else "—"
+
+        def doy(value):
+            # The index averages three plants, so it can be fractional.
+            if pd.isna(value):
+                return "—"
+            return f"{value:.1f}".removesuffix(".0")
+
         lines = [
             "# Call of Kiuru — Validation Log",
             "",
-            "This page documents how we validated the SI-x phenology model before launch.",
-            "Each entry represents a model prediction compared against published reference data.",
+            "Model predictions (USA-NPN Extended Spring Indices, SI-x) compared against",
+            "observed phenology from national open-data networks. Positive error = model late.",
             "",
-            "## Overall Statistics",
-            f"- **Comparisons:** {stats['count']} (location, year) pairs",
-            f"- **RMSE:** {stats['rmse']:.1f} days",
-            f"- **Bias:** {stats['bias']:.1f} days (negative = model predicts too early)",
-            f"- **Std Dev:** {stats['std_dev']:.1f} days",
+            "## Summary",
             "",
+            "| Event | Reference species | SI-x index (3-plant average) | SI-x lilac sub-model |",
+            "|---|---|---|---|",
         ]
-        
-        if stats.get("by_climate_zone"):
-            lines.extend([
-                "## By Climate Zone",
-                "",
-            ])
-            for zone, zone_stats in stats["by_climate_zone"].items():
-                lines.extend([
-                    f"### {zone.title()}",
-                    f"- Comparisons: {zone_stats['count']}",
-                    f"- RMSE: {zone_stats['rmse']:.1f} days",
-                    f"- Bias: {zone_stats['bias']:.1f} days",
-                    "",
-                ])
-        
-        lines.extend([
-            "## Validation Entries",
+        for (event, species), s in sorted(stats.items()):
+            lines.append(f"| {event} | {species} | {fmt(s['index'])} | {fmt(s['lilac'])} |")
+
+        lines += [
             "",
-            "| Location | Climate Zone | Year | Model DOY | Observed DOY | Error (days) | Source | Notes |",
-            "|----------|--------------|------|-----------|--------------|--------------|--------|-------|",
-        ])
-        
-        for entry in sorted(self.entries, key=lambda e: (e['location'], e['year'])):
-            error_str = f"{entry['error_days']:.1f}" if entry['error_days'] is not None else "—"
-            model_str = str(entry['model_doy']) if entry['model_doy'] is not None else "—"
-            obs_str = str(entry['observed_doy']) if entry['observed_doy'] is not None else "—"
-            
+            "## Entries",
+            "",
+            "| Location | Year | Event | Species | Model (index) | Model (lilac) | Observed | Error (index) | n obs | Source |",
+            "|---|---|---|---|---|---|---|---|---|---|",
+        ]
+        for e in sorted(self.entries, key=lambda e: (e["event"], e["species"], e["location"])):
+            err = "—" if e["error_days"] is None else f"{e['error_days']:+.1f}"
             lines.append(
-                f"| {entry['location']} | {entry['climate_zone']} | {entry['year']} | "
-                f"{model_str} | {obs_str} | {error_str} | {entry['source']} | {entry['notes']} |"
+                f"| {e['location']} | {e['year']} | {e['event']} | {e['species']} | "
+                f"{doy(e['model_doy'])} | {doy(e['model_lilac_doy'])} | {doy(e['observed_doy'])} | {err} | "
+                f"{e['n_obs']} | {e['source']} |"
             )
-        
-        with open(output_file, 'w') as f:
-            f.write('\n'.join(lines))
-        
+
+        with open(output_file, "w") as f:
+            f.write("\n".join(lines) + "\n")
         print(f"✓ Wrote validation summary to {output_file}")
 
 
-# Utility functions for common validation scenarios
-
-def validate_against_dwd_phenology(model_results_df, dwd_data_csv):
+def validate_against_reference(model_results_csv, reference_data_csv):
     """
-    Compare model predictions against DWD phenology data.
-    
+    Compare model predictions against reference observations.
+
     Args:
-        model_results_df: DataFrame with columns: location, year, leaf_out_doy
-        dwd_data_csv: Path to DWD reference data (with columns: location, year, leaf_out_doy)
-    
-    Returns:
-        List of ValidationEntry objects
+        model_results_csv: model predictions (location, year, leaf_out_doy,
+            lilac_doy, bloom_doy, lilac_bloom_doy, climate_zone, ...)
+        reference_data_csv: reference observations (location, year, event,
+            species, doy, n_obs, source, notes)
     """
-    model_df = pd.read_csv(model_results_df)
-    ref_df = pd.read_csv(dwd_data_csv)
-    
-    validation_log = ValidationLog()
-    
-    merged = pd.merge(
-        model_df, ref_df,
-        on=['location', 'year'],
-        suffixes=('_model', '_observed')
-    )
-    
-    for _, row in merged.iterrows():
-        entry = ValidationEntry(
-            location=row['location'],
-            climate_zone=row.get('climate_zone', ''),
-            year=row['year'],
-            model_doy=row['leaf_out_doy_model'],
-            observed_doy=row['leaf_out_doy_observed'],
-            source="DWD (German Weather Service)",
-        )
-        validation_log.add_entry(entry)
-    
-    return validation_log
+    model_df = pd.read_csv(model_results_csv)
+    ref_df = pd.read_csv(reference_data_csv, comment="#")
+    merged = pd.merge(model_df, ref_df, on=["location", "year"])
 
-
-if __name__ == "__main__":
-    # Example usage (will fill in once we have reference data)
-    import numpy as np
-    
     log = ValidationLog()
-    
-    # Dummy entries for demonstration
-    log.add_entry(ValidationEntry(
-        "Berlin, Germany", "continental", 2023,
-        model_doy=114, observed_doy=118,
-        source="DWD"
-    ))
-    log.add_entry(ValidationEntry(
-        "Berlin, Germany", "continental", 2022,
-        model_doy=110, observed_doy=108,
-        source="DWD"
-    ))
-    
-    log.save()
-    log.write_markdown_summary()
+    for _, row in merged.iterrows():
+        index_col, lilac_col = _MODEL_COLUMNS[row["event"]]
+        log.add_entry(ValidationEntry(
+            location=row["location"],
+            climate_zone=row.get("climate_zone", ""),
+            year=row["year"],
+            event=row["event"],
+            species=row["species"],
+            model_doy=row[index_col],
+            model_lilac_doy=row[lilac_col],
+            observed_doy=row["doy"],
+            n_obs=row["n_obs"],
+            source=row["source"],
+            notes=row.get("notes", ""),
+        ))
+    return log

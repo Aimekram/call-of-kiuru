@@ -1,14 +1,23 @@
-location,year,leaf_out_doy,source,notes
-# Example reference observations (collected manually from DWD, Nature's Calendar, etc.)
-# location: Must match a location in validation/config.py
-# year: Observation year
-# leaf_out_doy: Day-of-year (1-366) when leaf-out was observed
-# source: Where you got the data (DWD, Nature's Calendar, PEP725, Horticultural, etc.)
-# notes: Any additional context
-
-# EXAMPLE DATA (replace with actual observations)
-Berlin Germany,2023,118,DWD,Average over DWD stations
-Berlin Germany,2022,108,DWD,Average over DWD stations
-Berlin Germany,2021,115,DWD,Average over DWD stations
-Valencia Spain,2023,85,Horticultural,Local gardening records
-Edinburgh Scotland,2023,125,Nature's Calendar,Woodland Trust data
+location,year,event,species,doy,n_obs,source,notes
+# Reference observations for run_validation.py --compare. Copy to
+# data/reference_observations.csv (gitignored) and fill with real data.
+#
+# location: Must match a location name in validation/config.py exactly
+#           (quote it, since names contain a comma: "Berlin, Germany")
+# year:     Observation year
+# event:    "leaf" (compared with the SI-x leaf index) or "bloom" (SI-x bloom index)
+# species:  Latin name of the observed species. SI-x models lilac
+#           (Syringa vulgaris); other species are compared but not equivalent.
+# doy:      Day of year (1-366), usually the median over nearby stations
+# n_obs:    Number of station observations behind the median
+# source:   Data network (e.g. DWD, SLU)
+# notes:    Phase code / BBCH stage, search radius, range, license
+#
+# Use only openly licensed sources (DWD: CC BY 4.0, SLU Naturens Kalender: CC0).
+# PEP725 and ECA&D are non-commercial only; don't mix them in here.
+#
+# EXAMPLE ROWS (real 2020 values; replace with your own)
+"Berlin, Germany",2020,bloom,Syringa vulgaris,116,14,DWD,"Median of annual-reporter stations within 0.5 deg, phase 5 (beginning of flowering). CC BY 4.0."
+"Stockholm, Sweden",2020,bloom,Syringa vulgaris,148,3,SLU,"Median of observations within 1 deg, phase 53 (start of flowering, BBCH 61). CC0."
+"Stockholm, Sweden",2020,leaf,Syringa vulgaris,111.5,2,SLU,"Lilac first leaf, phase 33 (BBCH 11). CC0."
+"Stockholm, Sweden",2020,leaf,Betula pendula,121,12,SLU,"Median within 1 deg, phase 33 (BBCH 11), quality-0 rows excluded. CC0."
