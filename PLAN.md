@@ -103,8 +103,15 @@ Implemented as the published SI-x leaf and bloom models, unmodified
 to weight accumulation toward daily max temperature was dropped: no source
 for it could be found, and the unmodified model validates well for bloom.
 
+**Headline index: SI-x bloom (first lilac bloom), not leaf-out.** Tested on
+2010–2024 across 8 German and Swedish cities (119 city-years, nothing fitted;
+`docs/bloom_multiyear.md`): 4.5 days RMSE, and modelled year-to-year anomalies
+correlate with observed ones at r = 0.91. The SI-x leaf index fires weeks
+early in mild winters (no chilling term) and is not shown until fixed or
+replaced. "Spring is X days early" means bloom.
+
 **Step 5 — Compute baseline, then current year.**
-Run the model across the full historical pull per location → one modeled leaf-out
+Run the model across the full historical pull per location → one modeled bloom
 day-of-year per year → average 1991–2020 → that location's baseline. Then pull the
 current year so far (ERA5 lags ~5 days) and run the same model for the live
 "X days earlier/later" comparison.
@@ -133,6 +140,22 @@ class of model report calibration errors around **6.6–8.6 days RMSE** dependin
 species. The app should present this as a range or an explicit "~within a week"
 caveat on the methodology page — not a bare single-day number implying more
 precision than the underlying science supports.
+
+**Result so far (2026-10-01):** SI-x bloom vs observed lilac first bloom,
+2010–2024, 8 cities in Germany and Sweden (DWD, SLU open data), 119 city-years,
+unmodified US coefficients:
+
+- Absolute: **4.5 days RMSE**, MAE 3.3, bias −2.5 (model slightly early).
+- Anomalies (what the app shows): correlation **0.91**; error 3.2 days vs
+  7.3 days for always predicting a normal year, i.e. the model explains
+  ~80% of the year-to-year variation.
+- Not yet tested outside Germany/Sweden. No open lilac data exists for the
+  Mediterranean or most of continental Europe (see
+  `docs/reference_data_research.md`), so per the rules below, launch claims
+  stay limited to the climate zones actually tested.
+- The −2.5 day bias is small and fairly consistent; a correction constant
+  is possible later but would be the first fitted parameter, so it isn't
+  applied yet.
 
 **How many validation points is "enough"?** There's no fixed correct number — but
 there is a better framing than city count: statistical confidence comes from the
