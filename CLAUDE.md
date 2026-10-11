@@ -64,4 +64,5 @@ Not every entry needs every section — a quick bug-fix entry might just be
 
 Follow the existing conventions in `PLAN.md` and `README.md` for stack choices,
 data sources, and licensing (Copernicus CDS: open/commercial-use OK; ECA&D/
-E-OBS/PEP725 bulk data: non-commercial only, do not conflate the two).
+E-OBS bulk data: non-commercial only; PEP725: licence set per dataset since
+May 2026, check each one before use. Do not conflate them).
