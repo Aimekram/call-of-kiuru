@@ -18,6 +18,10 @@ Nothing is fitted. Two questions:
   "a normal year" every year, whose anomaly error is the observed
   variability itself.
 
+The report also says how sure these numbers are (validation/bloom_stats.py):
+confidence intervals from resampling whole years and whole cities, the
+result per country, and the result with each city left out.
+
 Usage:
     python run_bloom_test.py [--start 2010] [--end 2024]
 """
@@ -27,6 +31,7 @@ import argparse
 import numpy as np
 import pandas as pd
 
+from validation import bloom_stats
 from validation.cds_fetch import fetch_point_timeseries, get_cds_client
 from validation.config import BASE_DIR, DATA_DIR, VALIDATION_LOCATIONS
 from validation.reference_fetch import NETWORKS, build_bloom_references
@@ -93,6 +98,76 @@ def per_city_table(df):
     return pd.DataFrame(rows)
 
 
+UNCERTAINTY_ROWS = [
+    ("RMSE (days)", "rmse", ".1f"),
+    ("Bias (days)", "bias", "+.1f"),
+    ("Anomaly correlation", "anomaly_r", ".2f"),
+    ("Anomaly RMSE (days)", "anomaly_rmse", ".1f"),
+    ("Skill", "skill", ".2f"),
+]
+
+
+def interval(bounds, fmt):
+    return f"{bounds[0]:{fmt}} to {bounds[1]:{fmt}}"
+
+
+def uncertainty_lines(df):
+    """Report sections on how sure the pooled numbers are."""
+    pooled = bloom_stats.overall(df)
+    n_years, n_cities = df["year"].nunique(), df["location"].nunique()
+    lines = [
+        "",
+        "## Uncertainty",
+        "",
+        "The city-years are not independent. Observed anomalies correlate",
+        f"{bloom_stats.cross_city_correlation(df):.2f} on average between cities in the same year, so this is",
+        f"closer to {n_years} independent springs than to {len(df)} tests. The 95% intervals",
+        "therefore resample whole years, or whole cities, with replacement",
+        f"({bloom_stats.N_RESAMPLES:,} resamples, percentile intervals). With {n_years} years and",
+        f"{n_cities} cities they are approximate; read the wider of the two.",
+        "",
+        "| Statistic | Estimate | 95% interval, resampling years | 95% interval, resampling cities |",
+        "|---|---|---|---|",
+    ]
+    for label, key, fmt in UNCERTAINTY_ROWS:
+        lines.append(f"| {label} | {pooled['estimate'][key]:{fmt}} | "
+                     f"{interval(pooled['by_year'][key], fmt)} | "
+                     f"{interval(pooled['by_city'][key], fmt)} |")
+
+    lines += [
+        "",
+        "## By country",
+        "",
+        "Intervals from resampling years within the country.",
+        "",
+        "| Country | Cities | City-years | RMSE | Bias | Anomaly correlation | Anomaly RMSE | Normal-year RMSE | Skill |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ]
+    for c in bloom_stats.by_country(df):
+        ci = c["interval"]
+        lines.append(
+            f"| {c['country']} | {c['cities']} | {c['n']} | {c['rmse']:.1f} | {c['bias']:+.1f} | "
+            f"{c['anomaly_r']:.2f} ({interval(ci['anomaly_r'], '.2f')}) | "
+            f"{c['anomaly_rmse']:.1f} ({interval(ci['anomaly_rmse'], '.1f')}) | "
+            f"{c['normal_year_rmse']:.1f} | {c['skill']:.2f} ({interval(ci['skill'], '.2f')}) |")
+
+    lines += [
+        "",
+        "## Leaving one city out",
+        "",
+        "The pooled numbers with each city removed in turn. Nothing is refitted",
+        "(the model has no fitted parameters); this shows how much the result",
+        "leans on any one city.",
+        "",
+        "| Without | City-years | RMSE | Bias | Anomaly correlation | Anomaly RMSE | Skill |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for r in bloom_stats.leave_one_city_out(df):
+        lines.append(f"| {r['without']} | {r['n']} | {r['rmse']:.1f} | {r['bias']:+.1f} | "
+                     f"{r['anomaly_r']:.2f} | {r['anomaly_rmse']:.1f} | {r['skill']:.2f} |")
+    return lines, pooled
+
+
 def write_report(df, start, end):
     overall = error_stats(df["model"] - df["observed"])
     lilac = error_stats(df["model_lilac"] - df["observed"])
@@ -157,10 +232,12 @@ def write_report(df, start, end):
     ]
     for year, y in years.iterrows():
         lines.append(f"| {year} | {int(y['count'])} | {y['mean']:+.1f} |")
+    uncertainty, pooled = uncertainty_lines(df)
+    lines += uncertainty
 
     REPORT_FILE.write_text("\n".join(lines) + "\n")
     print(f"✓ Wrote {REPORT_FILE}")
-    return overall, anom, anom_robust, cities
+    return overall, anom, anom_robust, cities, pooled
 
 
 def main():
@@ -194,13 +271,15 @@ def main():
     df = df.dropna(subset=["model", "observed"])
     df.to_csv(DATA_DIR / "bloom_multiyear.csv", index=False)
 
-    overall, anom, anom_robust, cities = write_report(df, args.start, args.end)
+    overall, anom, anom_robust, cities, pooled = write_report(df, args.start, args.end)
     print(f"\nAbsolute: RMSE {overall['rmse']:.1f} d, MAE {overall['mae']:.1f}, "
           f"bias {overall['bias']:+.1f} (n={overall['n']})")
     print(f"Anomalies: r={anom['r']:.2f}, RMSE {anom['rmse']:.1f} d vs normal-year "
           f"{anom['null_rmse']:.1f} d, skill {anom['skill']:.2f}")
     print(f"  (≥3 obs: r={anom_robust['r']:.2f}, skill {anom_robust['skill']:.2f}, "
           f"n={anom_robust['n']})")
+    print(f"95% intervals, resampling years: r {interval(pooled['by_year']['anomaly_r'], '.2f')}, "
+          f"RMSE {interval(pooled['by_year']['rmse'], '.1f')} d")
     print(cities.round(2).to_string(index=False))
 
 

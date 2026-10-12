@@ -87,15 +87,22 @@ so pages and data never drift apart.
 2010–2024, 8 cities, 119 city-years, nothing fitted
 (`docs/bloom_multiyear.md`, `run_bloom_test.py`):
 
-- Absolute: **4.5 days RMSE**, MAE 3.3, bias −2.5 (model slightly early).
-  Per-city bias runs from +1.0 (Stockholm) to −5.3 (Cologne).
-- Anomalies, which is what the app shows: correlation **0.91**; error 3.2
-  days vs 7.3 for always predicting a normal year. The model explains about
-  80% of the year-to-year variation.
+- Absolute: **4.5 days RMSE** (95% interval 3.4 to 5.5), MAE 3.3, bias −2.5
+  (model slightly early). Per-city bias runs from +1.0 (Stockholm) to −5.3
+  (Cologne).
+- Anomalies, which is what the app shows: correlation **0.91** (0.84 to
+  0.95); error 3.2 days vs 7.3 for always predicting a normal year. The
+  model explains about 80% of the year-to-year variation (67% to 87%).
+- No single city carries it: leaving any one out keeps the correlation at
+  0.90 to 0.93.
 
 **How far this goes.**
 - It is 15 springs, not 119 independent tests: cities share each year's
-  weather (anomalies correlate about 0.7 between cities).
+  weather (anomalies correlate 0.70 between cities). The intervals above
+  resample whole years or cities for that reason.
+- Sweden is weaker than Germany: correlation 0.82 (0.67 to 0.92) against
+  0.94. The error in days is the same, 3.2, but Swedish springs vary less,
+  so there is less for the model to explain.
 - Two countries. Nothing is claimed for other climate zones.
 - Swedish cities rest on few observations, sometimes one per year.
 - The 1940–2009 trend values are modelled only, not tested.
@@ -107,11 +114,9 @@ is against single observations and ours against station medians. The
 methodology page says "within about a week for a single lilac".
 
 **Still to do before launch.**
-1. Year-block bootstrap confidence intervals, drop-one-city check and
-   per-country bias in `run_bloom_test.py`; a second chart showing them.
-2. Cross-check against the published 1 km SI-x grid (same paper, CC BY 4.0,
+1. Cross-check against the published 1 km SI-x grid (same paper, CC BY 4.0,
    Europe 1950–2020) for 2010–2020 at our cities.
-3. Rewrite the README, which still describes the removed stand-in model.
+2. Rewrite the README, which still describes the removed stand-in model.
 
 **Rules for adding a zone.**
 - A new zone is claimed only after its cities pass this test against
