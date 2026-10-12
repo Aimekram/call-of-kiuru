@@ -8,9 +8,10 @@ Independent implementation of the published SI-x leaf and bloom models:
 - Izquierdo-Verdiguier & Zurita-Milla (2024), Scientific Data, Table 1:
   all six leaf/bloom equations in one place.
 The published threshold is ">= 1000"; USA-NPN's code uses ">= 999.5"
-(i.e. rounded), which is what is used here. Output was checked against
-USA-NPN's production code (github.com/usa-npn/gridded_models) and matches it
-exactly; that repo has no license file, so none of its code is copied here.
+(i.e. rounded), which is what is used here. Output matches USA-NPN's
+production code (github.com/usa-npn/gridded_models) exactly; this is tested
+in tests/test_si_x_matches_usanpn.py. That repo has no license file, so none
+of its code is copied here.
 
 Input is daily Tmax/Tmin starting on January 1. The model runs in Fahrenheit
 with a 31°F base, and returns the first-leaf day of year for each of three

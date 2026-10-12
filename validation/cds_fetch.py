@@ -109,6 +109,12 @@ def fetch_location_data(client, location_name, lat, lon, start_year, end_year):
         raise
 
 
+def timeseries_file(location_name, start_year, end_year):
+    """Where fetch_point_timeseries keeps its download for one location."""
+    safe_name = location_name.lower().replace(", ", "_").replace(" ", "_")
+    return RAW_DATA_DIR / "timeseries" / f"{safe_name}_{start_year}-{end_year}_t2m.zip"
+
+
 def fetch_point_timeseries(client, location_name, lat, lon, start_year, end_year):
     """
     Fetch hourly 2m temperature at the nearest ERA5 grid point for a whole
@@ -128,10 +134,8 @@ def fetch_point_timeseries(client, location_name, lat, lon, start_year, end_year
 
     import pandas as pd
 
-    safe_name = location_name.lower().replace(", ", "_").replace(" ", "_")
-    output_dir = RAW_DATA_DIR / "timeseries"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    zip_file = output_dir / f"{safe_name}_{start_year}-{end_year}_t2m.zip"
+    zip_file = timeseries_file(location_name, start_year, end_year)
+    zip_file.parent.mkdir(parents=True, exist_ok=True)
 
     if zip_file.exists():
         print(f"  {location_name}: {zip_file.name} (already downloaded)")

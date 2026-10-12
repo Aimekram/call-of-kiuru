@@ -131,6 +131,22 @@ what the app shows; intervals are 95%.
   1940–1950 trend values are modelled only. So is everything before 2008
   in Sweden.
 
+**Our code is the same model as USA-NPN's.** A test in the repo
+(`tests/test_si_x_matches_usanpn.py`) compares every leaf and bloom day
+with USA-NPN's own code at a pinned version: identical on all 680 ERA5
+city-years (8 cities, 1940–2024) and on 512 synthetic series, 7,152 days in
+all. The test shows we compute what USA-NPN's map function computes; that
+this function is the model of the papers rests on USA-NPN
+(`docs/validation_audit.md` has the detail). Three known differences from
+what USA-NPN publishes, none of them a change to the model:
+- We keep the three-plant average as it comes out, with decimals. USA-NPN's
+  maps store it as a whole day.
+- The trigger threshold is 999.5, as in USA-NPN's code. The paper's table
+  says 1000. On our data that would move the bloom index in 32 of 680
+  city-years, by at most one day.
+- USA-NPN feeds the model days 1–240 only. We don't cut it off; the latest
+  bloom in our data is day 167.
+
 **Published benchmark.** Izquierdo-Verdiguier & Zurita-Milla (2024),
 *Scientific Data* 11, 905: SI-x bloom RMSE 7.44 days against 165,814
 European lilac observations (leaf: 17.48). Not like for like, since theirs
@@ -141,8 +157,6 @@ methodology page says "within about a week for a single lilac".
 1. Cross-check against the published 1 km SI-x grid (same paper, CC BY 4.0,
    Europe 1950–2020) for 2010–2020 at our cities.
 2. Rewrite the README, which still describes the removed stand-in model.
-3. Put the comparison with USA-NPN's code in the repo as a test. It was
-   run on 2026-09-30 (identical on 240 cases) but the script was not kept.
 
 **Rules for adding a zone.**
 - A new zone is claimed only after its cities pass this test against
@@ -228,6 +242,11 @@ In rough order:
 A database (Supabase Postgres, Frankfurt region) comes in with the first
 feature that needs one: visitor data such as signups, or enough locations
 to search and filter.
+
+Two requests to send once the site is live:
+- PEP725, for lilac data (item 1 above).
+- USA-NPN, to add a licence to `gridded_models`. It has none, so we keep
+  none of its code and only compare against it in a test.
 
 ---
 
