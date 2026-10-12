@@ -43,8 +43,13 @@ SLU_LILAC_SPECIES = 8472
 SLU_BLOOM_PHASE = 53
 SLU_PROGRAMME_OBSERVER = 1
 
-# Which network covers which country, and the search box half-width in degrees.
-NETWORKS = {"Germany": ("DWD", 0.5), "Sweden": ("SLU", 1.0)}
+# Which network covers which country, the search box half-width in degrees,
+# and the first year used.
+# DWD: 1951 is the first year with lilac observations near all five German
+# cities; 1940-1950 has 1-3 stations per city, with gaps.
+# SLU: the dataset starts in 2008; the few earlier rows are isolated single
+# records.
+NETWORKS = {"Germany": ("DWD", 0.5, 1951), "Sweden": ("SLU", 1.0, 2008)}
 
 
 def _download(url):
@@ -94,7 +99,8 @@ def load_slu_bloom():
 
 
 def build_bloom_references(start_year, end_year):
-    """One row per (city, year) with at least one nearby observation."""
+    """One row per (city, year) with at least one nearby observation, from
+    each network's first usable year (see NETWORKS) at the earliest."""
     observations = {"DWD": load_dwd_bloom(), "SLU": load_slu_bloom()}
     licenses = {"DWD": "CC BY 4.0", "SLU": "CC0"}
 
@@ -103,10 +109,11 @@ def build_bloom_references(start_year, end_year):
         country = location.split(", ")[-1]
         if country not in NETWORKS:
             continue
-        source, radius = NETWORKS[country]
+        source, radius, first_year = NETWORKS[country]
         obs = observations[source]
         distance = np.hypot(obs["lat"] - lat, obs["lon"] - lon)
-        near = obs[obs["year"].between(start_year, end_year) & (distance <= radius)]
+        near = obs[obs["year"].between(max(start_year, first_year), end_year)
+                   & (distance <= radius)]
         for year, group in near.groupby("year"):
             rows.append({
                 "location": location,

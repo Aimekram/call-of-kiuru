@@ -55,7 +55,7 @@ never a hardcoded enum. Adding a city is "add a row, run the test".
 baseline; the rest feeds the trend chart.
 
 **Step 4 — Model.** The published SI-x leaf and bloom models, unmodified
-(`validation/si_x_model.py`), with USA-NPN's coefficients. Only bloom is
+(`validation/si_x_model.py`), with the published coefficients. Only bloom is
 shown. The leaf index fires weeks early in mild winters (no chilling term)
 and stays hidden.
 
@@ -83,29 +83,53 @@ so pages and data never drift apart.
 
 ## 3. Model validation
 
-**Result (2026-10-11).** SI-x bloom vs observed lilac first bloom,
-2010–2024, 8 cities, 119 city-years, nothing fitted
-(`docs/bloom_multiyear.md`, `run_bloom_test.py`):
+**Result (2026-10-11).** SI-x bloom vs observed lilac first bloom, every
+year each network covers, nothing fitted (`docs/bloom_multiyear.md`,
+`run_bloom_test.py`). Correlation and error are for anomalies, which is
+what the app shows; intervals are 95%.
 
-- Absolute: **4.5 days RMSE** (95% interval 3.4 to 5.5), MAE 3.3, bias −2.5
-  (model slightly early). Per-city bias runs from +1.0 (Stockholm) to −5.3
-  (Cologne).
-- Anomalies, which is what the app shows: correlation **0.91** (0.84 to
-  0.95); error 3.2 days vs 7.3 for always predicting a normal year. The
-  model explains about 80% of the year-to-year variation (67% to 87%).
-- No single city carries it: leaving any one out keeps the correlation at
-  0.90 to 0.93.
+| | Springs | Correlation | Error vs normal-year | RMSE, bias |
+|---|---|---|---|---|
+| Germany, 5 cities, 1951–2024 | 74 | **0.92** (0.88 to 0.94) | 3.9 vs 8.9 days | 5.5, −3.7 |
+| Sweden, 3 cities, 2008–2024 | 17 | **0.69** (0.46 to 0.87) | 4.6 vs 6.4 days | 5.0, −0.3 |
+
+**Germany is solid.**
+- It holds in every period: correlation 0.89 for 1951–1978, 0.90 for
+  1979–2009, 0.94 for 2010–2024.
+- It is not just the warming trend: with each city's trend removed the
+  correlation is 0.89.
+- The modelled trend matches the lilacs: 2.0 to 2.7 days earlier per decade
+  modelled, 1.8 to 2.6 observed. This is the evidence behind the trend
+  chart from 1951 on.
+- The model runs 3.7 days early on average (per city −1.7 to −4.9). The
+  app's number is relative to the model's own baseline, so this cancels.
+- That bias is the honeysuckles. SI-x averages a lilac and two
+  honeysuckles, and we compare it with lilac. Its lilac component alone has
+  a bias of −0.2 days in Germany (RMSE 3.4 against 5.5). In Sweden the
+  component runs 2.8 days late and is no better. The app keeps the
+  published index; switching to the component would be a deviation to
+  decide on.
+
+**Sweden is weak.**
+- Gothenburg 0.97, Stockholm 0.64, Malmö 0.54.
+- 2008 and 2009 drive it: the model was 8 to 17 days late in Stockholm and
+  Malmö. From 2010 on the correlation is 0.82 (0.67 to 0.92). The network
+  was starting up in those two years (about 20 lilac records nationwide per
+  year, 76 or more from 2010), so the model or the observations may be off.
+  The years stay in: they were not dropped for looking bad.
+- The reference is thin: a median of 3 to 4 observations per city-year,
+  sometimes one.
+- Sweden still shows days in the MVP (decided 2026-10-11); how to
+  communicate the weaker evidence is open.
 
 **How far this goes.**
-- It is 15 springs, not 119 independent tests: cities share each year's
-  weather (anomalies correlate 0.70 between cities). The intervals above
-  resample whole years or cities for that reason.
-- Sweden is weaker than Germany: correlation 0.82 (0.67 to 0.92) against
-  0.94. The error in days is the same, 3.2, but Swedish springs vary less,
-  so there is less for the model to explain.
+- Cities share each year's weather (anomalies correlate 0.63 between
+  cities), so the unit of evidence is the spring, not the city-year. The
+  intervals resample whole years for that reason.
 - Two countries. Nothing is claimed for other climate zones.
-- Swedish cities rest on few observations, sometimes one per year.
-- The 1940–2009 trend values are modelled only, not tested.
+- Before 1951 the German observations are too sparse to test, so the
+  1940–1950 trend values are modelled only. So is everything before 2008
+  in Sweden.
 
 **Published benchmark.** Izquierdo-Verdiguier & Zurita-Milla (2024),
 *Scientific Data* 11, 905: SI-x bloom RMSE 7.44 days against 165,814
@@ -117,6 +141,8 @@ methodology page says "within about a week for a single lilac".
 1. Cross-check against the published 1 km SI-x grid (same paper, CC BY 4.0,
    Europe 1950–2020) for 2010–2020 at our cities.
 2. Rewrite the README, which still describes the removed stand-in model.
+3. Put the comparison with USA-NPN's code in the repo as a test. It was
+   run on 2026-09-30 (identical on 240 cases) but the script was not kept.
 
 **Rules for adding a zone.**
 - A new zone is claimed only after its cities pass this test against

@@ -3,7 +3,8 @@
 Multi-year test of the SI-x bloom index against observed lilac first bloom.
 
 For every validation city covered by an open lilac network (DWD, SLU),
-for every year in the range:
+for every year in the range that the network covers (Germany from 1951,
+Sweden from 2008; see validation/reference_fetch.py):
 1. fetch hourly ERA5 2m temperature at the nearest grid point (one CDS
    request per city), reduce to daily Tmax/Tmin;
 2. run the unmodified SI-x model;
@@ -20,10 +21,11 @@ Nothing is fitted. Two questions:
 
 The report also says how sure these numbers are (validation/bloom_stats.py):
 confidence intervals from resampling whole years and whole cities, the
-result per country, and the result with each city left out.
+result per country and per period, the long-term trend, and the result with
+each city left out.
 
 Usage:
-    python run_bloom_test.py [--start 2010] [--end 2024]
+    python run_bloom_test.py [--start 1951] [--end 2024]
 """
 
 import argparse
@@ -38,6 +40,10 @@ from validation.reference_fetch import NETWORKS, build_bloom_references
 from validation.si_x_model import predict_spring_index
 
 REPORT_FILE = BASE_DIR / "docs" / "bloom_multiyear.md"
+
+# ERA5 is fetched from its first year whatever the test period, so the same
+# download serves the pipeline's baseline and trend chart.
+ERA5_FIRST_YEAR = 1940
 
 
 def predict_bloom(daily, lat, year):
@@ -151,6 +157,63 @@ def uncertainty_lines(df):
             f"{c['anomaly_rmse']:.1f} ({interval(ci['anomaly_rmse'], '.1f')}) | "
             f"{c['normal_year_rmse']:.1f} | {c['skill']:.2f} ({interval(ci['skill'], '.2f')}) |")
 
+    gap = (df["model_lilac"] - df["model"]).mean()
+    lines += [
+        "",
+        "## Index vs its lilac component",
+        "",
+        "SI-x averages three plants: a lilac and two honeysuckles. The app shows",
+        "that published index. The observations are lilac only, so the index's",
+        "lilac component is the like-for-like comparison. On average it predicts",
+        f"bloom {gap:.1f} days later than the index.",
+        "",
+        "| Subset | Model | City-years | RMSE | Bias | Anomaly correlation | Anomaly RMSE | Skill |",
+        "|---|---|---|---|---|---|---|---|",
+    ]
+    for r in bloom_stats.index_vs_lilac(df):
+        lines.append(f"| {r['subset']} | {r['model']} | {r['n']} | {r['rmse']:.1f} | "
+                     f"{r['bias']:+.1f} | {r['anomaly_r']:.2f} | {r['anomaly_rmse']:.1f} | "
+                     f"{r['skill']:.2f} |")
+
+    lines += [
+        "",
+        "## By period",
+        "",
+        "Does the result hold in every part of the record? Anomalies here are",
+        "against each period's own city means. 1979 is the start of the",
+        "satellite era, before which ERA5 has fewer observations to draw on.",
+        "Periods with fewer than 10 years of data for a country are left out.",
+        "",
+        "| Country | Period | Years | City-years | RMSE | Bias | Anomaly correlation | Anomaly RMSE | Normal-year RMSE | Skill |",
+        "|---|---|---|---|---|---|---|---|---|---|",
+    ]
+    for p in bloom_stats.by_period(df):
+        ci = p["interval"]
+        lines.append(
+            f"| {p['country']} | {p['first_year']}–{p['last_year']} | {p['years']} | {p['n']} | "
+            f"{p['rmse']:.1f} | {p['bias']:+.1f} | "
+            f"{p['anomaly_r']:.2f} ({interval(ci['anomaly_r'], '.2f')}) | "
+            f"{p['anomaly_rmse']:.1f} ({interval(ci['anomaly_rmse'], '.1f')}) | "
+            f"{p['normal_year_rmse']:.1f} | {p['skill']:.2f} ({interval(ci['skill'], '.2f')}) |")
+
+    trends = bloom_stats.trends(df)
+    if trends:
+        lines += [
+            "",
+            "## Long-term trend",
+            "",
+            "Linear trend of bloom day, in days per decade (negative = earlier),",
+            "for cities with at least 30 years. With each city's trend removed from",
+            "both model and observations, the anomaly correlation is",
+            f"{bloom_stats.detrended_correlation(df):.2f}: the model tracks single years, not only the drift.",
+            "",
+            "| City | Years | Model trend | Observed trend |",
+            "|---|---|---|---|",
+        ]
+        for t in trends:
+            lines.append(f"| {t['location']} | {t['years']} | {t['model']:+.1f} | "
+                         f"{t['observed']:+.1f} |")
+
     lines += [
         "",
         "## Leaving one city out",
@@ -175,8 +238,12 @@ def write_report(df, start, end):
     robust = df[df["n_obs"] >= 3]
     anom_robust = anomaly_stats(robust, "model")
     cities = per_city_table(df)
-    years = df.assign(error=df["model"] - df["observed"]).groupby("year")["error"].agg(
-        ["mean", "count"])
+    country = df["location"].str.split(", ").str[-1]
+    decades = df.assign(error=df["model"] - df["observed"], country=country,
+                        decade=df["year"] // 10 * 10).pivot_table(
+        index="decade", columns="country", values="error", aggfunc=["mean", "count"])
+    coverage = ", ".join(f"{name} {g['year'].min()}–{g['year'].max()}"
+                         for name, g in df.groupby(country))
 
     def anomaly_row(label, a):
         return (f"| {label} | {a['n']} | {a['r']:.2f} | {a['rmse']:.1f} | "
@@ -186,11 +253,14 @@ def write_report(df, start, end):
     lines = [
         "# SI-x bloom: multi-year test",
         "",
-        f"Generated by `run_bloom_test.py` for {start}–{end}. SI-x bloom index,",
-        "unmodified (US coefficients), vs median observed lilac (*Syringa vulgaris*)",
+        f"Generated by `run_bloom_test.py` for {start}–{end} ({coverage}). SI-x bloom index,",
+        "unmodified (published coefficients), vs median observed lilac (*Syringa vulgaris*)",
         "first bloom near each city: DWD phase 5 within 0.5°, SLU phase 53 within 1°.",
         "ERA5 hourly 2m temperature at the nearest grid point. Nothing fitted.",
         "Positive error = model late.",
+        "",
+        "The countries cover different periods, so the pooled figures are dominated",
+        "by the longer record. Read the by-country and by-period tables first.",
         "",
         "## Absolute accuracy",
         "",
@@ -223,15 +293,20 @@ def write_report(df, start, end):
         lines.append(f"| {c['location']} | {c['years']} | {c['median_n_obs']:.0f} | "
                      f"{c['rmse']:.1f} | {c['bias']:+.1f} | {c['anomaly_r']:.2f} | "
                      f"{c['observed_sd']:.1f} |")
+    countries = list(decades["mean"].columns)
     lines += [
         "",
-        "## Mean error by year",
+        "## Mean error by decade",
         "",
-        "| Year | Cities | Mean error |",
-        "|---|---|---|",
+        "Mean error in days, with the number of city-years in brackets.",
+        "",
+        "| Decade | " + " | ".join(countries) + " |",
+        "|---|" + "---|" * len(countries),
     ]
-    for year, y in years.iterrows():
-        lines.append(f"| {year} | {int(y['count'])} | {y['mean']:+.1f} |")
+    for decade, row in decades.iterrows():
+        cells = [f"{row['mean'][c]:+.1f} ({int(row['count'][c])})"
+                 if pd.notna(row["mean"][c]) else "" for c in countries]
+        lines.append(f"| {decade}s | " + " | ".join(cells) + " |")
     uncertainty, pooled = uncertainty_lines(df)
     lines += uncertainty
 
@@ -242,7 +317,7 @@ def write_report(df, start, end):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[1])
-    parser.add_argument("--start", type=int, default=2010)
+    parser.add_argument("--start", type=int, default=1951)
     parser.add_argument("--end", type=int, default=2024)
     args = parser.parse_args()
 
@@ -258,7 +333,7 @@ def main():
     client = get_cds_client()
     predictions = []
     for location, lat, lon, _zone in locations:
-        daily = fetch_point_timeseries(client, location, lat, lon, args.start, args.end)
+        daily = fetch_point_timeseries(client, location, lat, lon, ERA5_FIRST_YEAR, args.end)
         for year in range(args.start, args.end + 1):
             bloom = predict_bloom(daily, lat, year)
             if bloom:

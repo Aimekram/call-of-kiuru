@@ -69,18 +69,23 @@ def style_axes(ax, grid_axis):
     ax.tick_params(length=0, labelsize=10, labelcolor=INK_MUTED)
 
 
-def add_text(fig, title, subtitle, left=LEFT):
-    fig.text(left, 0.955, title, fontsize=18, fontweight="bold", color=INK, va="top")
-    fig.text(left, 0.905, subtitle, fontsize=11.5, color=INK_SECONDARY, va="top",
-             linespacing=1.45)
-    fig.text(left, 0.03, SOURCES, fontsize=9, color=INK_MUTED, va="bottom")
+def add_text(fig, title, subtitle, left=LEFT, height=8):
+    """Title, subtitle and source line at fixed distances (inches) from the
+    figure's top and bottom edges, whatever its height."""
+    fig.text(left, 1 - 0.36 / height, title, fontsize=18, fontweight="bold", color=INK,
+             va="top")
+    fig.text(left, 1 - 0.76 / height, subtitle, fontsize=11.5, color=INK_SECONDARY,
+             va="top", linespacing=1.45)
+    fig.text(left, 0.24 / height, SOURCES, fontsize=9, color=INK_MUTED, va="bottom")
 
 
 def draw_panel(ax, city, years):
     full = city.set_index("year").reindex(years)
+    # Thinner lines once a panel holds decades of yearly values.
+    linewidth = 2 if len(years) <= 30 else 1.3
     ax.axhline(0, color=BASELINE, linewidth=1, zorder=1)
     for column, color in (("obs_anom", OBSERVED_COLOR), ("model_anom", MODEL_COLOR)):
-        ax.plot(full.index, full[column], color=color, linewidth=2,
+        ax.plot(full.index, full[column], color=color, linewidth=linewidth,
                 solid_capstyle="round", solid_joinstyle="round", zorder=3)
 
     r = np.corrcoef(city["model_anom"], city["obs_anom"])[0, 1]
@@ -93,7 +98,9 @@ def draw_panel(ax, city, years):
 def anomalies_chart(df, output):
     years = range(df["year"].min(), df["year"].max() + 1)
     cities = south_to_north(df)
-    overall_r = np.corrcoef(df["model_anom"], df["obs_anom"])[0, 1]
+    countries = "; ".join(
+        f"{c['country']} {c['first_year']}–{c['last_year']}: r = {c['anomaly_r']:.2f}"
+        for c in bloom_stats.by_country_estimates(df))
 
     fig, axes = plt.subplots(2, 4, figsize=(13, 8), sharex=True, sharey=True,
                              facecolor=SURFACE)
@@ -106,19 +113,22 @@ def anomalies_chart(df, output):
     axes[0, 0].set_ylim(-limit, limit)
     axes[0, 0].set_yticks([-20, -10, 0, 10, 20])
     axes[0, 0].set_yticklabels(["−20", "−10", "0", "+10", "+20"])
-    axes[0, 0].set_xticks([years[0], years[len(years) // 2], years[-1]])
+    if len(years) <= 30:
+        axes[0, 0].set_xticks([years[0], years[len(years) // 2], years[-1]])
+    else:
+        axes[0, 0].set_xticks([y for y in years if y % 20 == 0])
     fig.supylabel("Days later (+) or earlier (−) than the city's average",
                   x=0.012, fontsize=10.5, color=INK_SECONDARY)
 
     add_text(fig,
-             f"A US lilac model tracks early and late springs in {len(cities)} European cities",
-             f"First lilac bloom each year, {years[0]}–{years[-1]}, against each city's "
-             f"own average. Unmodified SI-x bloom index, nothing fitted.\n"
-             f"Correlation r = {overall_r:.2f} across {len(df)} city-years. "
-             "Cities ordered south to north.")
+             f"A US spring index against observed lilac bloom in {len(cities)} European cities",
+             f"First lilac bloom each year against each city's own average. "
+             f"Unmodified SI-x bloom index, nothing fitted.\n"
+             f"{countries}. Cities ordered south to north.")
     fig.legend(
-        handles=[Line2D([], [], color=OBSERVED_COLOR, linewidth=2, label="Observed bloom"),
-                 Line2D([], [], color=MODEL_COLOR, linewidth=2, label="SI-x model")],
+        handles=[Line2D([], [], color=OBSERVED_COLOR, linewidth=2,
+                        label="Observed lilac bloom"),
+                 Line2D([], [], color=MODEL_COLOR, linewidth=2, label="SI-x bloom index")],
         loc="upper left", bbox_to_anchor=(0.058, 0.835), ncol=2, frameon=False,
         fontsize=11, labelcolor=INK_SECONDARY, handlelength=1.6, columnspacing=1.8)
     fig.savefig(output, dpi=160, facecolor=SURFACE)
@@ -130,7 +140,13 @@ def uncertainty_rows(df):
     rows = [{"label": f"All {df['location'].nunique()} cities", **pooled["estimate"],
              "interval": pooled["by_year"]}]
     for c in bloom_stats.by_country(df):
-        rows.append({"label": f"{c['country']} ({c['cities']} cities)", **c})
+        rows.append({"label": f"{c['country']} {c['first_year']}–{c['last_year']}", **c})
+    periods = [p for p in bloom_stats.by_period(df)
+               if (p["first_year"], p["last_year"]) != (df["year"].min(), df["year"].max())]
+    if periods:
+        rows.append(None)
+        for p in periods:
+            rows.append({"label": f"{p['country']} {p['first_year']}–{p['last_year']}", **p})
     rows.append(None)
     left_out = {r["without"]: r for r in bloom_stats.leave_one_city_out(df)}
     for location in south_to_north(df):
@@ -156,10 +172,16 @@ def draw_estimates(ax, rows, key, benchmark_key=None):
 def uncertainty_chart(df, output):
     rows = uncertainty_rows(df)
     pooled = rows[0]
-    years = df["year"].nunique()
+    countries = "; ".join(
+        f"{c['country']} {c['anomaly_r']:.2f} ({c['interval']['anomaly_r'][0]:.2f} to "
+        f"{c['interval']['anomaly_r'][1]:.2f}) over {c['last_year'] - c['first_year'] + 1} springs"
+        for c in bloom_stats.by_country(df))
 
-    fig, (left, right) = plt.subplots(1, 2, figsize=(13, 8), sharey=True, facecolor=SURFACE)
-    fig.subplots_adjust(left=0.2, right=0.97, top=0.71, bottom=0.13, wspace=0.1)
+    height = 2.9 + 0.36 * len(rows)
+    top, bottom = 1 - 2.32 / height, 1.04 / height
+    fig, (left, right) = plt.subplots(1, 2, figsize=(13, height), sharey=True,
+                                      facecolor=SURFACE)
+    fig.subplots_adjust(left=0.2, right=0.97, top=top, bottom=bottom, wspace=0.1)
 
     draw_estimates(left, rows, "anomaly_r")
     lowest = min(r["interval"]["anomaly_r"][0] if "interval" in r else r["anomaly_r"]
@@ -191,19 +213,16 @@ def uncertainty_chart(df, output):
     left.set_yticklabels([row["label"] for row in rows if row])
     left.tick_params(axis="y", labelsize=11, labelcolor=INK_SECONDARY, pad=10)
 
-    low, high = pooled["interval"]["anomaly_r"]
     add_text(fig, "How sure is the bloom result?",
-             f"Modelled vs observed bloom anomalies, {df['year'].min()}–{df['year'].max()}: "
-             f"correlation {pooled['anomaly_r']:.2f}, 95% interval {low:.2f} to {high:.2f}.\n"
-             f"Cities share each year's weather, so this is closer to {years} independent "
-             f"springs than to {pooled['n']} tests. Intervals resample whole years.",
-             left=0.035)
+             f"Correlation of modelled with observed bloom anomalies: {countries}.\n"
+             "Cities share each year's weather, so the 95% intervals resample whole years.",
+             left=0.035, height=height)
     fig.legend(
         handles=[Line2D([], [], color=ESTIMATE_COLOR, marker="o", markersize=8, linewidth=2,
-                        label="SI-x model, line = 95% interval"),
+                        label="SI-x bloom index, line = 95% interval"),
                  Line2D([], [], color=BENCHMARK_COLOR, marker="o", markersize=8, linewidth=0,
                         label="Always predicting a normal year")],
-        loc="upper left", bbox_to_anchor=(0.028, 0.815), ncol=2, frameon=False,
+        loc="upper left", bbox_to_anchor=(0.028, 1 - 1.48 / height), ncol=2, frameon=False,
         fontsize=11, labelcolor=INK_SECONDARY, handlelength=1.6, columnspacing=1.8)
     fig.savefig(output, dpi=160, facecolor=SURFACE)
 

@@ -18,6 +18,11 @@ METRICS = ["rmse", "bias", "anomaly_r", "anomaly_rmse", "normal_year_rmse", "ski
 N_RESAMPLES = 10000
 SEED = 0
 
+# Periods reported separately. 1979 is the start of the satellite era;
+# before it ERA5 has fewer observations to draw on. 2010-2024 is the window
+# the test was first run on.
+PERIODS = [(1951, 1978), (1979, 2009), (2010, 2024)]
+
 
 def to_matrices(df):
     """City x year arrays of modelled and observed bloom day (NaN = no data)."""
@@ -81,15 +86,87 @@ def overall(df):
     }
 
 
-def by_country(df):
-    """Estimates per country, with intervals from resampling years."""
+def by_country_estimates(df):
+    """Estimates per country."""
     rows = []
     for country, group in df.groupby(df["location"].str.split(", ").str[-1]):
-        model, observed = to_matrices(group)
         rows.append({"country": country, "cities": group["location"].nunique(),
-                     **summary(model, observed),
-                     "interval": block_bootstrap(model, observed, "year")})
+                     "first_year": int(group["year"].min()),
+                     "last_year": int(group["year"].max()),
+                     **summary(*to_matrices(group))})
     return rows
+
+
+def by_country(df):
+    """Estimates per country, with intervals from resampling years."""
+    rows = by_country_estimates(df)
+    for row in rows:
+        group = df[df["location"].str.endswith(", " + row["country"])]
+        row["interval"] = block_bootstrap(*to_matrices(group), "year")
+    return rows
+
+
+def index_vs_lilac(df):
+    """The published 3-plant bloom index and its lilac component, each
+    compared with the same lilac observations, pooled and per country. The
+    app shows the index; the component is reported because the observations
+    are lilac, so it is the like-for-like comparison."""
+    country = df["location"].str.split(", ").str[-1]
+    rows = []
+    for label, group in [("All", df)] + list(df.groupby(country)):
+        for name, column in (("3-plant index", "model"), ("Lilac component", "model_lilac")):
+            model, observed = to_matrices(group.assign(model=group[column]))
+            rows.append({"subset": label, "model": name, **summary(model, observed)})
+    return rows
+
+
+def by_period(df, periods=PERIODS, min_years=10):
+    """Estimates per country and period, with intervals from resampling
+    years. Anomalies are taken against each period's own city means, so a
+    period stands on its own. Periods with fewer than min_years years of
+    data for a country are skipped."""
+    rows = []
+    for country, group in df.groupby(df["location"].str.split(", ").str[-1]):
+        for first, last in periods:
+            part = group[group["year"].between(first, last)]
+            if part["year"].nunique() < min_years:
+                continue
+            model, observed = to_matrices(part)
+            rows.append({"country": country, "first_year": first, "last_year": last,
+                         "years": part["year"].nunique(), **summary(model, observed),
+                         "interval": block_bootstrap(model, observed, "year")})
+    return rows
+
+
+def trends(df, min_years=30):
+    """Linear trend of modelled and observed bloom day per city, in days per
+    decade, for cities with at least min_years years."""
+    rows = []
+    for location, group in df.groupby("location"):
+        if len(group) < min_years:
+            continue
+        rows.append({
+            "location": location, "years": len(group),
+            "model": float(np.polyfit(group["year"], group["model"], 1)[0] * 10),
+            "observed": float(np.polyfit(group["year"], group["observed"], 1)[0] * 10),
+        })
+    return rows
+
+
+def detrended_correlation(df, min_years=30):
+    """Anomaly correlation after removing each city's linear trend from model
+    and observations: does the model track single years, not just the
+    long-term drift? Cities with at least min_years years."""
+    model, observed = [], []
+    for _location, group in df.groupby("location"):
+        if len(group) < min_years:
+            continue
+        for column, out in (("model", model), ("observed", observed)):
+            fit = np.polyfit(group["year"], group[column], 1)
+            out.extend(group[column] - np.polyval(fit, group["year"]))
+    if not model:
+        return None
+    return float(np.corrcoef(model, observed)[0, 1])
 
 
 def leave_one_city_out(df):
