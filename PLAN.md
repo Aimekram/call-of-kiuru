@@ -41,10 +41,10 @@ history.
 **Step 1 — Dataset.** `reanalysis-era5-single-levels-timeseries`: hourly 2m
 temperature at the nearest ERA5 grid point, reduced to daily max/min. This
 is what the validation ran on, so production uses the same. One request
-covers a city's whole history. To confirm: that it updates daily with ERA5's
-~5-day lag. Fallback: `derived-era5-single-levels-daily-statistics`, which
-averages a 3×3 box and gave a different result on the coast (Malmö 2020
-bloom: day 133 vs 125).
+covers a city's whole history. It is current: a request on 2026-10-11
+returned data up to 5 days earlier. Fallback:
+`derived-era5-single-levels-daily-statistics`, which averages a 3×3 box and
+gave a different result on the coast (Malmö 2020 bloom: day 133 vs 125).
 
 Licensing rules are in §4.
 
@@ -56,8 +56,10 @@ baseline; the rest feeds the trend chart.
 
 **Step 4 — Model.** The published SI-x leaf and bloom models, unmodified
 (`validation/si_x_model.py`), with the published coefficients. Only bloom is
-shown. The leaf index fires weeks early in mild winters (no chilling term)
-and stays hidden.
+shown. The leaf index stays hidden: it was about 13 days early on average in
+the 2024 paper's European check, and weeks early in ours (2020 only, few
+observations). SI-x has no chilling term, which may be why; that is our
+guess, not a tested finding.
 
 **Rule: published models only, nothing fitted.** No correction constants,
 no custom terms. Any deviation gets flagged and decided first.
@@ -154,9 +156,11 @@ is against single observations and ours against station medians. The
 methodology page says "within about a week for a single lilac".
 
 **Still to do before launch.**
-1. Cross-check against the published 1 km SI-x grid (same paper, CC BY 4.0,
-   Europe 1950–2020) for 2010–2020 at our cities.
-2. Rewrite the README, which still describes the removed stand-in model.
+1. Cross-check against the published 1 km SI-x grid (same paper, Europe
+   1950–2020) at our cities. Not started: on 2026-10-11 the repository's
+   file storage (4TU.ResearchData, one 14 GB archive) was down for
+   maintenance. Licence to settle first: the 4TU record says CC BY 4.0,
+   the Earth Engine community catalog's copy says CC BY-NC 4.0.
 
 **Rules for adding a zone.**
 - A new zone is claimed only after its cities pass this test against
@@ -203,7 +207,7 @@ scripts; the target layout is:
   correct Open Graph tags per city, which a client-rendered app doesn't.
 
 **Licensing:**
-- Copernicus CDS (ERA5): any use, commercial included, with attribution.
+- Copernicus CDS (ERA5): CC BY 4.0, so any use with attribution.
 - ECA&D and E-OBS: non-commercial research and education only. Not used.
 - DWD: CC BY 4.0. SLU: CC0.
 - PEP725: licence per dataset; check each one before use.
@@ -256,6 +260,11 @@ Two requests to send once the site is live:
   rankings, the trend chart, and validation entries from the journal.
 - Put the Bluesky account on a Eurosky PDS (EU-hosted), consistent with the
   open, EU-native premise.
+- **Say which index.** USA-NPN maps first leaf, first bloom and a late-bloom
+  index against an average over the same 1991–2020 period; we show first
+  bloom only. A US "spring is
+  early" figure based on first leaf is not the same measure as ours, so the
+  methodology page and any comparison with US numbers must say so.
 - **Positioning: peer-reviewed science, made live and local.** The model
   and a Europe-wide grid are published; what's missing is a live, per-city
   view. Check for existing live European products before using "first".

@@ -1,200 +1,167 @@
-# Call of Kiuru — Validation Phase
+# Call of Kiuru
 
-European phenology dashboard validation: testing the SI-x model predictions against real reference data before building the full pipeline.
+A planned dashboard that shows, for each tracked city, how many days earlier
+or later the modelled start of spring is this year than the model's own
+1991–2020 average for that city. The first version is planned for 8 cities
+in Germany and Sweden.
 
-## Quick Start
+"Start of spring" here is a published model, not an observation: the Extended
+Spring Indices (SI-x) first-bloom index, computed from open temperature data
+(Copernicus ERA5).
 
-### 1. Setup
+The USA National Phenology Network maps the same kind of comparison for the
+United States, over the same 1991–2020 period. It maps first leaf, first
+bloom and a late-bloom index. We use first bloom only, because the
+first-leaf index did poorly against European observations: about 13 days
+early on average in the 2024 paper cited below (RMSE 17.5 days, 1,227
+observations, against 7.4 days for first bloom), and weeks early in our own
+check, which covers one year and few observations. A US "spring is early"
+figure based on first leaf is therefore not the same measure as ours.
+
+## Status
+
+**Validation phase. There is no site yet.** What exists is the model, a test
+of it against observed lilac bloom, and a test that it matches the reference
+implementation. The build plan is in [PLAN.md](PLAN.md).
+
+## What has been checked
+
+The model is compared with observed first bloom of common lilac near 8
+cities, for every year the open records cover. Nothing is fitted. The
+correlation is for "early or late compared with the city's usual date",
+which is what the dashboard will show.
+
+| | Springs | Correlation (95% interval) | Error vs always predicting a normal year |
+|---|---|---|---|
+| Germany, 5 cities, 1951–2024 | 74 | 0.92 (0.88 to 0.94) | 3.9 vs 8.9 days |
+| Sweden, 3 cities, 2008–2024 | 17 | 0.69 (0.46 to 0.87) | 4.6 vs 6.4 days |
+
+Our implementation gives the same leaf and bloom days as USA-NPN's code on
+all 7,152 days compared (680 city-years of ERA5 data and 512 synthetic
+series).
+
+Limits:
+
+- Two countries only. Nothing is claimed for other climate zones.
+- The Swedish result is weak and rests on few observations.
+- SI-x averages three plant models (a lilac and two honeysuckles). The
+  observations are lilac only, and of common lilac, not the cloned lilac
+  that USA-NPN's documentation names for the model.
+- The implementation test shows agreement with USA-NPN's code, not with the
+  papers that define the model.
+
+Full results: [docs/bloom_multiyear.md](docs/bloom_multiyear.md). What was
+claimed, what held up and what is still unverified:
+[docs/validation_audit.md](docs/validation_audit.md).
+
+## Run it
+
+Python 3.9 was used.
 
 ```bash
-# Create and activate virtual environment
 python3 -m venv venv
 source venv/bin/activate
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Install optional GRIB parser (for CDS data)
-pip install cfgrib
 ```
 
-### 2. Configure CDS API
-
-You've already registered at Copernicus CDS. Now configure the API:
-
-**Option A: Using `~/.cdsapirc` (recommended)**
-
-Create `~/.cdsapirc` with:
-
-```
-url: https://cds.climate.copernicus.eu/api/v2
-key: <YOUR_CDS_API_KEY>
-```
-
-**Option B: Using environment variable**
+**Check the implementation** (about 15 seconds, no account needed):
 
 ```bash
-export CDS_API_KEY="<YOUR_CDS_API_KEY>"
+python -m unittest
 ```
 
-### 3. Fetch climate data
+The comparison on synthetic series always runs. The comparison on ERA5 data
+runs for the cities whose ERA5 download is present and is skipped otherwise.
 
-This downloads daily temperature data (1991–2024) for all validation locations from Copernicus ERA5:
+**Rerun the validation.** This needs a free
+[Copernicus CDS](https://cds.climate.copernicus.eu/) account:
 
-```bash
-python run_validation.py --fetch-only
-```
-
-**First run will take 5–15 minutes** (CDS queues requests server-side). Data goes to `data/raw/`.
-
-### 4. Run SI-x model
-
-Once data is fetched, compute leaf-out predictions:
-
-```bash
-python run_validation.py --model-only
-```
-
-This generates `data/model_predictions.csv` with predicted and baseline leaf-out dates by location and year.
-
-### 5. Validate against reference data
-
-Manually gather reference observations, then compare:
-
-1. Collect observed leaf-out dates from:
-   - **DWD** (Germany): [opendata.dwd.de](https://opendata.dwd.de/)
-   - **Nature's Calendar** (UK): [naturescalendar.org.uk](https://www.naturescalendar.org.uk/)
-   - **PEP725**: [pep725.eu](https://www.pep725.eu/) (visual/spot-check only)
-   - **Horticultural sources**: gardening/forestry websites for well-known cities
-
-2. Create `data/reference_observations.csv` with columns:
+1. Put your token in `~/.cdsapirc`:
 
    ```
-   location,year,leaf_out_doy,source,notes
-   Berlin Germany,2023,118,DWD,
-   Berlin Germany,2022,108,DWD,
+   url: https://cds.climate.copernicus.eu/api
+   key: <your token>
    ```
 
-3. Update `validation/validator.py` to load and compare, then run:
+2. On the CDS website, accept the terms of use of the dataset
+   `reanalysis-era5-single-levels-timeseries`. The API cannot do this for
+   you.
+
+3. Run:
+
    ```bash
-   python run_validation.py --compare
+   python run_bloom_test.py
    ```
 
-## Project Structure
+   It downloads the lilac observations (about 60 MB) and ERA5 temperatures
+   for the 8 cities (about 5 MB and 90 seconds each), then writes
+   `docs/bloom_multiyear.md` and `data/bloom_multiyear.csv`.
 
-```
-/validation
-  ├── __init__.py
-  ├── config.py              # Configuration: locations, model params, data paths
-  ├── cds_fetch.py           # Copernicus CDS data fetching
-  ├── si_x_model.py          # SI-x growing-degree-day phenology model
-  └── validator.py           # Compare model predictions vs. reference data
-/data
-  ├── raw/                   # GRIB files from CDS (auto-created)
-  ├── cache/                 # Temporary processing files
-  ├── model_predictions.csv  # Model output (auto-generated)
-  └── reference_observations.csv  # Your manually-collected reference data
-run_validation.py            # Main entry point
-requirements.txt             # Python dependencies
-PLAN.md                      # Project plan (existing)
-```
-
-## The SI-x Model
-
-**Extended Spring Index (SI-x)** predicts leaf-out timing based on accumulated growing degree days (GDD).
-
-Key features:
-
-- **Base temperature**: 10°C (degree days below this don't count)
-- **Accumulation start**: Day 59 (Feb 28/29)
-- **Threshold**: ~130 GDD (when leaf-out typically occurs)
-- **European weighting**: 70% daily max temp, 30% mean (European research shows max more predictive)
-- **Physical bounds**: Temperatures clamped to [-17°C, +30°C]
-
-Reference: Schwartz et al. (2013), "Common sense phenology"
-
-## What to Expect
-
-### Model Output
-
-`data/model_predictions.csv`:
-
-```csv
-location,lat,lon,climate_zone,year,leaf_out_doy,baseline_doy,anomaly_days
-Berlin Germany,52.52,13.41,continental,2020,114,110.0,4.0
-Berlin Germany,52.52,13.41,continental,2021,112,110.0,2.0
-```
-
-- **leaf_out_doy**: Predicted day-of-year (1–366) for leaf-out
-- **baseline_doy**: Median DOY from 1991–2020 reference period
-- **anomaly_days**: How many days earlier (negative) or later (positive) than baseline
-
-### Validation Success Criteria
-
-Published European studies report **6.6–8.6 days RMSE**. Target:
-
-- **RMSE < 10 days** overall = proceed to launch
-- **Consistent bias** (e.g., "always 5 days early") = apply calibration, proceed
-- **Zone-dependent success** (works in some climates, not others) = launch in validated zones only
-- **Unreliable everywhere** = revisit model parameters or drop "days" framing in favor of "earlier/typical/later"
-
-## Validation Locations (Default)
-
-| Location            | Climate       | Lat   | Lon   |
-| ------------------- | ------------- | ----- | ----- |
-| Berlin, Germany     | Continental   | 52.52 | 13.41 |
-| Valencia, Spain     | Mediterranean | 39.47 | -0.38 |
-| Edinburgh, Scotland | Maritime      | 55.95 | -3.19 |
-| Stockholm, Sweden   | Nordic        | 59.33 | 18.07 |
-| Prague, Czechia     | Continental   | 50.08 | 14.44 |
-| Lyon, France        | Temperate     | 45.76 | 4.84  |
-
-Edit `validation/config.py` to change locations.
-
-## Troubleshooting
-
-### CDS API timeouts
-
-The Copernicus queue can be slow. If a request hangs:
-
-- Wait a few minutes (CDS is busy)
-- Cancel (Ctrl+C) and retry later
-- Check [CDS status page](https://cds.climate.copernicus.eu/)
-
-### Missing dependencies
+**Draw the charts** from that result:
 
 ```bash
-pip install cfgrib eccodes
+python plot_bloom_test.py anomalies.png
+python plot_bloom_test.py uncertainty.png --chart uncertainty
 ```
 
-(Some systems need the native `eccodes` library for GRIB parsing)
+**Regenerate the USA-NPN reference** (about 5 minutes, needs network):
 
-### No data for a location
+```bash
+python -m tests.make_usanpn_reference
+```
 
-Possible reasons:
+## Repository layout
 
-- Location is outside ERA5 coverage (unlikely for Europe)
-- Invalid lat/lon in config
-- CDS quota exceeded (free tier is generous; shouldn't happen)
+```
+run_bloom_test.py        the validation: model vs observed lilac bloom
+plot_bloom_test.py       charts of the result
+validation/
+  si_x_model.py          the SI-x leaf and bloom models
+  cds_fetch.py           ERA5 download
+  reference_fetch.py     lilac observations from DWD and SLU
+  bloom_stats.py         confidence intervals, per-country and per-period results
+  config.py              cities and paths
+tests/
+  test_si_x_matches_usanpn.py   our model vs USA-NPN's code
+  make_usanpn_reference.py      produces the reference days in tests/fixtures/
+docs/                    results, audit, research on data sources
+journal/                 dated build log, with charts in journal/screenshots/
+data/                    downloads and results (not in the repository)
+```
 
-Check `data/raw/` for downloaded files.
+`run_validation.py`, `validation/validator.py` and `VALIDATION_LOG.md` are
+from the first, single-year check of September 2026. They are kept for the
+record and are not part of the current workflow.
 
-## Next Steps After Validation
+## Data sources and licences
 
-Once validation succeeds:
+| Source | Used for | Licence |
+|---|---|---|
+| [ERA5](https://cds.climate.copernicus.eu/), Copernicus Climate Change Service | Temperature | CC BY 4.0 |
+| [DWD](https://opendata.dwd.de/), Germany | Lilac observations | CC BY 4.0 |
+| [SLU Naturens Kalender](https://researchdata.se/en/catalogue/dataset/2022-86-1), Sweden | Lilac observations | CC0 |
 
-1. Document validation results (this becomes public "Methodology" page content)
-2. Set up Supabase database (Frankfurt region)
-3. Build GitHub Actions workflow for daily pipeline runs
-4. Create static site frontend
-5. Launch!
+Results here contain modified Copernicus Climate Change Service information.
 
-See `PLAN.md` section §3 for full validation and §4–8 for the subsequent phases.
+Not used: E-OBS and ECA&D (non-commercial use only). PEP725 sets a licence
+per dataset since May 2026; none of its data is used yet.
+
+USA-NPN's [gridded_models](https://github.com/usa-npn/gridded_models)
+repository has no licence, so none of its code is in this repository. The
+test downloads it at a pinned version, runs it, and keeps only the
+resulting days.
+
+No licence has been chosen for this repository itself yet.
 
 ## References
 
-- Schwartz, M. D., Ault, T. R., & Pulso, S. L. (2013). "Common sense phenology." _Frontiers in Ecology and Evolution_, 1, 9.
-- USA-NPN gridded models: [github.com/usa-npn/gridded_models](https://github.com/usa-npn/gridded_models)
-- pyPhenology: [github.com/sdtaylor/pyPhenology](https://github.com/sdtaylor/pyPhenology)
-- Copernicus CDS: [cds.climate.copernicus.eu](https://cds.climate.copernicus.eu/)
-- DWD open data: [opendata.dwd.de](https://opendata.dwd.de/)
+- Schwartz, M. D., Ault, T. R., & Betancourt, J. L. (2013). Spring onset
+  variations and trends in the continental United States: past and regional
+  assessment using temperature-based indices. *International Journal of
+  Climatology*, 33, 2917–2922.
+- Crimmins, T. M., and others (2017). *USA National Phenology Network
+  gridded products documentation*. USGS Open-File Report 2017–1003.
+  https://doi.org/10.3133/ofr20171003
+- Izquierdo-Verdiguier, E., & Zurita-Milla, R. (2024). A multi-decadal 1 km
+  gridded database of continental-scale spring onset products. *Scientific
+  Data*, 11, 905. https://www.nature.com/articles/s41597-024-03710-5
