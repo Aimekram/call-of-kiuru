@@ -115,6 +115,32 @@ def timeseries_file(location_name, start_year, end_year):
     return RAW_DATA_DIR / "timeseries" / f"{safe_name}_{start_year}-{end_year}_t2m.zip"
 
 
+def read_hourly(zip_file):
+    """Hourly 2m temperature (K) from a time-series download: valid_time, t2m."""
+    import zipfile
+
+    import pandas as pd
+
+    with zipfile.ZipFile(zip_file) as archive:
+        csv_name = next(n for n in archive.namelist() if n.endswith(".csv"))
+        with archive.open(csv_name) as f:
+            return pd.read_csv(f, parse_dates=["valid_time"])
+
+
+def daily_extremes(hourly, full_days_only=False):
+    """
+    Daily Tmax/Tmin (°C) over UTC days from hourly 2m temperature (K), as
+    date, tmax_c, tmin_c. With full_days_only, days with fewer than 24
+    hourly values are dropped, e.g. the last day of a download that ends
+    part-way through it.
+    """
+    hours = hourly.groupby(hourly["valid_time"].dt.normalize())["t2m"]
+    daily = hours.agg(tmax_c="max", tmin_c="min") - 273.15
+    if full_days_only:
+        daily = daily[hours.count() == 24]
+    return daily.rename_axis("date").reset_index()
+
+
 def fetch_point_timeseries(client, location_name, lat, lon, start_year, end_year):
     """
     Fetch hourly 2m temperature at the nearest ERA5 grid point for a whole
@@ -130,10 +156,6 @@ def fetch_point_timeseries(client, location_name, lat, lon, start_year, end_year
     Returns:
         DataFrame with columns: date, tmax_c, tmin_c
     """
-    import zipfile
-
-    import pandas as pd
-
     zip_file = timeseries_file(location_name, start_year, end_year)
     zip_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -149,14 +171,7 @@ def fetch_point_timeseries(client, location_name, lat, lon, start_year, end_year
         }
         client.retrieve("reanalysis-era5-single-levels-timeseries", request, str(zip_file))
 
-    with zipfile.ZipFile(zip_file) as archive:
-        csv_name = next(n for n in archive.namelist() if n.endswith(".csv"))
-        with archive.open(csv_name) as f:
-            hourly = pd.read_csv(f, parse_dates=["valid_time"])
-
-    hourly["date"] = hourly["valid_time"].dt.normalize()
-    daily = hourly.groupby("date")["t2m"].agg(tmax_c="max", tmin_c="min") - 273.15
-    return daily.reset_index()
+    return daily_extremes(read_hourly(zip_file))
 
 
 def fetch_all_validation_locations():

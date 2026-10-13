@@ -38,11 +38,18 @@ history.
 
 ## 2. Data pipeline
 
+**Built (2026-10-12): steps 1 to 6.** `python -m pipeline.run` writes
+`data/bloom.json` for the 8 cities: 696 rows, 1940–2026. A normal run takes
+about 7 minutes, nearly all of it waiting for 8 small CDS requests. Tests in
+`tests/test_pipeline.py` tie the output to the USA-NPN reference. Still to
+build: the daily job (step 7) and the site (step 8).
+
 **Step 1 — Dataset.** `reanalysis-era5-single-levels-timeseries`: hourly 2m
 temperature at the nearest ERA5 grid point, reduced to daily max/min. This
 is what the validation ran on, so production uses the same. One request
-covers a city's whole history. It is current: a request on 2026-10-11
-returned data up to 5 days earlier. Fallback:
+covers a city's whole history. It runs 5 to 6 days behind, and the newest
+day can arrive as empty values, so the pipeline uses full days only and
+stops at the first gap. Fallback:
 `derived-era5-single-levels-daily-statistics`, which averages a 3×3 box and
 gave a different result on the coast (Malmö 2020 bloom: day 133 vs 125).
 
@@ -70,8 +77,10 @@ year's modelled day minus that baseline, so a constant per-city model bias
 cancels out.
 
 **Step 6 — Store results.** One row per (city, year): modelled day, delta
-vs baseline. About 700 rows in total, kept as a JSON file that the daily
-job writes and commits to the repo. No database: nothing queries the data
+vs baseline. About 700 rows in total, kept as a JSON file (`data/bloom.json`)
+that the daily job writes and commits to the repo. Past years are read back
+from the file; only the recent period is downloaded each day. Values are
+stored as computed and rounded only where they are displayed. No database: nothing queries the data
 at view time, and rows in this shape load straight into a table later.
 
 **Step 7 — Daily refresh.** GitHub Actions, `on: schedule`. CDS requests

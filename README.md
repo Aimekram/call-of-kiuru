@@ -20,9 +20,11 @@ figure based on first leaf is therefore not the same measure as ours.
 
 ## Status
 
-**Validation phase. There is no site yet.** What exists is the model, a test
-of it against observed lilac bloom, and a test that it matches the reference
-implementation. The build plan is in [PLAN.md](PLAN.md).
+**There is no site yet.** What exists is the model, a test of it against
+observed lilac bloom, a test that it matches the reference implementation,
+and the pipeline that computes each city's numbers
+([data/bloom.json](data/bloom.json)). The build plan is in
+[PLAN.md](PLAN.md).
 
 ## What has been checked
 
@@ -104,6 +106,17 @@ python plot_bloom_test.py anomalies.png
 python plot_bloom_test.py uncertainty.png --chart uncertainty
 ```
 
+**Update the numbers** (about 7 minutes, needs the Copernicus account):
+
+```bash
+python -m pipeline.run
+```
+
+It downloads temperatures from January 2025 to today for the 8 cities and
+rewrites `data/bloom.json`. Add `--rebuild` to recompute every year since
+1940, or `--offline` to use the downloads already on disk. `python -m pipeline.check_recent` compares the years after 2024 with
+German lilac observations.
+
 **Regenerate the USA-NPN reference** (about 5 minutes, needs network):
 
 ```bash
@@ -113,6 +126,12 @@ python -m tests.make_usanpn_reference
 ## Repository layout
 
 ```
+pipeline/
+  run.py                 builds data/bloom.json: bloom day per city and year,
+                         the 1991–2020 average, and this year's difference
+  locations.json         the cities
+  era5.py, bloom.py      temperature loading and the calculation
+  check_recent.py        years after the validation period vs observations
 run_bloom_test.py        the validation: model vs observed lilac bloom
 plot_bloom_test.py       charts of the result
 validation/
@@ -123,10 +142,12 @@ validation/
   config.py              cities and paths
 tests/
   test_si_x_matches_usanpn.py   our model vs USA-NPN's code
+  test_pipeline.py              the pipeline's output vs the same reference
   make_usanpn_reference.py      produces the reference days in tests/fixtures/
 docs/                    results, audit, research on data sources
 journal/                 dated build log, with charts in journal/screenshots/
-data/                    downloads and results (not in the repository)
+data/bloom.json          the pipeline's output
+data/                    downloads and working files (not in the repository)
 ```
 
 `run_validation.py`, `validation/validator.py` and `VALIDATION_LOG.md` are

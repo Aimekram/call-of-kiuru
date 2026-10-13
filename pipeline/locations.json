@@ -1,0 +1,10 @@
+[
+  {"slug": "munich", "name": "Munich", "country": "Germany", "key": "Munich, Germany", "lat": 48.1351, "lon": 11.5820},
+  {"slug": "frankfurt", "name": "Frankfurt", "country": "Germany", "key": "Frankfurt, Germany", "lat": 50.1109, "lon": 8.6821},
+  {"slug": "cologne", "name": "Cologne", "country": "Germany", "key": "Cologne, Germany", "lat": 50.9375, "lon": 6.9603},
+  {"slug": "berlin", "name": "Berlin", "country": "Germany", "key": "Berlin, Germany", "lat": 52.52, "lon": 13.41},
+  {"slug": "hamburg", "name": "Hamburg", "country": "Germany", "key": "Hamburg, Germany", "lat": 53.5511, "lon": 9.9937},
+  {"slug": "malmo", "name": "Malmö", "country": "Sweden", "key": "Malmo, Sweden", "lat": 55.6050, "lon": 13.0038},
+  {"slug": "gothenburg", "name": "Gothenburg", "country": "Sweden", "key": "Gothenburg, Sweden", "lat": 57.7089, "lon": 11.9746},
+  {"slug": "stockholm", "name": "Stockholm", "country": "Sweden", "key": "Stockholm, Sweden", "lat": 59.33, "lon": 18.07}
+]

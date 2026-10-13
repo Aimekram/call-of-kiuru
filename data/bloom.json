@@ -1,0 +1,4310 @@
+{
+ "generated": "2026-10-13",
+ "data_through": "2026-10-06",
+ "measure": "SI-x first bloom index (mean of three plant models), day of year",
+ "baseline_years": [
+  1991,
+  2020
+ ],
+ "attribution": "Contains modified Copernicus Climate Change Service information 2026.",
+ "cities": [
+  {
+   "slug": "munich",
+   "name": "Munich",
+   "country": "Germany",
+   "lat": 48.1351,
+   "lon": 11.582,
+   "baseline_doy": 119.62222222222225,
+   "current": {
+    "year": 2026,
+    "status": "bloomed",
+    "data_through": "2026-10-06",
+    "bloom_doy": 121.0,
+    "days_vs_baseline": 1.3777777777777516
+   }
+  },
+  {
+   "slug": "frankfurt",
+   "name": "Frankfurt",
+   "country": "Germany",
+   "lat": 50.1109,
+   "lon": 8.6821,
+   "baseline_doy": 113.07777777777778,
+   "current": {
+    "year": 2026,
+    "status": "bloomed",
+    "data_through": "2026-10-07",
+    "bloom_doy": 109.0,
+    "days_vs_baseline": -4.077777777777783
+   }
+  },
+  {
+   "slug": "cologne",
+   "name": "Cologne",
+   "country": "Germany",
+   "lat": 50.9375,
+   "lon": 6.9603,
+   "baseline_doy": 111.72222222222221,
+   "current": {
+    "year": 2026,
+    "status": "bloomed",
+    "data_through": "2026-10-07",
+    "bloom_doy": 104.0,
+    "days_vs_baseline": -7.722222222222214
+   }
+  },
+  {
+   "slug": "berlin",
+   "name": "Berlin",
+   "country": "Germany",
+   "lat": 52.52,
+   "lon": 13.41,
+   "baseline_doy": 121.38888888888891,
+   "current": {
+    "year": 2026,
+    "status": "bloomed",
+    "data_through": "2026-10-07",
+    "bloom_doy": 122.66666666666667,
+    "days_vs_baseline": 1.2777777777777573
+   }
+  },
+  {
+   "slug": "hamburg",
+   "name": "Hamburg",
+   "country": "Germany",
+   "lat": 53.5511,
+   "lon": 9.9937,
+   "baseline_doy": 122.7333333333333,
+   "current": {
+    "year": 2026,
+    "status": "bloomed",
+    "data_through": "2026-10-07",
+    "bloom_doy": 122.33333333333333,
+    "days_vs_baseline": -0.39999999999997726
+   }
+  },
+  {
+   "slug": "malmo",
+   "name": "Malmö",
+   "country": "Sweden",
+   "lat": 55.605,
+   "lon": 13.0038,
+   "baseline_doy": 134.81111111111113,
+   "current": {
+    "year": 2026,
+    "status": "bloomed",
+    "data_through": "2026-10-07",
+    "bloom_doy": 131.66666666666666,
+    "days_vs_baseline": -3.144444444444474
+   }
+  },
+  {
+   "slug": "gothenburg",
+   "name": "Gothenburg",
+   "country": "Sweden",
+   "lat": 57.7089,
+   "lon": 11.9746,
+   "baseline_doy": 139.7111111111111,
+   "current": {
+    "year": 2026,
+    "status": "bloomed",
+    "data_through": "2026-10-07",
+    "bloom_doy": 139.66666666666666,
+    "days_vs_baseline": -0.04444444444445139
+   }
+  },
+  {
+   "slug": "stockholm",
+   "name": "Stockholm",
+   "country": "Sweden",
+   "lat": 59.33,
+   "lon": 18.07,
+   "baseline_doy": 148.11111111111106,
+   "current": {
+    "year": 2026,
+    "status": "bloomed",
+    "data_through": "2026-10-07",
+    "bloom_doy": 142.0,
+    "days_vs_baseline": -6.111111111111057
+   }
+  }
+ ],
+ "rows": [
+  {
+   "city": "munich",
+   "year": 1940,
+   "bloom_doy": 129.66666666666666,
+   "days_vs_baseline": 10.044444444444409
+  },
+  {
+   "city": "munich",
+   "year": 1941,
+   "bloom_doy": 148.33333333333334,
+   "days_vs_baseline": 28.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1942,
+   "bloom_doy": 135.66666666666666,
+   "days_vs_baseline": 16.04444444444441
+  },
+  {
+   "city": "munich",
+   "year": 1943,
+   "bloom_doy": 123.0,
+   "days_vs_baseline": 3.3777777777777516
+  },
+  {
+   "city": "munich",
+   "year": 1944,
+   "bloom_doy": 135.33333333333334,
+   "days_vs_baseline": 15.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1945,
+   "bloom_doy": 128.0,
+   "days_vs_baseline": 8.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1946,
+   "bloom_doy": 121.0,
+   "days_vs_baseline": 1.3777777777777516
+  },
+  {
+   "city": "munich",
+   "year": 1947,
+   "bloom_doy": 123.66666666666667,
+   "days_vs_baseline": 4.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 1948,
+   "bloom_doy": 122.66666666666667,
+   "days_vs_baseline": 3.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 1949,
+   "bloom_doy": 117.0,
+   "days_vs_baseline": -2.6222222222222484
+  },
+  {
+   "city": "munich",
+   "year": 1950,
+   "bloom_doy": 125.66666666666667,
+   "days_vs_baseline": 6.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 1951,
+   "bloom_doy": 131.0,
+   "days_vs_baseline": 11.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1952,
+   "bloom_doy": 123.33333333333333,
+   "days_vs_baseline": 3.71111111111108
+  },
+  {
+   "city": "munich",
+   "year": 1953,
+   "bloom_doy": 121.0,
+   "days_vs_baseline": 1.3777777777777516
+  },
+  {
+   "city": "munich",
+   "year": 1954,
+   "bloom_doy": 137.33333333333334,
+   "days_vs_baseline": 17.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1955,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": 15.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1956,
+   "bloom_doy": 134.33333333333334,
+   "days_vs_baseline": 14.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1957,
+   "bloom_doy": 117.33333333333333,
+   "days_vs_baseline": -2.28888888888892
+  },
+  {
+   "city": "munich",
+   "year": 1958,
+   "bloom_doy": 132.0,
+   "days_vs_baseline": 12.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1959,
+   "bloom_doy": 120.66666666666667,
+   "days_vs_baseline": 1.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 1960,
+   "bloom_doy": 127.33333333333333,
+   "days_vs_baseline": 7.71111111111108
+  },
+  {
+   "city": "munich",
+   "year": 1961,
+   "bloom_doy": 108.0,
+   "days_vs_baseline": -11.622222222222248
+  },
+  {
+   "city": "munich",
+   "year": 1962,
+   "bloom_doy": 129.0,
+   "days_vs_baseline": 9.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1963,
+   "bloom_doy": 129.0,
+   "days_vs_baseline": 9.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1964,
+   "bloom_doy": 127.0,
+   "days_vs_baseline": 7.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1965,
+   "bloom_doy": 134.33333333333334,
+   "days_vs_baseline": 14.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1966,
+   "bloom_doy": 119.66666666666667,
+   "days_vs_baseline": 0.04444444444442297
+  },
+  {
+   "city": "munich",
+   "year": 1967,
+   "bloom_doy": 128.0,
+   "days_vs_baseline": 8.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1968,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": 2.71111111111108
+  },
+  {
+   "city": "munich",
+   "year": 1969,
+   "bloom_doy": 130.33333333333334,
+   "days_vs_baseline": 10.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1970,
+   "bloom_doy": 136.66666666666666,
+   "days_vs_baseline": 17.04444444444441
+  },
+  {
+   "city": "munich",
+   "year": 1971,
+   "bloom_doy": 127.0,
+   "days_vs_baseline": 7.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1972,
+   "bloom_doy": 126.33333333333333,
+   "days_vs_baseline": 6.71111111111108
+  },
+  {
+   "city": "munich",
+   "year": 1973,
+   "bloom_doy": 136.66666666666666,
+   "days_vs_baseline": 17.04444444444441
+  },
+  {
+   "city": "munich",
+   "year": 1974,
+   "bloom_doy": 116.33333333333333,
+   "days_vs_baseline": -3.28888888888892
+  },
+  {
+   "city": "munich",
+   "year": 1975,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": 11.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1976,
+   "bloom_doy": 128.66666666666666,
+   "days_vs_baseline": 9.044444444444409
+  },
+  {
+   "city": "munich",
+   "year": 1977,
+   "bloom_doy": 122.66666666666667,
+   "days_vs_baseline": 3.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 1978,
+   "bloom_doy": 134.33333333333334,
+   "days_vs_baseline": 14.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1979,
+   "bloom_doy": 139.33333333333334,
+   "days_vs_baseline": 19.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1980,
+   "bloom_doy": 140.66666666666666,
+   "days_vs_baseline": 21.04444444444441
+  },
+  {
+   "city": "munich",
+   "year": 1981,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": 0.7111111111110802
+  },
+  {
+   "city": "munich",
+   "year": 1982,
+   "bloom_doy": 138.33333333333334,
+   "days_vs_baseline": 18.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1983,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": 2.71111111111108
+  },
+  {
+   "city": "munich",
+   "year": 1984,
+   "bloom_doy": 140.33333333333334,
+   "days_vs_baseline": 20.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 1985,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": 15.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1986,
+   "bloom_doy": 129.0,
+   "days_vs_baseline": 9.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1987,
+   "bloom_doy": 130.66666666666666,
+   "days_vs_baseline": 11.044444444444409
+  },
+  {
+   "city": "munich",
+   "year": 1988,
+   "bloom_doy": 124.66666666666667,
+   "days_vs_baseline": 5.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 1989,
+   "bloom_doy": 115.66666666666667,
+   "days_vs_baseline": -3.955555555555577
+  },
+  {
+   "city": "munich",
+   "year": 1990,
+   "bloom_doy": 120.0,
+   "days_vs_baseline": 0.37777777777775157
+  },
+  {
+   "city": "munich",
+   "year": 1991,
+   "bloom_doy": 132.66666666666666,
+   "days_vs_baseline": 13.044444444444409
+  },
+  {
+   "city": "munich",
+   "year": 1992,
+   "bloom_doy": 128.66666666666666,
+   "days_vs_baseline": 9.044444444444409
+  },
+  {
+   "city": "munich",
+   "year": 1993,
+   "bloom_doy": 118.0,
+   "days_vs_baseline": -1.6222222222222484
+  },
+  {
+   "city": "munich",
+   "year": 1994,
+   "bloom_doy": 114.66666666666667,
+   "days_vs_baseline": -4.955555555555577
+  },
+  {
+   "city": "munich",
+   "year": 1995,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": 1.7111111111110802
+  },
+  {
+   "city": "munich",
+   "year": 1996,
+   "bloom_doy": 130.0,
+   "days_vs_baseline": 10.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 1997,
+   "bloom_doy": 126.66666666666667,
+   "days_vs_baseline": 7.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 1998,
+   "bloom_doy": 117.66666666666667,
+   "days_vs_baseline": -1.955555555555577
+  },
+  {
+   "city": "munich",
+   "year": 1999,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": 0.7111111111110802
+  },
+  {
+   "city": "munich",
+   "year": 2000,
+   "bloom_doy": 118.66666666666667,
+   "days_vs_baseline": -0.955555555555577
+  },
+  {
+   "city": "munich",
+   "year": 2001,
+   "bloom_doy": 123.0,
+   "days_vs_baseline": 3.3777777777777516
+  },
+  {
+   "city": "munich",
+   "year": 2002,
+   "bloom_doy": 117.66666666666667,
+   "days_vs_baseline": -1.955555555555577
+  },
+  {
+   "city": "munich",
+   "year": 2003,
+   "bloom_doy": 119.66666666666667,
+   "days_vs_baseline": 0.04444444444442297
+  },
+  {
+   "city": "munich",
+   "year": 2004,
+   "bloom_doy": 122.66666666666667,
+   "days_vs_baseline": 3.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 2005,
+   "bloom_doy": 119.0,
+   "days_vs_baseline": -0.6222222222222484
+  },
+  {
+   "city": "munich",
+   "year": 2006,
+   "bloom_doy": 125.0,
+   "days_vs_baseline": 5.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 2007,
+   "bloom_doy": 106.66666666666667,
+   "days_vs_baseline": -12.955555555555577
+  },
+  {
+   "city": "munich",
+   "year": 2008,
+   "bloom_doy": 125.33333333333333,
+   "days_vs_baseline": 5.71111111111108
+  },
+  {
+   "city": "munich",
+   "year": 2009,
+   "bloom_doy": 116.33333333333333,
+   "days_vs_baseline": -3.28888888888892
+  },
+  {
+   "city": "munich",
+   "year": 2010,
+   "bloom_doy": 120.66666666666667,
+   "days_vs_baseline": 1.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 2011,
+   "bloom_doy": 111.0,
+   "days_vs_baseline": -8.622222222222248
+  },
+  {
+   "city": "munich",
+   "year": 2012,
+   "bloom_doy": 119.33333333333333,
+   "days_vs_baseline": -0.28888888888891984
+  },
+  {
+   "city": "munich",
+   "year": 2013,
+   "bloom_doy": 125.0,
+   "days_vs_baseline": 5.377777777777752
+  },
+  {
+   "city": "munich",
+   "year": 2014,
+   "bloom_doy": 112.66666666666667,
+   "days_vs_baseline": -6.955555555555577
+  },
+  {
+   "city": "munich",
+   "year": 2015,
+   "bloom_doy": 123.33333333333333,
+   "days_vs_baseline": 3.71111111111108
+  },
+  {
+   "city": "munich",
+   "year": 2016,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": 2.71111111111108
+  },
+  {
+   "city": "munich",
+   "year": 2017,
+   "bloom_doy": 113.33333333333333,
+   "days_vs_baseline": -6.28888888888892
+  },
+  {
+   "city": "munich",
+   "year": 2018,
+   "bloom_doy": 111.66666666666667,
+   "days_vs_baseline": -7.955555555555577
+  },
+  {
+   "city": "munich",
+   "year": 2019,
+   "bloom_doy": 112.33333333333333,
+   "days_vs_baseline": -7.28888888888892
+  },
+  {
+   "city": "munich",
+   "year": 2020,
+   "bloom_doy": 113.0,
+   "days_vs_baseline": -6.622222222222248
+  },
+  {
+   "city": "munich",
+   "year": 2021,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": 11.711111111111094
+  },
+  {
+   "city": "munich",
+   "year": 2022,
+   "bloom_doy": 121.66666666666667,
+   "days_vs_baseline": 2.044444444444423
+  },
+  {
+   "city": "munich",
+   "year": 2023,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": 0.7111111111110802
+  },
+  {
+   "city": "munich",
+   "year": 2024,
+   "bloom_doy": 97.0,
+   "days_vs_baseline": -22.62222222222225
+  },
+  {
+   "city": "munich",
+   "year": 2025,
+   "bloom_doy": 114.0,
+   "days_vs_baseline": -5.622222222222248
+  },
+  {
+   "city": "munich",
+   "year": 2026,
+   "bloom_doy": 121.0,
+   "days_vs_baseline": 1.3777777777777516
+  },
+  {
+   "city": "frankfurt",
+   "year": 1940,
+   "bloom_doy": 125.66666666666667,
+   "days_vs_baseline": 12.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1941,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": 28.588888888888874
+  },
+  {
+   "city": "frankfurt",
+   "year": 1942,
+   "bloom_doy": 127.33333333333333,
+   "days_vs_baseline": 14.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1943,
+   "bloom_doy": 109.33333333333333,
+   "days_vs_baseline": -3.7444444444444542
+  },
+  {
+   "city": "frankfurt",
+   "year": 1944,
+   "bloom_doy": 128.0,
+   "days_vs_baseline": 14.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1945,
+   "bloom_doy": 113.33333333333333,
+   "days_vs_baseline": 0.25555555555554577
+  },
+  {
+   "city": "frankfurt",
+   "year": 1946,
+   "bloom_doy": 118.33333333333333,
+   "days_vs_baseline": 5.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1947,
+   "bloom_doy": 123.33333333333333,
+   "days_vs_baseline": 10.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1948,
+   "bloom_doy": 114.0,
+   "days_vs_baseline": 0.9222222222222172
+  },
+  {
+   "city": "frankfurt",
+   "year": 1949,
+   "bloom_doy": 111.0,
+   "days_vs_baseline": -2.077777777777783
+  },
+  {
+   "city": "frankfurt",
+   "year": 1950,
+   "bloom_doy": 120.0,
+   "days_vs_baseline": 6.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1951,
+   "bloom_doy": 127.0,
+   "days_vs_baseline": 13.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1952,
+   "bloom_doy": 120.0,
+   "days_vs_baseline": 6.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1953,
+   "bloom_doy": 113.33333333333333,
+   "days_vs_baseline": 0.25555555555554577
+  },
+  {
+   "city": "frankfurt",
+   "year": 1954,
+   "bloom_doy": 126.66666666666667,
+   "days_vs_baseline": 13.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1955,
+   "bloom_doy": 132.33333333333334,
+   "days_vs_baseline": 19.25555555555556
+  },
+  {
+   "city": "frankfurt",
+   "year": 1956,
+   "bloom_doy": 132.66666666666666,
+   "days_vs_baseline": 19.588888888888874
+  },
+  {
+   "city": "frankfurt",
+   "year": 1957,
+   "bloom_doy": 111.33333333333333,
+   "days_vs_baseline": -1.7444444444444542
+  },
+  {
+   "city": "frankfurt",
+   "year": 1958,
+   "bloom_doy": 129.66666666666666,
+   "days_vs_baseline": 16.588888888888874
+  },
+  {
+   "city": "frankfurt",
+   "year": 1959,
+   "bloom_doy": 109.33333333333333,
+   "days_vs_baseline": -3.7444444444444542
+  },
+  {
+   "city": "frankfurt",
+   "year": 1960,
+   "bloom_doy": 108.66666666666667,
+   "days_vs_baseline": -4.411111111111111
+  },
+  {
+   "city": "frankfurt",
+   "year": 1961,
+   "bloom_doy": 101.33333333333333,
+   "days_vs_baseline": -11.744444444444454
+  },
+  {
+   "city": "frankfurt",
+   "year": 1962,
+   "bloom_doy": 121.66666666666667,
+   "days_vs_baseline": 8.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1963,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": 9.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1964,
+   "bloom_doy": 122.0,
+   "days_vs_baseline": 8.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1965,
+   "bloom_doy": 127.66666666666667,
+   "days_vs_baseline": 14.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1966,
+   "bloom_doy": 113.0,
+   "days_vs_baseline": -0.07777777777778283
+  },
+  {
+   "city": "frankfurt",
+   "year": 1967,
+   "bloom_doy": 116.66666666666667,
+   "days_vs_baseline": 3.5888888888888886
+  },
+  {
+   "city": "frankfurt",
+   "year": 1968,
+   "bloom_doy": 119.33333333333333,
+   "days_vs_baseline": 6.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1969,
+   "bloom_doy": 127.33333333333333,
+   "days_vs_baseline": 14.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1970,
+   "bloom_doy": 132.66666666666666,
+   "days_vs_baseline": 19.588888888888874
+  },
+  {
+   "city": "frankfurt",
+   "year": 1971,
+   "bloom_doy": 118.66666666666667,
+   "days_vs_baseline": 5.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1972,
+   "bloom_doy": 119.33333333333333,
+   "days_vs_baseline": 6.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1973,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": 18.25555555555556
+  },
+  {
+   "city": "frankfurt",
+   "year": 1974,
+   "bloom_doy": 101.33333333333333,
+   "days_vs_baseline": -11.744444444444454
+  },
+  {
+   "city": "frankfurt",
+   "year": 1975,
+   "bloom_doy": 125.0,
+   "days_vs_baseline": 11.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1976,
+   "bloom_doy": 124.66666666666667,
+   "days_vs_baseline": 11.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1977,
+   "bloom_doy": 119.66666666666667,
+   "days_vs_baseline": 6.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1978,
+   "bloom_doy": 123.33333333333333,
+   "days_vs_baseline": 10.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1979,
+   "bloom_doy": 135.33333333333334,
+   "days_vs_baseline": 22.25555555555556
+  },
+  {
+   "city": "frankfurt",
+   "year": 1980,
+   "bloom_doy": 129.33333333333334,
+   "days_vs_baseline": 16.25555555555556
+  },
+  {
+   "city": "frankfurt",
+   "year": 1981,
+   "bloom_doy": 107.0,
+   "days_vs_baseline": -6.077777777777783
+  },
+  {
+   "city": "frankfurt",
+   "year": 1982,
+   "bloom_doy": 132.0,
+   "days_vs_baseline": 18.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1983,
+   "bloom_doy": 119.33333333333333,
+   "days_vs_baseline": 6.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1984,
+   "bloom_doy": 134.0,
+   "days_vs_baseline": 20.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1985,
+   "bloom_doy": 127.0,
+   "days_vs_baseline": 13.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1986,
+   "bloom_doy": 128.0,
+   "days_vs_baseline": 14.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1987,
+   "bloom_doy": 124.33333333333333,
+   "days_vs_baseline": 11.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1988,
+   "bloom_doy": 121.66666666666667,
+   "days_vs_baseline": 8.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1989,
+   "bloom_doy": 112.0,
+   "days_vs_baseline": -1.0777777777777828
+  },
+  {
+   "city": "frankfurt",
+   "year": 1990,
+   "bloom_doy": 101.66666666666667,
+   "days_vs_baseline": -11.411111111111111
+  },
+  {
+   "city": "frankfurt",
+   "year": 1991,
+   "bloom_doy": 111.33333333333333,
+   "days_vs_baseline": -1.7444444444444542
+  },
+  {
+   "city": "frankfurt",
+   "year": 1992,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": 9.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1993,
+   "bloom_doy": 114.66666666666667,
+   "days_vs_baseline": 1.5888888888888886
+  },
+  {
+   "city": "frankfurt",
+   "year": 1994,
+   "bloom_doy": 116.0,
+   "days_vs_baseline": 2.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1995,
+   "bloom_doy": 119.33333333333333,
+   "days_vs_baseline": 6.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 1996,
+   "bloom_doy": 127.0,
+   "days_vs_baseline": 13.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 1997,
+   "bloom_doy": 117.66666666666667,
+   "days_vs_baseline": 4.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 1998,
+   "bloom_doy": 107.0,
+   "days_vs_baseline": -6.077777777777783
+  },
+  {
+   "city": "frankfurt",
+   "year": 1999,
+   "bloom_doy": 114.0,
+   "days_vs_baseline": 0.9222222222222172
+  },
+  {
+   "city": "frankfurt",
+   "year": 2000,
+   "bloom_doy": 113.33333333333333,
+   "days_vs_baseline": 0.25555555555554577
+  },
+  {
+   "city": "frankfurt",
+   "year": 2001,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": 7.255555555555546
+  },
+  {
+   "city": "frankfurt",
+   "year": 2002,
+   "bloom_doy": 111.0,
+   "days_vs_baseline": -2.077777777777783
+  },
+  {
+   "city": "frankfurt",
+   "year": 2003,
+   "bloom_doy": 114.0,
+   "days_vs_baseline": 0.9222222222222172
+  },
+  {
+   "city": "frankfurt",
+   "year": 2004,
+   "bloom_doy": 117.0,
+   "days_vs_baseline": 3.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 2005,
+   "bloom_doy": 108.33333333333333,
+   "days_vs_baseline": -4.744444444444454
+  },
+  {
+   "city": "frankfurt",
+   "year": 2006,
+   "bloom_doy": 124.0,
+   "days_vs_baseline": 10.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 2007,
+   "bloom_doy": 98.33333333333333,
+   "days_vs_baseline": -14.744444444444454
+  },
+  {
+   "city": "frankfurt",
+   "year": 2008,
+   "bloom_doy": 119.66666666666667,
+   "days_vs_baseline": 6.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 2009,
+   "bloom_doy": 109.33333333333333,
+   "days_vs_baseline": -3.7444444444444542
+  },
+  {
+   "city": "frankfurt",
+   "year": 2010,
+   "bloom_doy": 117.0,
+   "days_vs_baseline": 3.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 2011,
+   "bloom_doy": 104.0,
+   "days_vs_baseline": -9.077777777777783
+  },
+  {
+   "city": "frankfurt",
+   "year": 2012,
+   "bloom_doy": 112.0,
+   "days_vs_baseline": -1.0777777777777828
+  },
+  {
+   "city": "frankfurt",
+   "year": 2013,
+   "bloom_doy": 123.66666666666667,
+   "days_vs_baseline": 10.588888888888889
+  },
+  {
+   "city": "frankfurt",
+   "year": 2014,
+   "bloom_doy": 95.33333333333333,
+   "days_vs_baseline": -17.744444444444454
+  },
+  {
+   "city": "frankfurt",
+   "year": 2015,
+   "bloom_doy": 116.0,
+   "days_vs_baseline": 2.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 2016,
+   "bloom_doy": 119.0,
+   "days_vs_baseline": 5.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 2017,
+   "bloom_doy": 102.33333333333333,
+   "days_vs_baseline": -10.744444444444454
+  },
+  {
+   "city": "frankfurt",
+   "year": 2018,
+   "bloom_doy": 109.33333333333333,
+   "days_vs_baseline": -3.7444444444444542
+  },
+  {
+   "city": "frankfurt",
+   "year": 2019,
+   "bloom_doy": 106.0,
+   "days_vs_baseline": -7.077777777777783
+  },
+  {
+   "city": "frankfurt",
+   "year": 2020,
+   "bloom_doy": 103.0,
+   "days_vs_baseline": -10.077777777777783
+  },
+  {
+   "city": "frankfurt",
+   "year": 2021,
+   "bloom_doy": 125.0,
+   "days_vs_baseline": 11.922222222222217
+  },
+  {
+   "city": "frankfurt",
+   "year": 2022,
+   "bloom_doy": 112.66666666666667,
+   "days_vs_baseline": -0.4111111111111114
+  },
+  {
+   "city": "frankfurt",
+   "year": 2023,
+   "bloom_doy": 111.66666666666667,
+   "days_vs_baseline": -1.4111111111111114
+  },
+  {
+   "city": "frankfurt",
+   "year": 2024,
+   "bloom_doy": 91.33333333333333,
+   "days_vs_baseline": -21.744444444444454
+  },
+  {
+   "city": "frankfurt",
+   "year": 2025,
+   "bloom_doy": 106.0,
+   "days_vs_baseline": -7.077777777777783
+  },
+  {
+   "city": "frankfurt",
+   "year": 2026,
+   "bloom_doy": 109.0,
+   "days_vs_baseline": -4.077777777777783
+  },
+  {
+   "city": "cologne",
+   "year": 1940,
+   "bloom_doy": 123.66666666666667,
+   "days_vs_baseline": 11.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1941,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": 27.944444444444443
+  },
+  {
+   "city": "cologne",
+   "year": 1942,
+   "bloom_doy": 127.66666666666667,
+   "days_vs_baseline": 15.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1943,
+   "bloom_doy": 108.66666666666667,
+   "days_vs_baseline": -3.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 1944,
+   "bloom_doy": 124.66666666666667,
+   "days_vs_baseline": 12.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1945,
+   "bloom_doy": 108.33333333333333,
+   "days_vs_baseline": -3.3888888888888857
+  },
+  {
+   "city": "cologne",
+   "year": 1946,
+   "bloom_doy": 117.66666666666667,
+   "days_vs_baseline": 5.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1947,
+   "bloom_doy": 123.0,
+   "days_vs_baseline": 11.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1948,
+   "bloom_doy": 111.33333333333333,
+   "days_vs_baseline": -0.38888888888888573
+  },
+  {
+   "city": "cologne",
+   "year": 1949,
+   "bloom_doy": 109.66666666666667,
+   "days_vs_baseline": -2.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 1950,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": 8.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 1951,
+   "bloom_doy": 130.0,
+   "days_vs_baseline": 18.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1952,
+   "bloom_doy": 119.0,
+   "days_vs_baseline": 7.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1953,
+   "bloom_doy": 117.0,
+   "days_vs_baseline": 5.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1954,
+   "bloom_doy": 130.66666666666666,
+   "days_vs_baseline": 18.944444444444443
+  },
+  {
+   "city": "cologne",
+   "year": 1955,
+   "bloom_doy": 130.33333333333334,
+   "days_vs_baseline": 18.61111111111113
+  },
+  {
+   "city": "cologne",
+   "year": 1956,
+   "bloom_doy": 135.66666666666666,
+   "days_vs_baseline": 23.944444444444443
+  },
+  {
+   "city": "cologne",
+   "year": 1957,
+   "bloom_doy": 111.0,
+   "days_vs_baseline": -0.7222222222222143
+  },
+  {
+   "city": "cologne",
+   "year": 1958,
+   "bloom_doy": 133.0,
+   "days_vs_baseline": 21.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1959,
+   "bloom_doy": 113.0,
+   "days_vs_baseline": 1.2777777777777857
+  },
+  {
+   "city": "cologne",
+   "year": 1960,
+   "bloom_doy": 110.0,
+   "days_vs_baseline": -1.7222222222222143
+  },
+  {
+   "city": "cologne",
+   "year": 1961,
+   "bloom_doy": 101.0,
+   "days_vs_baseline": -10.722222222222214
+  },
+  {
+   "city": "cologne",
+   "year": 1962,
+   "bloom_doy": 126.66666666666667,
+   "days_vs_baseline": 14.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1963,
+   "bloom_doy": 124.66666666666667,
+   "days_vs_baseline": 12.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1964,
+   "bloom_doy": 124.0,
+   "days_vs_baseline": 12.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1965,
+   "bloom_doy": 125.0,
+   "days_vs_baseline": 13.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1966,
+   "bloom_doy": 117.0,
+   "days_vs_baseline": 5.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1967,
+   "bloom_doy": 118.66666666666667,
+   "days_vs_baseline": 6.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1968,
+   "bloom_doy": 120.0,
+   "days_vs_baseline": 8.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1969,
+   "bloom_doy": 127.66666666666667,
+   "days_vs_baseline": 15.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1970,
+   "bloom_doy": 133.33333333333334,
+   "days_vs_baseline": 21.61111111111113
+  },
+  {
+   "city": "cologne",
+   "year": 1971,
+   "bloom_doy": 124.0,
+   "days_vs_baseline": 12.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1972,
+   "bloom_doy": 121.0,
+   "days_vs_baseline": 9.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1973,
+   "bloom_doy": 136.33333333333334,
+   "days_vs_baseline": 24.61111111111113
+  },
+  {
+   "city": "cologne",
+   "year": 1974,
+   "bloom_doy": 104.33333333333333,
+   "days_vs_baseline": -7.388888888888886
+  },
+  {
+   "city": "cologne",
+   "year": 1975,
+   "bloom_doy": 126.33333333333333,
+   "days_vs_baseline": 14.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 1976,
+   "bloom_doy": 126.33333333333333,
+   "days_vs_baseline": 14.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 1977,
+   "bloom_doy": 123.33333333333333,
+   "days_vs_baseline": 11.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 1978,
+   "bloom_doy": 126.0,
+   "days_vs_baseline": 14.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1979,
+   "bloom_doy": 138.0,
+   "days_vs_baseline": 26.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1980,
+   "bloom_doy": 129.33333333333334,
+   "days_vs_baseline": 17.61111111111113
+  },
+  {
+   "city": "cologne",
+   "year": 1981,
+   "bloom_doy": 109.33333333333333,
+   "days_vs_baseline": -2.3888888888888857
+  },
+  {
+   "city": "cologne",
+   "year": 1982,
+   "bloom_doy": 127.66666666666667,
+   "days_vs_baseline": 15.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1983,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": 9.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 1984,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": 23.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1985,
+   "bloom_doy": 129.33333333333334,
+   "days_vs_baseline": 17.61111111111113
+  },
+  {
+   "city": "cologne",
+   "year": 1986,
+   "bloom_doy": 130.33333333333334,
+   "days_vs_baseline": 18.61111111111113
+  },
+  {
+   "city": "cologne",
+   "year": 1987,
+   "bloom_doy": 123.33333333333333,
+   "days_vs_baseline": 11.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 1988,
+   "bloom_doy": 121.0,
+   "days_vs_baseline": 9.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 1989,
+   "bloom_doy": 111.33333333333333,
+   "days_vs_baseline": -0.38888888888888573
+  },
+  {
+   "city": "cologne",
+   "year": 1990,
+   "bloom_doy": 96.66666666666667,
+   "days_vs_baseline": -15.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 1991,
+   "bloom_doy": 107.66666666666667,
+   "days_vs_baseline": -4.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 1992,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": 8.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 1993,
+   "bloom_doy": 114.33333333333333,
+   "days_vs_baseline": 2.6111111111111143
+  },
+  {
+   "city": "cologne",
+   "year": 1994,
+   "bloom_doy": 115.33333333333333,
+   "days_vs_baseline": 3.6111111111111143
+  },
+  {
+   "city": "cologne",
+   "year": 1995,
+   "bloom_doy": 118.66666666666667,
+   "days_vs_baseline": 6.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 1996,
+   "bloom_doy": 125.33333333333333,
+   "days_vs_baseline": 13.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 1997,
+   "bloom_doy": 112.33333333333333,
+   "days_vs_baseline": 0.6111111111111143
+  },
+  {
+   "city": "cologne",
+   "year": 1998,
+   "bloom_doy": 103.0,
+   "days_vs_baseline": -8.722222222222214
+  },
+  {
+   "city": "cologne",
+   "year": 1999,
+   "bloom_doy": 109.0,
+   "days_vs_baseline": -2.7222222222222143
+  },
+  {
+   "city": "cologne",
+   "year": 2000,
+   "bloom_doy": 112.33333333333333,
+   "days_vs_baseline": 0.6111111111111143
+  },
+  {
+   "city": "cologne",
+   "year": 2001,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": 9.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 2002,
+   "bloom_doy": 107.33333333333333,
+   "days_vs_baseline": -4.388888888888886
+  },
+  {
+   "city": "cologne",
+   "year": 2003,
+   "bloom_doy": 112.33333333333333,
+   "days_vs_baseline": 0.6111111111111143
+  },
+  {
+   "city": "cologne",
+   "year": 2004,
+   "bloom_doy": 116.33333333333333,
+   "days_vs_baseline": 4.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 2005,
+   "bloom_doy": 106.66666666666667,
+   "days_vs_baseline": -5.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 2006,
+   "bloom_doy": 125.66666666666667,
+   "days_vs_baseline": 13.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 2007,
+   "bloom_doy": 94.66666666666667,
+   "days_vs_baseline": -17.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 2008,
+   "bloom_doy": 117.66666666666667,
+   "days_vs_baseline": 5.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 2009,
+   "bloom_doy": 109.33333333333333,
+   "days_vs_baseline": -2.3888888888888857
+  },
+  {
+   "city": "cologne",
+   "year": 2010,
+   "bloom_doy": 118.0,
+   "days_vs_baseline": 6.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 2011,
+   "bloom_doy": 104.33333333333333,
+   "days_vs_baseline": -7.388888888888886
+  },
+  {
+   "city": "cologne",
+   "year": 2012,
+   "bloom_doy": 108.33333333333333,
+   "days_vs_baseline": -3.3888888888888857
+  },
+  {
+   "city": "cologne",
+   "year": 2013,
+   "bloom_doy": 126.0,
+   "days_vs_baseline": 14.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 2014,
+   "bloom_doy": 92.66666666666667,
+   "days_vs_baseline": -19.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 2015,
+   "bloom_doy": 118.33333333333333,
+   "days_vs_baseline": 6.611111111111114
+  },
+  {
+   "city": "cologne",
+   "year": 2016,
+   "bloom_doy": 120.0,
+   "days_vs_baseline": 8.277777777777786
+  },
+  {
+   "city": "cologne",
+   "year": 2017,
+   "bloom_doy": 100.0,
+   "days_vs_baseline": -11.722222222222214
+  },
+  {
+   "city": "cologne",
+   "year": 2018,
+   "bloom_doy": 109.66666666666667,
+   "days_vs_baseline": -2.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 2019,
+   "bloom_doy": 102.66666666666667,
+   "days_vs_baseline": -9.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 2020,
+   "bloom_doy": 102.0,
+   "days_vs_baseline": -9.722222222222214
+  },
+  {
+   "city": "cologne",
+   "year": 2021,
+   "bloom_doy": 121.66666666666667,
+   "days_vs_baseline": 9.944444444444457
+  },
+  {
+   "city": "cologne",
+   "year": 2022,
+   "bloom_doy": 107.66666666666667,
+   "days_vs_baseline": -4.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 2023,
+   "bloom_doy": 110.66666666666667,
+   "days_vs_baseline": -1.055555555555543
+  },
+  {
+   "city": "cologne",
+   "year": 2024,
+   "bloom_doy": 85.33333333333333,
+   "days_vs_baseline": -26.388888888888886
+  },
+  {
+   "city": "cologne",
+   "year": 2025,
+   "bloom_doy": 103.33333333333333,
+   "days_vs_baseline": -8.388888888888886
+  },
+  {
+   "city": "cologne",
+   "year": 2026,
+   "bloom_doy": 104.0,
+   "days_vs_baseline": -7.722222222222214
+  },
+  {
+   "city": "berlin",
+   "year": 1940,
+   "bloom_doy": 134.66666666666666,
+   "days_vs_baseline": 13.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1941,
+   "bloom_doy": 150.0,
+   "days_vs_baseline": 28.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1942,
+   "bloom_doy": 138.66666666666666,
+   "days_vs_baseline": 17.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1943,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": -1.0555555555555856
+  },
+  {
+   "city": "berlin",
+   "year": 1944,
+   "bloom_doy": 133.66666666666666,
+   "days_vs_baseline": 12.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1945,
+   "bloom_doy": 122.0,
+   "days_vs_baseline": 0.6111111111110858
+  },
+  {
+   "city": "berlin",
+   "year": 1946,
+   "bloom_doy": 123.0,
+   "days_vs_baseline": 1.6111111111110858
+  },
+  {
+   "city": "berlin",
+   "year": 1947,
+   "bloom_doy": 130.33333333333334,
+   "days_vs_baseline": 8.944444444444429
+  },
+  {
+   "city": "berlin",
+   "year": 1948,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": -1.0555555555555856
+  },
+  {
+   "city": "berlin",
+   "year": 1949,
+   "bloom_doy": 122.0,
+   "days_vs_baseline": 0.6111111111110858
+  },
+  {
+   "city": "berlin",
+   "year": 1950,
+   "bloom_doy": 127.66666666666667,
+   "days_vs_baseline": 6.277777777777757
+  },
+  {
+   "city": "berlin",
+   "year": 1951,
+   "bloom_doy": 136.66666666666666,
+   "days_vs_baseline": 15.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1952,
+   "bloom_doy": 125.0,
+   "days_vs_baseline": 3.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1953,
+   "bloom_doy": 118.66666666666667,
+   "days_vs_baseline": -2.7222222222222427
+  },
+  {
+   "city": "berlin",
+   "year": 1954,
+   "bloom_doy": 140.0,
+   "days_vs_baseline": 18.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1955,
+   "bloom_doy": 140.33333333333334,
+   "days_vs_baseline": 18.94444444444443
+  },
+  {
+   "city": "berlin",
+   "year": 1956,
+   "bloom_doy": 143.66666666666666,
+   "days_vs_baseline": 22.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1957,
+   "bloom_doy": 128.0,
+   "days_vs_baseline": 6.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1958,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": 16.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1959,
+   "bloom_doy": 119.0,
+   "days_vs_baseline": -2.388888888888914
+  },
+  {
+   "city": "berlin",
+   "year": 1960,
+   "bloom_doy": 133.0,
+   "days_vs_baseline": 11.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1961,
+   "bloom_doy": 111.66666666666667,
+   "days_vs_baseline": -9.722222222222243
+  },
+  {
+   "city": "berlin",
+   "year": 1962,
+   "bloom_doy": 128.33333333333334,
+   "days_vs_baseline": 6.944444444444429
+  },
+  {
+   "city": "berlin",
+   "year": 1963,
+   "bloom_doy": 131.66666666666666,
+   "days_vs_baseline": 10.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1964,
+   "bloom_doy": 134.0,
+   "days_vs_baseline": 12.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1965,
+   "bloom_doy": 133.66666666666666,
+   "days_vs_baseline": 12.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1966,
+   "bloom_doy": 124.66666666666667,
+   "days_vs_baseline": 3.2777777777777573
+  },
+  {
+   "city": "berlin",
+   "year": 1967,
+   "bloom_doy": 126.66666666666667,
+   "days_vs_baseline": 5.277777777777757
+  },
+  {
+   "city": "berlin",
+   "year": 1968,
+   "bloom_doy": 120.0,
+   "days_vs_baseline": -1.3888888888889142
+  },
+  {
+   "city": "berlin",
+   "year": 1969,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": 13.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1970,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": 18.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1971,
+   "bloom_doy": 130.0,
+   "days_vs_baseline": 8.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1972,
+   "bloom_doy": 128.33333333333334,
+   "days_vs_baseline": 6.944444444444429
+  },
+  {
+   "city": "berlin",
+   "year": 1973,
+   "bloom_doy": 136.33333333333334,
+   "days_vs_baseline": 14.944444444444429
+  },
+  {
+   "city": "berlin",
+   "year": 1974,
+   "bloom_doy": 124.0,
+   "days_vs_baseline": 2.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1975,
+   "bloom_doy": 131.66666666666666,
+   "days_vs_baseline": 10.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1976,
+   "bloom_doy": 131.66666666666666,
+   "days_vs_baseline": 10.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1977,
+   "bloom_doy": 130.0,
+   "days_vs_baseline": 8.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1978,
+   "bloom_doy": 133.66666666666666,
+   "days_vs_baseline": 12.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1979,
+   "bloom_doy": 138.66666666666666,
+   "days_vs_baseline": 17.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1980,
+   "bloom_doy": 146.66666666666666,
+   "days_vs_baseline": 25.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1981,
+   "bloom_doy": 129.0,
+   "days_vs_baseline": 7.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1982,
+   "bloom_doy": 136.0,
+   "days_vs_baseline": 14.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1983,
+   "bloom_doy": 121.0,
+   "days_vs_baseline": -0.38888888888891415
+  },
+  {
+   "city": "berlin",
+   "year": 1984,
+   "bloom_doy": 136.0,
+   "days_vs_baseline": 14.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1985,
+   "bloom_doy": 132.66666666666666,
+   "days_vs_baseline": 11.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1986,
+   "bloom_doy": 128.66666666666666,
+   "days_vs_baseline": 7.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1987,
+   "bloom_doy": 133.0,
+   "days_vs_baseline": 11.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1988,
+   "bloom_doy": 126.66666666666667,
+   "days_vs_baseline": 5.277777777777757
+  },
+  {
+   "city": "berlin",
+   "year": 1989,
+   "bloom_doy": 117.0,
+   "days_vs_baseline": -4.388888888888914
+  },
+  {
+   "city": "berlin",
+   "year": 1990,
+   "bloom_doy": 104.33333333333333,
+   "days_vs_baseline": -17.055555555555586
+  },
+  {
+   "city": "berlin",
+   "year": 1991,
+   "bloom_doy": 129.33333333333334,
+   "days_vs_baseline": 7.944444444444429
+  },
+  {
+   "city": "berlin",
+   "year": 1992,
+   "bloom_doy": 126.66666666666667,
+   "days_vs_baseline": 5.277777777777757
+  },
+  {
+   "city": "berlin",
+   "year": 1993,
+   "bloom_doy": 118.66666666666667,
+   "days_vs_baseline": -2.7222222222222427
+  },
+  {
+   "city": "berlin",
+   "year": 1994,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": 0.9444444444444144
+  },
+  {
+   "city": "berlin",
+   "year": 1995,
+   "bloom_doy": 127.0,
+   "days_vs_baseline": 5.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 1996,
+   "bloom_doy": 136.66666666666666,
+   "days_vs_baseline": 15.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 1997,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": 9.944444444444429
+  },
+  {
+   "city": "berlin",
+   "year": 1998,
+   "bloom_doy": 115.66666666666667,
+   "days_vs_baseline": -5.722222222222243
+  },
+  {
+   "city": "berlin",
+   "year": 1999,
+   "bloom_doy": 119.33333333333333,
+   "days_vs_baseline": -2.0555555555555856
+  },
+  {
+   "city": "berlin",
+   "year": 2000,
+   "bloom_doy": 117.66666666666667,
+   "days_vs_baseline": -3.7222222222222427
+  },
+  {
+   "city": "berlin",
+   "year": 2001,
+   "bloom_doy": 129.66666666666666,
+   "days_vs_baseline": 8.277777777777743
+  },
+  {
+   "city": "berlin",
+   "year": 2002,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": -0.055555555555585556
+  },
+  {
+   "city": "berlin",
+   "year": 2003,
+   "bloom_doy": 126.0,
+   "days_vs_baseline": 4.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 2004,
+   "bloom_doy": 122.66666666666667,
+   "days_vs_baseline": 1.2777777777777573
+  },
+  {
+   "city": "berlin",
+   "year": 2005,
+   "bloom_doy": 119.33333333333333,
+   "days_vs_baseline": -2.0555555555555856
+  },
+  {
+   "city": "berlin",
+   "year": 2006,
+   "bloom_doy": 128.0,
+   "days_vs_baseline": 6.611111111111086
+  },
+  {
+   "city": "berlin",
+   "year": 2007,
+   "bloom_doy": 105.0,
+   "days_vs_baseline": -16.388888888888914
+  },
+  {
+   "city": "berlin",
+   "year": 2008,
+   "bloom_doy": 123.33333333333333,
+   "days_vs_baseline": 1.9444444444444144
+  },
+  {
+   "city": "berlin",
+   "year": 2009,
+   "bloom_doy": 116.0,
+   "days_vs_baseline": -5.388888888888914
+  },
+  {
+   "city": "berlin",
+   "year": 2010,
+   "bloom_doy": 126.66666666666667,
+   "days_vs_baseline": 5.277777777777757
+  },
+  {
+   "city": "berlin",
+   "year": 2011,
+   "bloom_doy": 113.33333333333333,
+   "days_vs_baseline": -8.055555555555586
+  },
+  {
+   "city": "berlin",
+   "year": 2012,
+   "bloom_doy": 118.33333333333333,
+   "days_vs_baseline": -3.0555555555555856
+  },
+  {
+   "city": "berlin",
+   "year": 2013,
+   "bloom_doy": 127.33333333333333,
+   "days_vs_baseline": 5.944444444444414
+  },
+  {
+   "city": "berlin",
+   "year": 2014,
+   "bloom_doy": 104.66666666666667,
+   "days_vs_baseline": -16.722222222222243
+  },
+  {
+   "city": "berlin",
+   "year": 2015,
+   "bloom_doy": 124.66666666666667,
+   "days_vs_baseline": 3.2777777777777573
+  },
+  {
+   "city": "berlin",
+   "year": 2016,
+   "bloom_doy": 124.33333333333333,
+   "days_vs_baseline": 2.9444444444444144
+  },
+  {
+   "city": "berlin",
+   "year": 2017,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": 0.9444444444444144
+  },
+  {
+   "city": "berlin",
+   "year": 2018,
+   "bloom_doy": 115.0,
+   "days_vs_baseline": -6.388888888888914
+  },
+  {
+   "city": "berlin",
+   "year": 2019,
+   "bloom_doy": 113.33333333333333,
+   "days_vs_baseline": -8.055555555555586
+  },
+  {
+   "city": "berlin",
+   "year": 2020,
+   "bloom_doy": 115.66666666666667,
+   "days_vs_baseline": -5.722222222222243
+  },
+  {
+   "city": "berlin",
+   "year": 2021,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": 9.944444444444429
+  },
+  {
+   "city": "berlin",
+   "year": 2022,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": 0.9444444444444144
+  },
+  {
+   "city": "berlin",
+   "year": 2023,
+   "bloom_doy": 121.66666666666667,
+   "days_vs_baseline": 0.27777777777775725
+  },
+  {
+   "city": "berlin",
+   "year": 2024,
+   "bloom_doy": 98.66666666666667,
+   "days_vs_baseline": -22.722222222222243
+  },
+  {
+   "city": "berlin",
+   "year": 2025,
+   "bloom_doy": 112.66666666666667,
+   "days_vs_baseline": -8.722222222222243
+  },
+  {
+   "city": "berlin",
+   "year": 2026,
+   "bloom_doy": 122.66666666666667,
+   "days_vs_baseline": 1.2777777777777573
+  },
+  {
+   "city": "hamburg",
+   "year": 1940,
+   "bloom_doy": 138.0,
+   "days_vs_baseline": 15.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1941,
+   "bloom_doy": 150.66666666666666,
+   "days_vs_baseline": 27.93333333333335
+  },
+  {
+   "city": "hamburg",
+   "year": 1942,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": 18.93333333333335
+  },
+  {
+   "city": "hamburg",
+   "year": 1943,
+   "bloom_doy": 119.0,
+   "days_vs_baseline": -3.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 1944,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": 12.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1945,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": -2.3999999999999773
+  },
+  {
+   "city": "hamburg",
+   "year": 1946,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": -0.39999999999997726
+  },
+  {
+   "city": "hamburg",
+   "year": 1947,
+   "bloom_doy": 131.66666666666666,
+   "days_vs_baseline": 8.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1948,
+   "bloom_doy": 118.0,
+   "days_vs_baseline": -4.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 1949,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": -1.3999999999999773
+  },
+  {
+   "city": "hamburg",
+   "year": 1950,
+   "bloom_doy": 127.66666666666667,
+   "days_vs_baseline": 4.9333333333333655
+  },
+  {
+   "city": "hamburg",
+   "year": 1951,
+   "bloom_doy": 139.0,
+   "days_vs_baseline": 16.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1952,
+   "bloom_doy": 126.0,
+   "days_vs_baseline": 3.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1953,
+   "bloom_doy": 124.0,
+   "days_vs_baseline": 1.2666666666666941
+  },
+  {
+   "city": "hamburg",
+   "year": 1954,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": 16.93333333333335
+  },
+  {
+   "city": "hamburg",
+   "year": 1955,
+   "bloom_doy": 144.66666666666666,
+   "days_vs_baseline": 21.93333333333335
+  },
+  {
+   "city": "hamburg",
+   "year": 1956,
+   "bloom_doy": 144.66666666666666,
+   "days_vs_baseline": 21.93333333333335
+  },
+  {
+   "city": "hamburg",
+   "year": 1957,
+   "bloom_doy": 129.66666666666666,
+   "days_vs_baseline": 6.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1958,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": 18.93333333333335
+  },
+  {
+   "city": "hamburg",
+   "year": 1959,
+   "bloom_doy": 118.33333333333333,
+   "days_vs_baseline": -4.399999999999977
+  },
+  {
+   "city": "hamburg",
+   "year": 1960,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": 8.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1961,
+   "bloom_doy": 112.66666666666667,
+   "days_vs_baseline": -10.066666666666634
+  },
+  {
+   "city": "hamburg",
+   "year": 1962,
+   "bloom_doy": 133.66666666666666,
+   "days_vs_baseline": 10.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1963,
+   "bloom_doy": 134.33333333333334,
+   "days_vs_baseline": 11.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1964,
+   "bloom_doy": 133.33333333333334,
+   "days_vs_baseline": 10.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1965,
+   "bloom_doy": 136.0,
+   "days_vs_baseline": 13.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1966,
+   "bloom_doy": 131.0,
+   "days_vs_baseline": 8.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1967,
+   "bloom_doy": 128.0,
+   "days_vs_baseline": 5.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1968,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": -1.3999999999999773
+  },
+  {
+   "city": "hamburg",
+   "year": 1969,
+   "bloom_doy": 136.66666666666666,
+   "days_vs_baseline": 13.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1970,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": 18.93333333333335
+  },
+  {
+   "city": "hamburg",
+   "year": 1971,
+   "bloom_doy": 130.0,
+   "days_vs_baseline": 7.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1972,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": 8.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1973,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": 16.93333333333335
+  },
+  {
+   "city": "hamburg",
+   "year": 1974,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": -0.39999999999997726
+  },
+  {
+   "city": "hamburg",
+   "year": 1975,
+   "bloom_doy": 134.66666666666666,
+   "days_vs_baseline": 11.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1976,
+   "bloom_doy": 132.0,
+   "days_vs_baseline": 9.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1977,
+   "bloom_doy": 134.0,
+   "days_vs_baseline": 11.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1978,
+   "bloom_doy": 138.33333333333334,
+   "days_vs_baseline": 15.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1979,
+   "bloom_doy": 143.33333333333334,
+   "days_vs_baseline": 20.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1980,
+   "bloom_doy": 143.33333333333334,
+   "days_vs_baseline": 20.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1981,
+   "bloom_doy": 129.66666666666666,
+   "days_vs_baseline": 6.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1982,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": 14.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1983,
+   "bloom_doy": 125.66666666666667,
+   "days_vs_baseline": 2.9333333333333655
+  },
+  {
+   "city": "hamburg",
+   "year": 1984,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": 14.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1985,
+   "bloom_doy": 136.0,
+   "days_vs_baseline": 13.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1986,
+   "bloom_doy": 133.66666666666666,
+   "days_vs_baseline": 10.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 1987,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": 12.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1988,
+   "bloom_doy": 129.0,
+   "days_vs_baseline": 6.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1989,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": -1.3999999999999773
+  },
+  {
+   "city": "hamburg",
+   "year": 1990,
+   "bloom_doy": 103.66666666666667,
+   "days_vs_baseline": -19.066666666666634
+  },
+  {
+   "city": "hamburg",
+   "year": 1991,
+   "bloom_doy": 130.33333333333334,
+   "days_vs_baseline": 7.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1992,
+   "bloom_doy": 127.66666666666667,
+   "days_vs_baseline": 4.9333333333333655
+  },
+  {
+   "city": "hamburg",
+   "year": 1993,
+   "bloom_doy": 120.33333333333333,
+   "days_vs_baseline": -2.3999999999999773
+  },
+  {
+   "city": "hamburg",
+   "year": 1994,
+   "bloom_doy": 123.33333333333333,
+   "days_vs_baseline": 0.6000000000000227
+  },
+  {
+   "city": "hamburg",
+   "year": 1995,
+   "bloom_doy": 129.0,
+   "days_vs_baseline": 6.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1996,
+   "bloom_doy": 142.33333333333334,
+   "days_vs_baseline": 19.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 1997,
+   "bloom_doy": 133.0,
+   "days_vs_baseline": 10.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 1998,
+   "bloom_doy": 113.0,
+   "days_vs_baseline": -9.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 1999,
+   "bloom_doy": 119.66666666666667,
+   "days_vs_baseline": -3.0666666666666345
+  },
+  {
+   "city": "hamburg",
+   "year": 2000,
+   "bloom_doy": 120.0,
+   "days_vs_baseline": -2.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 2001,
+   "bloom_doy": 132.0,
+   "days_vs_baseline": 9.266666666666694
+  },
+  {
+   "city": "hamburg",
+   "year": 2002,
+   "bloom_doy": 122.66666666666667,
+   "days_vs_baseline": -0.06666666666663446
+  },
+  {
+   "city": "hamburg",
+   "year": 2003,
+   "bloom_doy": 125.33333333333333,
+   "days_vs_baseline": 2.6000000000000227
+  },
+  {
+   "city": "hamburg",
+   "year": 2004,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": -0.39999999999997726
+  },
+  {
+   "city": "hamburg",
+   "year": 2005,
+   "bloom_doy": 120.66666666666667,
+   "days_vs_baseline": -2.0666666666666345
+  },
+  {
+   "city": "hamburg",
+   "year": 2006,
+   "bloom_doy": 129.66666666666666,
+   "days_vs_baseline": 6.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 2007,
+   "bloom_doy": 103.66666666666667,
+   "days_vs_baseline": -19.066666666666634
+  },
+  {
+   "city": "hamburg",
+   "year": 2008,
+   "bloom_doy": 124.66666666666667,
+   "days_vs_baseline": 1.9333333333333655
+  },
+  {
+   "city": "hamburg",
+   "year": 2009,
+   "bloom_doy": 116.0,
+   "days_vs_baseline": -6.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 2010,
+   "bloom_doy": 132.66666666666666,
+   "days_vs_baseline": 9.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 2011,
+   "bloom_doy": 115.0,
+   "days_vs_baseline": -7.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 2012,
+   "bloom_doy": 120.0,
+   "days_vs_baseline": -2.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 2013,
+   "bloom_doy": 130.66666666666666,
+   "days_vs_baseline": 7.933333333333351
+  },
+  {
+   "city": "hamburg",
+   "year": 2014,
+   "bloom_doy": 105.66666666666667,
+   "days_vs_baseline": -17.066666666666634
+  },
+  {
+   "city": "hamburg",
+   "year": 2015,
+   "bloom_doy": 125.33333333333333,
+   "days_vs_baseline": 2.6000000000000227
+  },
+  {
+   "city": "hamburg",
+   "year": 2016,
+   "bloom_doy": 127.66666666666667,
+   "days_vs_baseline": 4.9333333333333655
+  },
+  {
+   "city": "hamburg",
+   "year": 2017,
+   "bloom_doy": 124.33333333333333,
+   "days_vs_baseline": 1.6000000000000227
+  },
+  {
+   "city": "hamburg",
+   "year": 2018,
+   "bloom_doy": 118.66666666666667,
+   "days_vs_baseline": -4.0666666666666345
+  },
+  {
+   "city": "hamburg",
+   "year": 2019,
+   "bloom_doy": 111.66666666666667,
+   "days_vs_baseline": -11.066666666666634
+  },
+  {
+   "city": "hamburg",
+   "year": 2020,
+   "bloom_doy": 114.66666666666667,
+   "days_vs_baseline": -8.066666666666634
+  },
+  {
+   "city": "hamburg",
+   "year": 2021,
+   "bloom_doy": 133.33333333333334,
+   "days_vs_baseline": 10.600000000000037
+  },
+  {
+   "city": "hamburg",
+   "year": 2022,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": -0.39999999999997726
+  },
+  {
+   "city": "hamburg",
+   "year": 2023,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": -1.3999999999999773
+  },
+  {
+   "city": "hamburg",
+   "year": 2024,
+   "bloom_doy": 98.0,
+   "days_vs_baseline": -24.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 2025,
+   "bloom_doy": 115.0,
+   "days_vs_baseline": -7.733333333333306
+  },
+  {
+   "city": "hamburg",
+   "year": 2026,
+   "bloom_doy": 122.33333333333333,
+   "days_vs_baseline": -0.39999999999997726
+  },
+  {
+   "city": "malmo",
+   "year": 1940,
+   "bloom_doy": 151.0,
+   "days_vs_baseline": 16.18888888888887
+  },
+  {
+   "city": "malmo",
+   "year": 1941,
+   "bloom_doy": 158.66666666666666,
+   "days_vs_baseline": 23.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1942,
+   "bloom_doy": 151.33333333333334,
+   "days_vs_baseline": 16.52222222222221
+  },
+  {
+   "city": "malmo",
+   "year": 1943,
+   "bloom_doy": 130.66666666666666,
+   "days_vs_baseline": -4.144444444444474
+  },
+  {
+   "city": "malmo",
+   "year": 1944,
+   "bloom_doy": 149.66666666666666,
+   "days_vs_baseline": 14.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1945,
+   "bloom_doy": 133.66666666666666,
+   "days_vs_baseline": -1.1444444444444741
+  },
+  {
+   "city": "malmo",
+   "year": 1946,
+   "bloom_doy": 139.33333333333334,
+   "days_vs_baseline": 4.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 1947,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": 6.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1948,
+   "bloom_doy": 132.66666666666666,
+   "days_vs_baseline": -2.144444444444474
+  },
+  {
+   "city": "malmo",
+   "year": 1949,
+   "bloom_doy": 136.66666666666666,
+   "days_vs_baseline": 1.8555555555555259
+  },
+  {
+   "city": "malmo",
+   "year": 1950,
+   "bloom_doy": 134.66666666666666,
+   "days_vs_baseline": -0.14444444444447413
+  },
+  {
+   "city": "malmo",
+   "year": 1951,
+   "bloom_doy": 145.0,
+   "days_vs_baseline": 10.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1952,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": 2.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1953,
+   "bloom_doy": 140.0,
+   "days_vs_baseline": 5.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1954,
+   "bloom_doy": 145.66666666666666,
+   "days_vs_baseline": 10.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1955,
+   "bloom_doy": 155.66666666666666,
+   "days_vs_baseline": 20.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1956,
+   "bloom_doy": 149.66666666666666,
+   "days_vs_baseline": 14.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1957,
+   "bloom_doy": 147.0,
+   "days_vs_baseline": 12.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1958,
+   "bloom_doy": 151.33333333333334,
+   "days_vs_baseline": 16.52222222222221
+  },
+  {
+   "city": "malmo",
+   "year": 1959,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": 0.18888888888886868
+  },
+  {
+   "city": "malmo",
+   "year": 1960,
+   "bloom_doy": 143.0,
+   "days_vs_baseline": 8.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1961,
+   "bloom_doy": 131.0,
+   "days_vs_baseline": -3.8111111111111313
+  },
+  {
+   "city": "malmo",
+   "year": 1962,
+   "bloom_doy": 150.0,
+   "days_vs_baseline": 15.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1963,
+   "bloom_doy": 146.66666666666666,
+   "days_vs_baseline": 11.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1964,
+   "bloom_doy": 145.33333333333334,
+   "days_vs_baseline": 10.522222222222211
+  },
+  {
+   "city": "malmo",
+   "year": 1965,
+   "bloom_doy": 149.33333333333334,
+   "days_vs_baseline": 14.522222222222211
+  },
+  {
+   "city": "malmo",
+   "year": 1966,
+   "bloom_doy": 146.33333333333334,
+   "days_vs_baseline": 11.522222222222211
+  },
+  {
+   "city": "malmo",
+   "year": 1967,
+   "bloom_doy": 143.0,
+   "days_vs_baseline": 8.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1968,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": 6.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1969,
+   "bloom_doy": 149.33333333333334,
+   "days_vs_baseline": 14.522222222222211
+  },
+  {
+   "city": "malmo",
+   "year": 1970,
+   "bloom_doy": 151.66666666666666,
+   "days_vs_baseline": 16.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1971,
+   "bloom_doy": 143.33333333333334,
+   "days_vs_baseline": 8.522222222222211
+  },
+  {
+   "city": "malmo",
+   "year": 1972,
+   "bloom_doy": 144.0,
+   "days_vs_baseline": 9.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1973,
+   "bloom_doy": 142.66666666666666,
+   "days_vs_baseline": 7.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1974,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": 2.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1975,
+   "bloom_doy": 140.0,
+   "days_vs_baseline": 5.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1976,
+   "bloom_doy": 144.33333333333334,
+   "days_vs_baseline": 9.522222222222211
+  },
+  {
+   "city": "malmo",
+   "year": 1977,
+   "bloom_doy": 142.66666666666666,
+   "days_vs_baseline": 7.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1978,
+   "bloom_doy": 147.66666666666666,
+   "days_vs_baseline": 12.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1979,
+   "bloom_doy": 148.66666666666666,
+   "days_vs_baseline": 13.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1980,
+   "bloom_doy": 151.33333333333334,
+   "days_vs_baseline": 16.52222222222221
+  },
+  {
+   "city": "malmo",
+   "year": 1981,
+   "bloom_doy": 140.33333333333334,
+   "days_vs_baseline": 5.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 1982,
+   "bloom_doy": 144.0,
+   "days_vs_baseline": 9.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1983,
+   "bloom_doy": 137.33333333333334,
+   "days_vs_baseline": 2.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 1984,
+   "bloom_doy": 142.0,
+   "days_vs_baseline": 7.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1985,
+   "bloom_doy": 149.0,
+   "days_vs_baseline": 14.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1986,
+   "bloom_doy": 145.33333333333334,
+   "days_vs_baseline": 10.522222222222211
+  },
+  {
+   "city": "malmo",
+   "year": 1987,
+   "bloom_doy": 147.0,
+   "days_vs_baseline": 12.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1988,
+   "bloom_doy": 142.0,
+   "days_vs_baseline": 7.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1989,
+   "bloom_doy": 129.33333333333334,
+   "days_vs_baseline": -5.4777777777777885
+  },
+  {
+   "city": "malmo",
+   "year": 1990,
+   "bloom_doy": 116.66666666666667,
+   "days_vs_baseline": -18.14444444444446
+  },
+  {
+   "city": "malmo",
+   "year": 1991,
+   "bloom_doy": 146.66666666666666,
+   "days_vs_baseline": 11.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1992,
+   "bloom_doy": 139.33333333333334,
+   "days_vs_baseline": 4.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 1993,
+   "bloom_doy": 132.0,
+   "days_vs_baseline": -2.8111111111111313
+  },
+  {
+   "city": "malmo",
+   "year": 1994,
+   "bloom_doy": 134.0,
+   "days_vs_baseline": -0.8111111111111313
+  },
+  {
+   "city": "malmo",
+   "year": 1995,
+   "bloom_doy": 143.0,
+   "days_vs_baseline": 8.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1996,
+   "bloom_doy": 149.66666666666666,
+   "days_vs_baseline": 14.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 1997,
+   "bloom_doy": 146.0,
+   "days_vs_baseline": 11.188888888888869
+  },
+  {
+   "city": "malmo",
+   "year": 1998,
+   "bloom_doy": 131.0,
+   "days_vs_baseline": -3.8111111111111313
+  },
+  {
+   "city": "malmo",
+   "year": 1999,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": 4.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 2000,
+   "bloom_doy": 129.0,
+   "days_vs_baseline": -5.811111111111131
+  },
+  {
+   "city": "malmo",
+   "year": 2001,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": 4.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 2002,
+   "bloom_doy": 131.66666666666666,
+   "days_vs_baseline": -3.144444444444474
+  },
+  {
+   "city": "malmo",
+   "year": 2003,
+   "bloom_doy": 135.66666666666666,
+   "days_vs_baseline": 0.8555555555555259
+  },
+  {
+   "city": "malmo",
+   "year": 2004,
+   "bloom_doy": 132.33333333333334,
+   "days_vs_baseline": -2.4777777777777885
+  },
+  {
+   "city": "malmo",
+   "year": 2005,
+   "bloom_doy": 139.33333333333334,
+   "days_vs_baseline": 4.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 2006,
+   "bloom_doy": 140.33333333333334,
+   "days_vs_baseline": 5.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 2007,
+   "bloom_doy": 117.66666666666667,
+   "days_vs_baseline": -17.14444444444446
+  },
+  {
+   "city": "malmo",
+   "year": 2008,
+   "bloom_doy": 130.33333333333334,
+   "days_vs_baseline": -4.4777777777777885
+  },
+  {
+   "city": "malmo",
+   "year": 2009,
+   "bloom_doy": 134.66666666666666,
+   "days_vs_baseline": -0.14444444444447413
+  },
+  {
+   "city": "malmo",
+   "year": 2010,
+   "bloom_doy": 141.33333333333334,
+   "days_vs_baseline": 6.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 2011,
+   "bloom_doy": 130.66666666666666,
+   "days_vs_baseline": -4.144444444444474
+  },
+  {
+   "city": "malmo",
+   "year": 2012,
+   "bloom_doy": 133.33333333333334,
+   "days_vs_baseline": -1.4777777777777885
+  },
+  {
+   "city": "malmo",
+   "year": 2013,
+   "bloom_doy": 139.33333333333334,
+   "days_vs_baseline": 4.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 2014,
+   "bloom_doy": 123.0,
+   "days_vs_baseline": -11.811111111111131
+  },
+  {
+   "city": "malmo",
+   "year": 2015,
+   "bloom_doy": 132.66666666666666,
+   "days_vs_baseline": -2.144444444444474
+  },
+  {
+   "city": "malmo",
+   "year": 2016,
+   "bloom_doy": 132.33333333333334,
+   "days_vs_baseline": -2.4777777777777885
+  },
+  {
+   "city": "malmo",
+   "year": 2017,
+   "bloom_doy": 137.33333333333334,
+   "days_vs_baseline": 2.5222222222222115
+  },
+  {
+   "city": "malmo",
+   "year": 2018,
+   "bloom_doy": 129.66666666666666,
+   "days_vs_baseline": -5.144444444444474
+  },
+  {
+   "city": "malmo",
+   "year": 2019,
+   "bloom_doy": 127.33333333333333,
+   "days_vs_baseline": -7.477777777777803
+  },
+  {
+   "city": "malmo",
+   "year": 2020,
+   "bloom_doy": 125.33333333333333,
+   "days_vs_baseline": -9.477777777777803
+  },
+  {
+   "city": "malmo",
+   "year": 2021,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": 4.855555555555526
+  },
+  {
+   "city": "malmo",
+   "year": 2022,
+   "bloom_doy": 133.66666666666666,
+   "days_vs_baseline": -1.1444444444444741
+  },
+  {
+   "city": "malmo",
+   "year": 2023,
+   "bloom_doy": 132.33333333333334,
+   "days_vs_baseline": -2.4777777777777885
+  },
+  {
+   "city": "malmo",
+   "year": 2024,
+   "bloom_doy": 126.33333333333333,
+   "days_vs_baseline": -8.477777777777803
+  },
+  {
+   "city": "malmo",
+   "year": 2025,
+   "bloom_doy": 124.33333333333333,
+   "days_vs_baseline": -10.477777777777803
+  },
+  {
+   "city": "malmo",
+   "year": 2026,
+   "bloom_doy": 131.66666666666666,
+   "days_vs_baseline": -3.144444444444474
+  },
+  {
+   "city": "gothenburg",
+   "year": 1940,
+   "bloom_doy": 146.66666666666666,
+   "days_vs_baseline": 6.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1941,
+   "bloom_doy": 151.66666666666666,
+   "days_vs_baseline": 11.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1942,
+   "bloom_doy": 152.33333333333334,
+   "days_vs_baseline": 12.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1943,
+   "bloom_doy": 134.66666666666666,
+   "days_vs_baseline": -5.044444444444451
+  },
+  {
+   "city": "gothenburg",
+   "year": 1944,
+   "bloom_doy": 152.66666666666666,
+   "days_vs_baseline": 12.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1945,
+   "bloom_doy": 140.33333333333334,
+   "days_vs_baseline": 0.6222222222222342
+  },
+  {
+   "city": "gothenburg",
+   "year": 1946,
+   "bloom_doy": 143.33333333333334,
+   "days_vs_baseline": 3.6222222222222342
+  },
+  {
+   "city": "gothenburg",
+   "year": 1947,
+   "bloom_doy": 142.66666666666666,
+   "days_vs_baseline": 2.9555555555555486
+  },
+  {
+   "city": "gothenburg",
+   "year": 1948,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": -4.711111111111109
+  },
+  {
+   "city": "gothenburg",
+   "year": 1949,
+   "bloom_doy": 139.33333333333334,
+   "days_vs_baseline": -0.3777777777777658
+  },
+  {
+   "city": "gothenburg",
+   "year": 1950,
+   "bloom_doy": 137.33333333333334,
+   "days_vs_baseline": -2.3777777777777658
+  },
+  {
+   "city": "gothenburg",
+   "year": 1951,
+   "bloom_doy": 147.66666666666666,
+   "days_vs_baseline": 7.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1952,
+   "bloom_doy": 140.0,
+   "days_vs_baseline": 0.2888888888888914
+  },
+  {
+   "city": "gothenburg",
+   "year": 1953,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": -2.0444444444444514
+  },
+  {
+   "city": "gothenburg",
+   "year": 1954,
+   "bloom_doy": 146.33333333333334,
+   "days_vs_baseline": 6.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1955,
+   "bloom_doy": 158.33333333333334,
+   "days_vs_baseline": 18.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1956,
+   "bloom_doy": 151.0,
+   "days_vs_baseline": 11.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1957,
+   "bloom_doy": 148.0,
+   "days_vs_baseline": 8.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1958,
+   "bloom_doy": 154.0,
+   "days_vs_baseline": 14.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1959,
+   "bloom_doy": 134.0,
+   "days_vs_baseline": -5.711111111111109
+  },
+  {
+   "city": "gothenburg",
+   "year": 1960,
+   "bloom_doy": 139.33333333333334,
+   "days_vs_baseline": -0.3777777777777658
+  },
+  {
+   "city": "gothenburg",
+   "year": 1961,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": -4.711111111111109
+  },
+  {
+   "city": "gothenburg",
+   "year": 1962,
+   "bloom_doy": 154.66666666666666,
+   "days_vs_baseline": 14.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1963,
+   "bloom_doy": 147.33333333333334,
+   "days_vs_baseline": 7.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1964,
+   "bloom_doy": 144.33333333333334,
+   "days_vs_baseline": 4.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1965,
+   "bloom_doy": 152.0,
+   "days_vs_baseline": 12.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1966,
+   "bloom_doy": 152.0,
+   "days_vs_baseline": 12.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1967,
+   "bloom_doy": 147.66666666666666,
+   "days_vs_baseline": 7.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1968,
+   "bloom_doy": 147.0,
+   "days_vs_baseline": 7.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1969,
+   "bloom_doy": 149.33333333333334,
+   "days_vs_baseline": 9.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1970,
+   "bloom_doy": 150.66666666666666,
+   "days_vs_baseline": 10.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1971,
+   "bloom_doy": 146.33333333333334,
+   "days_vs_baseline": 6.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1972,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": 1.9555555555555486
+  },
+  {
+   "city": "gothenburg",
+   "year": 1973,
+   "bloom_doy": 147.33333333333334,
+   "days_vs_baseline": 7.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1974,
+   "bloom_doy": 139.0,
+   "days_vs_baseline": -0.7111111111111086
+  },
+  {
+   "city": "gothenburg",
+   "year": 1975,
+   "bloom_doy": 139.33333333333334,
+   "days_vs_baseline": -0.3777777777777658
+  },
+  {
+   "city": "gothenburg",
+   "year": 1976,
+   "bloom_doy": 146.33333333333334,
+   "days_vs_baseline": 6.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1977,
+   "bloom_doy": 147.66666666666666,
+   "days_vs_baseline": 7.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1978,
+   "bloom_doy": 146.66666666666666,
+   "days_vs_baseline": 6.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1979,
+   "bloom_doy": 151.0,
+   "days_vs_baseline": 11.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1980,
+   "bloom_doy": 147.33333333333334,
+   "days_vs_baseline": 7.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1981,
+   "bloom_doy": 140.33333333333334,
+   "days_vs_baseline": 0.6222222222222342
+  },
+  {
+   "city": "gothenburg",
+   "year": 1982,
+   "bloom_doy": 148.0,
+   "days_vs_baseline": 8.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1983,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": -0.04444444444445139
+  },
+  {
+   "city": "gothenburg",
+   "year": 1984,
+   "bloom_doy": 142.66666666666666,
+   "days_vs_baseline": 2.9555555555555486
+  },
+  {
+   "city": "gothenburg",
+   "year": 1985,
+   "bloom_doy": 148.0,
+   "days_vs_baseline": 8.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1986,
+   "bloom_doy": 145.33333333333334,
+   "days_vs_baseline": 5.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 1987,
+   "bloom_doy": 149.66666666666666,
+   "days_vs_baseline": 9.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1988,
+   "bloom_doy": 144.66666666666666,
+   "days_vs_baseline": 4.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1989,
+   "bloom_doy": 135.0,
+   "days_vs_baseline": -4.711111111111109
+  },
+  {
+   "city": "gothenburg",
+   "year": 1990,
+   "bloom_doy": 121.33333333333333,
+   "days_vs_baseline": -18.37777777777778
+  },
+  {
+   "city": "gothenburg",
+   "year": 1991,
+   "bloom_doy": 150.0,
+   "days_vs_baseline": 10.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1992,
+   "bloom_doy": 144.0,
+   "days_vs_baseline": 4.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1993,
+   "bloom_doy": 130.66666666666666,
+   "days_vs_baseline": -9.044444444444451
+  },
+  {
+   "city": "gothenburg",
+   "year": 1994,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": -2.0444444444444514
+  },
+  {
+   "city": "gothenburg",
+   "year": 1995,
+   "bloom_doy": 150.66666666666666,
+   "days_vs_baseline": 10.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 1996,
+   "bloom_doy": 153.0,
+   "days_vs_baseline": 13.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1997,
+   "bloom_doy": 149.0,
+   "days_vs_baseline": 9.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 1998,
+   "bloom_doy": 135.33333333333334,
+   "days_vs_baseline": -4.377777777777766
+  },
+  {
+   "city": "gothenburg",
+   "year": 1999,
+   "bloom_doy": 142.66666666666666,
+   "days_vs_baseline": 2.9555555555555486
+  },
+  {
+   "city": "gothenburg",
+   "year": 2000,
+   "bloom_doy": 130.33333333333334,
+   "days_vs_baseline": -9.377777777777766
+  },
+  {
+   "city": "gothenburg",
+   "year": 2001,
+   "bloom_doy": 145.0,
+   "days_vs_baseline": 5.288888888888891
+  },
+  {
+   "city": "gothenburg",
+   "year": 2002,
+   "bloom_doy": 132.0,
+   "days_vs_baseline": -7.711111111111109
+  },
+  {
+   "city": "gothenburg",
+   "year": 2003,
+   "bloom_doy": 143.66666666666666,
+   "days_vs_baseline": 3.9555555555555486
+  },
+  {
+   "city": "gothenburg",
+   "year": 2004,
+   "bloom_doy": 130.66666666666666,
+   "days_vs_baseline": -9.044444444444451
+  },
+  {
+   "city": "gothenburg",
+   "year": 2005,
+   "bloom_doy": 143.66666666666666,
+   "days_vs_baseline": 3.9555555555555486
+  },
+  {
+   "city": "gothenburg",
+   "year": 2006,
+   "bloom_doy": 144.66666666666666,
+   "days_vs_baseline": 4.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 2007,
+   "bloom_doy": 126.33333333333333,
+   "days_vs_baseline": -13.37777777777778
+  },
+  {
+   "city": "gothenburg",
+   "year": 2008,
+   "bloom_doy": 132.66666666666666,
+   "days_vs_baseline": -7.044444444444451
+  },
+  {
+   "city": "gothenburg",
+   "year": 2009,
+   "bloom_doy": 135.66666666666666,
+   "days_vs_baseline": -4.044444444444451
+  },
+  {
+   "city": "gothenburg",
+   "year": 2010,
+   "bloom_doy": 144.33333333333334,
+   "days_vs_baseline": 4.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 2011,
+   "bloom_doy": 133.33333333333334,
+   "days_vs_baseline": -6.377777777777766
+  },
+  {
+   "city": "gothenburg",
+   "year": 2012,
+   "bloom_doy": 142.0,
+   "days_vs_baseline": 2.2888888888888914
+  },
+  {
+   "city": "gothenburg",
+   "year": 2013,
+   "bloom_doy": 144.33333333333334,
+   "days_vs_baseline": 4.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 2014,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": -8.377777777777766
+  },
+  {
+   "city": "gothenburg",
+   "year": 2015,
+   "bloom_doy": 145.66666666666666,
+   "days_vs_baseline": 5.955555555555549
+  },
+  {
+   "city": "gothenburg",
+   "year": 2016,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": -2.0444444444444514
+  },
+  {
+   "city": "gothenburg",
+   "year": 2017,
+   "bloom_doy": 143.66666666666666,
+   "days_vs_baseline": 3.9555555555555486
+  },
+  {
+   "city": "gothenburg",
+   "year": 2018,
+   "bloom_doy": 134.66666666666666,
+   "days_vs_baseline": -5.044444444444451
+  },
+  {
+   "city": "gothenburg",
+   "year": 2019,
+   "bloom_doy": 134.33333333333334,
+   "days_vs_baseline": -5.377777777777766
+  },
+  {
+   "city": "gothenburg",
+   "year": 2020,
+   "bloom_doy": 142.33333333333334,
+   "days_vs_baseline": 2.6222222222222342
+  },
+  {
+   "city": "gothenburg",
+   "year": 2021,
+   "bloom_doy": 146.33333333333334,
+   "days_vs_baseline": 6.622222222222234
+  },
+  {
+   "city": "gothenburg",
+   "year": 2022,
+   "bloom_doy": 139.0,
+   "days_vs_baseline": -0.7111111111111086
+  },
+  {
+   "city": "gothenburg",
+   "year": 2023,
+   "bloom_doy": 136.66666666666666,
+   "days_vs_baseline": -3.0444444444444514
+  },
+  {
+   "city": "gothenburg",
+   "year": 2024,
+   "bloom_doy": 133.66666666666666,
+   "days_vs_baseline": -6.044444444444451
+  },
+  {
+   "city": "gothenburg",
+   "year": 2025,
+   "bloom_doy": 131.33333333333334,
+   "days_vs_baseline": -8.377777777777766
+  },
+  {
+   "city": "gothenburg",
+   "year": 2026,
+   "bloom_doy": 139.66666666666666,
+   "days_vs_baseline": -0.04444444444445139
+  },
+  {
+   "city": "stockholm",
+   "year": 1940,
+   "bloom_doy": 155.33333333333334,
+   "days_vs_baseline": 7.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1941,
+   "bloom_doy": 162.33333333333334,
+   "days_vs_baseline": 14.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1942,
+   "bloom_doy": 158.66666666666666,
+   "days_vs_baseline": 10.5555555555556
+  },
+  {
+   "city": "stockholm",
+   "year": 1943,
+   "bloom_doy": 140.66666666666666,
+   "days_vs_baseline": -7.4444444444444
+  },
+  {
+   "city": "stockholm",
+   "year": 1944,
+   "bloom_doy": 159.33333333333334,
+   "days_vs_baseline": 11.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1945,
+   "bloom_doy": 150.33333333333334,
+   "days_vs_baseline": 2.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 1946,
+   "bloom_doy": 149.33333333333334,
+   "days_vs_baseline": 1.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 1947,
+   "bloom_doy": 148.0,
+   "days_vs_baseline": -0.11111111111105743
+  },
+  {
+   "city": "stockholm",
+   "year": 1948,
+   "bloom_doy": 146.66666666666666,
+   "days_vs_baseline": -1.4444444444444002
+  },
+  {
+   "city": "stockholm",
+   "year": 1949,
+   "bloom_doy": 142.66666666666666,
+   "days_vs_baseline": -5.4444444444444
+  },
+  {
+   "city": "stockholm",
+   "year": 1950,
+   "bloom_doy": 147.33333333333334,
+   "days_vs_baseline": -0.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 1951,
+   "bloom_doy": 159.0,
+   "days_vs_baseline": 10.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1952,
+   "bloom_doy": 153.33333333333334,
+   "days_vs_baseline": 5.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1953,
+   "bloom_doy": 143.0,
+   "days_vs_baseline": -5.111111111111057
+  },
+  {
+   "city": "stockholm",
+   "year": 1954,
+   "bloom_doy": 153.66666666666666,
+   "days_vs_baseline": 5.5555555555556
+  },
+  {
+   "city": "stockholm",
+   "year": 1955,
+   "bloom_doy": 165.33333333333334,
+   "days_vs_baseline": 17.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1956,
+   "bloom_doy": 155.66666666666666,
+   "days_vs_baseline": 7.5555555555556
+  },
+  {
+   "city": "stockholm",
+   "year": 1957,
+   "bloom_doy": 155.0,
+   "days_vs_baseline": 6.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1958,
+   "bloom_doy": 158.33333333333334,
+   "days_vs_baseline": 10.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1959,
+   "bloom_doy": 147.33333333333334,
+   "days_vs_baseline": -0.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 1960,
+   "bloom_doy": 151.33333333333334,
+   "days_vs_baseline": 3.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 1961,
+   "bloom_doy": 148.66666666666666,
+   "days_vs_baseline": 0.5555555555555998
+  },
+  {
+   "city": "stockholm",
+   "year": 1962,
+   "bloom_doy": 160.66666666666666,
+   "days_vs_baseline": 12.5555555555556
+  },
+  {
+   "city": "stockholm",
+   "year": 1963,
+   "bloom_doy": 149.33333333333334,
+   "days_vs_baseline": 1.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 1964,
+   "bloom_doy": 148.0,
+   "days_vs_baseline": -0.11111111111105743
+  },
+  {
+   "city": "stockholm",
+   "year": 1965,
+   "bloom_doy": 158.33333333333334,
+   "days_vs_baseline": 10.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1966,
+   "bloom_doy": 155.0,
+   "days_vs_baseline": 6.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1967,
+   "bloom_doy": 154.66666666666666,
+   "days_vs_baseline": 6.5555555555556
+  },
+  {
+   "city": "stockholm",
+   "year": 1968,
+   "bloom_doy": 152.33333333333334,
+   "days_vs_baseline": 4.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1969,
+   "bloom_doy": 156.33333333333334,
+   "days_vs_baseline": 8.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1970,
+   "bloom_doy": 156.33333333333334,
+   "days_vs_baseline": 8.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1971,
+   "bloom_doy": 153.33333333333334,
+   "days_vs_baseline": 5.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1972,
+   "bloom_doy": 158.33333333333334,
+   "days_vs_baseline": 10.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1973,
+   "bloom_doy": 152.33333333333334,
+   "days_vs_baseline": 4.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1974,
+   "bloom_doy": 158.0,
+   "days_vs_baseline": 9.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1975,
+   "bloom_doy": 146.0,
+   "days_vs_baseline": -2.1111111111110574
+  },
+  {
+   "city": "stockholm",
+   "year": 1976,
+   "bloom_doy": 155.66666666666666,
+   "days_vs_baseline": 7.5555555555556
+  },
+  {
+   "city": "stockholm",
+   "year": 1977,
+   "bloom_doy": 157.0,
+   "days_vs_baseline": 8.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1978,
+   "bloom_doy": 155.33333333333334,
+   "days_vs_baseline": 7.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1979,
+   "bloom_doy": 152.0,
+   "days_vs_baseline": 3.8888888888889426
+  },
+  {
+   "city": "stockholm",
+   "year": 1980,
+   "bloom_doy": 156.0,
+   "days_vs_baseline": 7.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1981,
+   "bloom_doy": 150.0,
+   "days_vs_baseline": 1.8888888888889426
+  },
+  {
+   "city": "stockholm",
+   "year": 1982,
+   "bloom_doy": 150.33333333333334,
+   "days_vs_baseline": 2.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 1983,
+   "bloom_doy": 150.33333333333334,
+   "days_vs_baseline": 2.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 1984,
+   "bloom_doy": 147.0,
+   "days_vs_baseline": -1.1111111111110574
+  },
+  {
+   "city": "stockholm",
+   "year": 1985,
+   "bloom_doy": 156.66666666666666,
+   "days_vs_baseline": 8.5555555555556
+  },
+  {
+   "city": "stockholm",
+   "year": 1986,
+   "bloom_doy": 147.66666666666666,
+   "days_vs_baseline": -0.44444444444440023
+  },
+  {
+   "city": "stockholm",
+   "year": 1987,
+   "bloom_doy": 159.33333333333334,
+   "days_vs_baseline": 11.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1988,
+   "bloom_doy": 151.33333333333334,
+   "days_vs_baseline": 3.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 1989,
+   "bloom_doy": 142.0,
+   "days_vs_baseline": -6.111111111111057
+  },
+  {
+   "city": "stockholm",
+   "year": 1990,
+   "bloom_doy": 130.66666666666666,
+   "days_vs_baseline": -17.4444444444444
+  },
+  {
+   "city": "stockholm",
+   "year": 1991,
+   "bloom_doy": 161.0,
+   "days_vs_baseline": 12.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1992,
+   "bloom_doy": 147.33333333333334,
+   "days_vs_baseline": -0.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 1993,
+   "bloom_doy": 140.0,
+   "days_vs_baseline": -8.111111111111057
+  },
+  {
+   "city": "stockholm",
+   "year": 1994,
+   "bloom_doy": 152.33333333333334,
+   "days_vs_baseline": 4.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1995,
+   "bloom_doy": 156.66666666666666,
+   "days_vs_baseline": 8.5555555555556
+  },
+  {
+   "city": "stockholm",
+   "year": 1996,
+   "bloom_doy": 157.33333333333334,
+   "days_vs_baseline": 9.222222222222285
+  },
+  {
+   "city": "stockholm",
+   "year": 1997,
+   "bloom_doy": 158.0,
+   "days_vs_baseline": 9.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1998,
+   "bloom_doy": 153.0,
+   "days_vs_baseline": 4.888888888888943
+  },
+  {
+   "city": "stockholm",
+   "year": 1999,
+   "bloom_doy": 150.33333333333334,
+   "days_vs_baseline": 2.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 2000,
+   "bloom_doy": 145.33333333333334,
+   "days_vs_baseline": -2.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 2001,
+   "bloom_doy": 149.33333333333334,
+   "days_vs_baseline": 1.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 2002,
+   "bloom_doy": 142.33333333333334,
+   "days_vs_baseline": -5.777777777777715
+  },
+  {
+   "city": "stockholm",
+   "year": 2003,
+   "bloom_doy": 148.33333333333334,
+   "days_vs_baseline": 0.22222222222228538
+  },
+  {
+   "city": "stockholm",
+   "year": 2004,
+   "bloom_doy": 149.66666666666666,
+   "days_vs_baseline": 1.5555555555555998
+  },
+  {
+   "city": "stockholm",
+   "year": 2005,
+   "bloom_doy": 149.33333333333334,
+   "days_vs_baseline": 1.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 2006,
+   "bloom_doy": 149.0,
+   "days_vs_baseline": 0.8888888888889426
+  },
+  {
+   "city": "stockholm",
+   "year": 2007,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": -6.4444444444444
+  },
+  {
+   "city": "stockholm",
+   "year": 2008,
+   "bloom_doy": 144.66666666666666,
+   "days_vs_baseline": -3.4444444444444002
+  },
+  {
+   "city": "stockholm",
+   "year": 2009,
+   "bloom_doy": 145.33333333333334,
+   "days_vs_baseline": -2.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 2010,
+   "bloom_doy": 149.33333333333334,
+   "days_vs_baseline": 1.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 2011,
+   "bloom_doy": 141.66666666666666,
+   "days_vs_baseline": -6.4444444444444
+  },
+  {
+   "city": "stockholm",
+   "year": 2012,
+   "bloom_doy": 146.33333333333334,
+   "days_vs_baseline": -1.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 2013,
+   "bloom_doy": 145.33333333333334,
+   "days_vs_baseline": -2.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 2014,
+   "bloom_doy": 144.0,
+   "days_vs_baseline": -4.111111111111057
+  },
+  {
+   "city": "stockholm",
+   "year": 2015,
+   "bloom_doy": 146.66666666666666,
+   "days_vs_baseline": -1.4444444444444002
+  },
+  {
+   "city": "stockholm",
+   "year": 2016,
+   "bloom_doy": 144.66666666666666,
+   "days_vs_baseline": -3.4444444444444002
+  },
+  {
+   "city": "stockholm",
+   "year": 2017,
+   "bloom_doy": 152.0,
+   "days_vs_baseline": 3.8888888888889426
+  },
+  {
+   "city": "stockholm",
+   "year": 2018,
+   "bloom_doy": 137.66666666666666,
+   "days_vs_baseline": -10.4444444444444
+  },
+  {
+   "city": "stockholm",
+   "year": 2019,
+   "bloom_doy": 144.33333333333334,
+   "days_vs_baseline": -3.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 2020,
+   "bloom_doy": 150.33333333333334,
+   "days_vs_baseline": 2.2222222222222854
+  },
+  {
+   "city": "stockholm",
+   "year": 2021,
+   "bloom_doy": 151.0,
+   "days_vs_baseline": 2.8888888888889426
+  },
+  {
+   "city": "stockholm",
+   "year": 2022,
+   "bloom_doy": 147.66666666666666,
+   "days_vs_baseline": -0.44444444444440023
+  },
+  {
+   "city": "stockholm",
+   "year": 2023,
+   "bloom_doy": 147.66666666666666,
+   "days_vs_baseline": -0.44444444444440023
+  },
+  {
+   "city": "stockholm",
+   "year": 2024,
+   "bloom_doy": 146.33333333333334,
+   "days_vs_baseline": -1.7777777777777146
+  },
+  {
+   "city": "stockholm",
+   "year": 2025,
+   "bloom_doy": 142.66666666666666,
+   "days_vs_baseline": -5.4444444444444
+  },
+  {
+   "city": "stockholm",
+   "year": 2026,
+   "bloom_doy": 142.0,
+   "days_vs_baseline": -6.111111111111057
+  }
+ ]
+}
