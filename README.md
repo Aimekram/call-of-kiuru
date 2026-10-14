@@ -20,11 +20,11 @@ figure based on first leaf is therefore not the same measure as ours.
 
 ## Status
 
-**There is no site yet.** What exists is the model, a test of it against
-observed lilac bloom, a test that it matches the reference implementation,
-and the pipeline that computes each city's numbers
-([data/bloom.json](data/bloom.json)). The build plan is in
-[PLAN.md](PLAN.md).
+**The site is not online yet.** What exists is the model, a test of it
+against observed lilac bloom, a test that it matches the reference
+implementation, the pipeline that computes each city's numbers
+([data/bloom.json](data/bloom.json)), and a generator for the first pages.
+The build plan is in [PLAN.md](PLAN.md).
 
 ## What has been checked
 
@@ -117,6 +117,16 @@ rewrites `data/bloom.json`. Add `--rebuild` to recompute every year since
 1940, or `--offline` to use the downloads already on disk. `python -m pipeline.check_recent` compares the years after 2024 with
 German lilac observations.
 
+**Build the site** from those numbers and look at it:
+
+```bash
+python -m pipeline.build_site
+python -m http.server --directory site/dist
+```
+
+Then open http://localhost:8000. Opening the files directly does not work:
+the links point at folders, which only a server resolves.
+
 **Regenerate the USA-NPN reference** (about 5 minutes, needs network):
 
 ```bash
@@ -132,6 +142,10 @@ pipeline/
   locations.json         the cities
   era5.py, bloom.py      temperature loading and the calculation
   check_recent.py        years after the validation period vs observations
+  build_site.py          turns data/bloom.json into the static site
+site/
+  templates/, static/    page templates, stylesheet, table sorter
+  dist/                  the built site (not in the repository)
 run_bloom_test.py        the validation: model vs observed lilac bloom
 plot_bloom_test.py       charts of the result
 validation/

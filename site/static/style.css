@@ -1,0 +1,15 @@
+/* Legibility only. The design comes later. */
+:root { color-scheme: light dark; }
+body { font-family: system-ui, sans-serif; line-height: 1.5; max-width: 44rem; margin: 0 auto; padding: 1rem; }
+table { border-collapse: collapse; width: 100%; }
+caption { text-align: left; font-weight: bold; padding: 0.5rem 0; }
+th, td { text-align: left; padding: 0.3rem 0.75rem 0.3rem 0; border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent); }
+thead th { cursor: default; }
+thead th button { all: unset; cursor: pointer; font-weight: bold; }
+thead th button:focus-visible { outline: 2px solid; outline-offset: 2px; }
+.headline { font-size: 1.4rem; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
+dt { font-weight: bold; }
+dd { margin: 0; }
+footer { margin-top: 3rem; font-size: 0.9rem; }
+footer h2 { font-size: 1rem; }

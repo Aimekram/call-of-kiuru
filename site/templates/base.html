@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% endblock %}</title>
+<meta name="description" content="{% block description %}{% endblock %}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ self.description() }}">
+<link rel="stylesheet" href="{{ root }}static/style.css">
+</head>
+<body>
+<header>
+<p><a href="{{ root }}">{{ site_name }}</a></p>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer>
+<h2>What this number is</h2>
+<p>The start of spring shown here is a model result, not an observation. It is the first-bloom index of the Extended Spring Indices (SI-x), a published model that estimates from daily temperatures when early-spring plants such as lilac and honeysuckle first bloom. Each city is compared with the model's own {{ baseline }} average for that city.</p>
+<p>Temperatures come from the ERA5 reanalysis, which arrives about five days late. {{ attribution }}</p>
+<p>Updated {{ updated }}.</p>
+</footer>
+<script src="{{ root }}static/sort.js" defer></script>
+</body>
+</html>

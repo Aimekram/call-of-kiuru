@@ -48,3 +48,6 @@ data/cache/
 
 # OS
 .DS_Store
+
+# Built site
+site/dist/

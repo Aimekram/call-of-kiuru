@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}How the {{ baseline }} average is worked out – {{ site_name }}{% endblock %}
+{% block description %}How each city's {{ baseline }} average start of spring is calculated, and why those 30 years.{% endblock %}
+{% block content %}
+<h1>How the average is worked out</h1>
+<p>Every page compares a city's start of spring with that city's {{ baseline }} average. This is how the average is calculated and why it covers those years.</p>
+<h2>The calculation</h2>
+<ol>
+<li>For each of the {{ baseline_length }} years in {{ baseline }}, the model gives the city a start-of-spring day from that year's temperatures. Days are counted from 1 January, which is day 1.</li>
+<li>The average is the plain mean of those {{ baseline_length }} days.</li>
+<li>A year's "days from average" is its own day minus that average. A minus sign means earlier, a plus sign later.</li>
+</ol>
+<p>The average is of the model's own results, not of observed bloom. Both sides of the comparison come from the same model and the same temperature data, so an error that is the same every year cancels out.</p>
+<table>
+<caption>{{ baseline }} average start of spring, earliest first</caption>
+<thead>
+<tr>
+<th scope="col">City</th>
+<th scope="col">Average day of the year</th>
+<th scope="col">Shown as</th>
+</tr>
+</thead>
+<tbody>
+{% for city in cities %}
+<tr>
+<th scope="row"><a href="{{ root }}{{ city.slug }}/">{{ city.name }}</a></th>
+<td>{{ city.usual_day }}</td>
+<td>{{ city.usual_date }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<h2>Why the date says "around"</h2>
+<p>The average is rarely a whole day, so pages show the nearest whole day, as a date in a 365-day year. In a leap year the same day of the year falls one calendar date earlier.</p>
+<p>Differences are calculated from the unrounded days, not from the dates shown. A date and its difference can therefore look one day apart.</p>
+<h2>Why {{ baseline }}</h2>
+<ul>
+<li>It is the World Meteorological Organization's current <a target="_blank" rel="noopener" href="https://community.wmo.int/site/knowledge-hub/programmes-and-initiatives/climate-services/wmo-climatological-normals">climatological standard normal</a>: the most recent 30 years ending in a year that ends in 0.</li>
+<li>The USA National Phenology Network compares against the same years in its <a target="_blank" rel="noopener" href="https://www.usanpn.org/data/maps/spring">maps of spring in the United States</a>. Its averages come from different temperature data.</li>
+</ul>
+<p>It is a recent period, and spring already came earlier in it than before. In the model, the {{ earlier }} average falls {{ earlier_gap_least }} to {{ earlier_gap_most }} days later than the {{ baseline }} one in these cities. "The same as average" means the same as a recent spring, not an earlier one. The World Meteorological Organization keeps 1961–1990 as its reference period for long-term climate change.</p>
+<p>The model has been checked against observed lilac bloom from 1951 in Germany and from 2008 in Sweden. The Swedish averages for {{ earlier }} are therefore untested.</p>
+<p>Those observations are based on data from <a target="_blank" rel="noopener" href="https://opendata.dwd.de/">Deutscher Wetterdienst</a> (CC BY 4.0) and from <a target="_blank" rel="noopener" href="https://researchdata.se/en/catalogue/dataset/2022-86-1">SLU Naturens Kalender</a> (CC0).</p>
+<p><a href="{{ root }}">All cities</a></p>
+{% endblock %}
