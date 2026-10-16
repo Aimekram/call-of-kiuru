@@ -12,7 +12,7 @@ Anomalies are computed as in run_bloom_test.py: each city's mean is removed
 from model and observations separately.
 
 Usage:
-    python plot_bloom_test.py journal/screenshots/YYYY-MM-DD-name.png [--chart uncertainty]
+    python plot_bloom_test.py ../call-of-kiuru-docs/journal/screenshots/YYYY-MM-DD-name.png [--chart uncertainty]
 """
 
 import argparse

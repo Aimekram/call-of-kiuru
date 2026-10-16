@@ -52,9 +52,8 @@ Limits:
 - The implementation test shows agreement with USA-NPN's code, not with the
   papers that define the model.
 
-Full results: [docs/bloom_multiyear.md](docs/bloom_multiyear.md). What was
-claimed, what held up and what is still unverified:
-[docs/validation_audit.md](docs/validation_audit.md).
+The full results and an audit of what was claimed, what held up and what
+is still unverified are kept in a private repository for now.
 
 ## Run it
 
@@ -97,7 +96,8 @@ runs for the cities whose ERA5 download is present and is skipped otherwise.
 
    It downloads the lilac observations (about 60 MB) and ERA5 temperatures
    for the 8 cities (about 5 MB and 90 seconds each), then writes
-   `docs/bloom_multiyear.md` and `data/bloom_multiyear.csv`.
+   `data/bloom_multiyear.csv` and a report, `bloom_multiyear.md`, into
+   `../call-of-kiuru-docs/docs/` (the private docs repo, if you have it).
 
 **Draw the charts** from that result:
 
@@ -158,8 +158,6 @@ tests/
   test_si_x_matches_usanpn.py   our model vs USA-NPN's code
   test_pipeline.py              the pipeline's output vs the same reference
   make_usanpn_reference.py      produces the reference days in tests/fixtures/
-docs/                    results, audit, research on data sources
-journal/                 dated build log, with charts in journal/screenshots/
 data/bloom.json          the pipeline's output
 data/                    downloads and working files (not in the repository)
 ```

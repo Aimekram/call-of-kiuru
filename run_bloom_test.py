@@ -39,7 +39,8 @@ from validation.config import BASE_DIR, DATA_DIR, VALIDATION_LOCATIONS
 from validation.reference_fetch import NETWORKS, build_bloom_references
 from validation.si_x_model import predict_spring_index
 
-REPORT_FILE = BASE_DIR / "docs" / "bloom_multiyear.md"
+# The report goes to the private docs repo, a sibling of this one.
+REPORT_FILE = BASE_DIR.parent / "call-of-kiuru-docs" / "docs" / "bloom_multiyear.md"
 
 # ERA5 is fetched from its first year whatever the test period, so the same
 # download serves the pipeline's baseline and trend chart.

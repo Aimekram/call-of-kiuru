@@ -99,8 +99,8 @@ so pages and data never drift apart.
 ## 3. Model validation
 
 **Result (2026-10-11).** SI-x bloom vs observed lilac first bloom, every
-year each network covers, nothing fitted (`docs/bloom_multiyear.md`,
-`run_bloom_test.py`). Correlation and error are for anomalies, which is
+year each network covers, nothing fitted (`bloom_multiyear.md` in the
+docs repo, `run_bloom_test.py`). Correlation and error are for anomalies, which is
 what the app shows; intervals are 95%.
 
 | | Springs | Correlation | Error vs normal-year | RMSE, bias |
@@ -152,7 +152,7 @@ with USA-NPN's own code at a pinned version: identical on all 680 ERA5
 city-years (8 cities, 1940–2024) and on 512 synthetic series, 7,152 days in
 all. The test shows we compute what USA-NPN's map function computes; that
 this function is the model of the papers rests on USA-NPN
-(`docs/validation_audit.md` has the detail). Three known differences from
+(`validation_audit.md` in the docs repo has the detail). Three known differences from
 what USA-NPN publishes, none of them a change to the model:
 - We keep the three-plant average as it comes out, with decimals. USA-NPN's
   maps store it as a whole day.
@@ -181,15 +181,16 @@ methodology page says "within about a week for a single lilac".
 - If the model fails there, don't launch there, or show a categorical badge
   ("earlier / typical / later") instead of days.
 
-**Reference data** (detail in `docs/reference_data_research.md`):
+**Reference data** (detail in `reference_data_research.md`, docs repo):
 - In use: DWD, Germany (CC BY 4.0); SLU Naturens Kalender, Sweden (CC0,
   programme observers only).
 - PEP725: licence per dataset since May 2026, no longer non-commercial
   only. The route to a third zone; request deferred until after the MVP.
 - No open lilac data: UK, Switzerland, Czechia, the Mediterranean.
 
-Evidence lives in `docs/bloom_multiyear.md` (generated) and
-`docs/validation_audit.md` (what was claimed, what held up).
+Evidence lives in the private docs repo (`../call-of-kiuru-docs/docs/`):
+`bloom_multiyear.md` (generated) and `validation_audit.md` (what was
+claimed, what held up).
 
 ---
 
@@ -202,8 +203,10 @@ scripts; the target layout is:
 /pipeline    → Python: CDS pull, SI-x model, results JSON, static page generation
 /site        → static HTML/CSS/vanilla TS (static hosting, provider to be chosen)
 /.github/workflows/daily.yml → the scheduled job
-/docs, /journal → validation evidence and the build log
 ```
+
+`docs/` (validation evidence) and `journal/` (the build log) are in a
+private sibling repo, `call-of-kiuru-docs`.
 
 **Accounts for the MVP:**
 - Copernicus CDS (done). The API token goes in a GitHub Actions secret,
@@ -243,10 +246,11 @@ the only place numbers are rounded, to whole days (the averages on the
 method page to one decimal).
 
 Still to build, in order:
-1. Deploy as it is on `callofkiuru.eu`: code public (MIT), data, docs and
-   journal moved to a private repo first. Indexed from day one, each page
-   with its canonical URL on the domain. Design then iterates on the live
-   site, and going public is the build-in-public day 0.
+1. Deploy as it is on `callofkiuru.eu`: code (MIT) and data public, docs
+   and journal moved to a private repo first (done 2026-10-15). Indexed
+   from day one, each page with its canonical URL on the domain. Design
+   then iterates on the live site, and going public is the build-in-public
+   day 0.
 2. Daily job (§2 step 7), which takes over the redeploys.
 3. Trend chart on each city page.
 4. Methodology page: the average is explained (`method/`); the validation
@@ -267,8 +271,9 @@ To settle with the design:
 - The difference is rounded from the unrounded value, and each date is
   rounded on its own, so the two can look a day apart: Hamburg 2026 shows
   2 May against an average of 3 May, and a difference of 0 (it is −0.4).
-- The site cannot link to the validation documents while the GitHub
-  repository is private (resolved by step 1).
+- The site cannot link to the validation documents: they are in the
+  private docs repo. The methodology page (step 4) has to carry the
+  evidence itself.
 
 ---
 
@@ -333,7 +338,8 @@ Two requests to send once the site is live:
 
 ## 9. Building-in-public journey log
 
-- One dated file per entry under `/journal/`, written as things happen: a
+- One dated file per entry under `journal/` in the private docs repo,
+  written as things happen: a
   validation run, a bug fixed, a chart first rendering, a decision.
   `CLAUDE.md` has the format.
 - Screenshots alongside the entry they belong to.

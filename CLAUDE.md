@@ -5,9 +5,13 @@ Guidance for Claude Code when working in this repo. See `README.md` for setup an
 
 ## Journey log — keep this updated as you work
 
-This project is being built in public. The `/journal/` directory is raw material
+This project is being built in public. The journal is raw material
 for Instagram and atproto/Bluesky posts (PLAN.md §7) — it captures the actual
 process of building Call of Kiuru, not just the finished result.
+
+The journal and `docs/` live in the private sibling repo
+`../call-of-kiuru-docs/`, not here: write and commit them there. Paths below
+are relative to that repo.
 
 **Write an entry when something happens, not at the end of a session.** Good
 triggers: a validation run completes (pass or fail), a model parameter gets
