@@ -27,7 +27,7 @@ database, cities outside the validated zones, leaf-out and other events.
 **Before bloom, the page says "not yet".** SI-x gives a bloom date only
 once the year's weather has reached it. Until then the page shows the usual
 date and last year's result. A forecast would need a published method; we
-don't invent one.
+don't invent one (USA-NPN's goes 6 days ahead, see §6).
 
 **Timing (proposed): live before March 2027.** The number only moves in
 spring, and the earliest modelled bloom in the test is late March (Cologne
@@ -240,10 +240,15 @@ the only place numbers are rounded, to whole days (the averages on the
 method page to one decimal).
 
 Still to build, in order:
-1. Trend chart on each city page.
-2. Methodology page: the average is explained (`method/`); the validation
+1. Deploy as it is: repo public (licence chosen first), `site/dist/` on
+   Cloudflare Pages, `noindex` and unannounced until launch. Design then
+   iterates on the live site, and going public is the build-in-public
+   day 0.
+2. Daily job (§2 step 7), which takes over the redeploys.
+3. Trend chart on each city page.
+4. Methodology page: the average is explained (`method/`); the validation
    evidence and its limits are still to add.
-3. Share-card images and the design.
+5. Share-card images and the design.
 
 Decided:
 - Plain JavaScript, not TypeScript: the only script is a table sorter, and
@@ -260,7 +265,7 @@ To settle with the design:
   rounded on its own, so the two can look a day apart: Hamburg 2026 shows
   2 May against an average of 3 May, and a difference of 0 (it is −0.4).
 - The site cannot link to the validation documents while the GitHub
-  repository is private.
+  repository is private (resolved by step 1).
 
 ---
 
@@ -282,6 +287,16 @@ In rough order:
 6. **Coverage beyond a city list.** USA-NPN models a continuous grid and
    tells its story through a curated set of cities. Same pattern here: the
    model can run anywhere, the public list stays curated and validated.
+7. **A 6-day forecast.** USA-NPN forecasts its spring indices 1 to 6 days
+   ahead from NOAA's forecast grid (NDFD); its Alaska product states this,
+   and a 2016 report says the same for the lower 48. Nothing longer. That
+   they run the model unchanged on forecast temperatures is our reading of
+   the product descriptions, not a documented method. Before deciding: read
+   the forecast-uncertainty section of USGS OFR 2017-1003, and pick a
+   European forecast source (a new data source, licence to check).
+8. **"How unusual is this year."** USA-NPN's return-interval maps show how
+   often a spring has been as early or late as this one. Our 1940–present
+   series supports the same thing without a new model.
 
 A database (Supabase Postgres, Frankfurt region) comes in with the first
 feature that needs one: visitor data such as signups, or enough locations
