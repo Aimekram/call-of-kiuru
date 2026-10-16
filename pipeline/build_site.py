@@ -25,6 +25,7 @@ from pipeline import run
 SITE_DIR = Path(__file__).parent.parent / "site"
 OUTPUT_DIR = SITE_DIR / "dist"
 SITE_NAME = "Call of Kiuru"
+SITE_URL = "https://callofkiuru.eu/"
 # The 30 years before the baseline, shown on the method page for comparison.
 # The WMO reference period for long-term climate change.
 EARLIER_YEARS = (1961, 1990)
@@ -131,7 +132,8 @@ def build(result, output_dir=OUTPUT_DIR):
     def write(path, template, **context):
         target = output_dir / path
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(environment.get_template(template).render(**shared, **context))
+        url = SITE_URL + path.removesuffix("index.html")
+        target.write_text(environment.get_template(template).render(**shared, **context, url=url))
         written.append(target)
 
     years = sorted({c["year"] for c in cities})

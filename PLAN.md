@@ -200,7 +200,7 @@ scripts; the target layout is:
 
 ```
 /pipeline    → Python: CDS pull, SI-x model, results JSON, static page generation
-/site        → static HTML/CSS/vanilla TS (served by Cloudflare Pages)
+/site        → static HTML/CSS/vanilla TS (static hosting, provider to be chosen)
 /.github/workflows/daily.yml → the scheduled job
 /docs, /journal → validation evidence and the build log
 ```
@@ -209,8 +209,11 @@ scripts; the target layout is:
 - Copernicus CDS (done). The API token goes in a GitHub Actions secret,
   never in the repo. Accept the dataset's Terms of Use on the CDS website
   once; the API can't do it.
-- Cloudflare Pages: free tier, unlimited bandwidth, so a share spike is
-  fine.
+- Domain: `callofkiuru.eu` at Scaleway (France), bought 2026-10-15.
+  European on purpose: `.eu` is run by EURid, a Belgian non-profit,
+  while every `.com` pays a registry fee to Verisign (US).
+- Hosting: European, to be chosen (was Cloudflare Pages). Needs a free or
+  cheap tier, HTTPS on the custom domain, and to survive a share spike.
 - Ko-fi for the tip button (0% fee on the free plan).
 
 **Stack:**
@@ -240,10 +243,10 @@ the only place numbers are rounded, to whole days (the averages on the
 method page to one decimal).
 
 Still to build, in order:
-1. Deploy as it is: repo public (licence chosen first), `site/dist/` on
-   Cloudflare Pages, `noindex` and unannounced until launch. Design then
-   iterates on the live site, and going public is the build-in-public
-   day 0.
+1. Deploy as it is on `callofkiuru.eu`: code public (MIT), data, docs and
+   journal moved to a private repo first. Indexed from day one, each page
+   with its canonical URL on the domain. Design then iterates on the live
+   site, and going public is the build-in-public day 0.
 2. Daily job (§2 step 7), which takes over the redeploys.
 3. Trend chart on each city page.
 4. Methodology page: the average is explained (`method/`); the validation

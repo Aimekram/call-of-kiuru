@@ -120,7 +120,8 @@ class Built(unittest.TestCase):
                     self.assertTrue((target / "index.html").exists(), f"{path}: {link}")
             for tag, attributes in page.attributes:
                 for name in ("href", "src"):
-                    if tag in ("link", "script") and name in attributes:
+                    if (tag in ("link", "script") and name in attributes
+                            and not attributes[name].startswith("https://")):
                         self.assertTrue((path.parent / attributes[name]).exists(),
                                         f"{path}: {attributes[name]}")
 
@@ -227,6 +228,15 @@ class Built(unittest.TestCase):
             text = Page(path.read_text()).plain
             self.assertIn(self.result["attribution"], text)
             self.assertIn("a model result, not an observation", text)
+
+    def test_every_page_names_its_address_on_the_domain(self):
+        for path in self.written:
+            attributes = Page(path.read_text()).attributes
+            folder = str(path.parent.relative_to(self.directory))
+            url = build_site.SITE_URL + ("" if folder == "." else folder + "/")
+            self.assertIn(("link", {"rel": "canonical", "href": url}), attributes, path)
+            self.assertIn(("meta", {"property": "og:url", "content": url}), attributes, path)
+            self.assertNotIn("robots", [a.get("name") for _, a in attributes], path)
 
 
 class Scenarios(unittest.TestCase):

@@ -186,7 +186,7 @@ repository has no licence, so none of its code is in this repository. The
 test downloads it at a pinned version, runs it, and keeps only the
 resulting days.
 
-No licence has been chosen for this repository itself yet.
+The code in this repository is MIT-licensed (`LICENSE`).
 
 ## References
 
