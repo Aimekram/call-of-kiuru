@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo sketches</title>
+<style>
+  :root { --bg: #fafaf7; --fg: #1f2a1f; --muted: #6b7568; --card: #ffffff; --line: #e3e6df; --green: #3e9b4f; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #141814; --fg: #e8ece6; --muted: #9aa596; --card: #1c211c; --line: #2c332b; --green: #5cbf6c; }
+  }
+  :root[data-theme="dark"] { --bg: #141814; --fg: #e8ece6; --muted: #9aa596; --card: #1c211c; --line: #2c332b; --green: #5cbf6c; }
+  body { margin: 0; padding: 32px 16px; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.lead { color: var(--muted); margin: 0 0 28px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .card h2 { font-size: 16px; margin: 0; }
+  .card p { color: var(--muted); margin: 4px 0 16px; font-size: 14px; }
+  .big { display: block; width: 160px; height: 160px; margin: 0 auto 16px; color: var(--green); }
+  .sizes { display: flex; align-items: center; justify-content: center; gap: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .sizes svg { color: var(--green); }
+  .chip { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px; }
+  .chip.light { background: #ffffff; border: 1px solid #e3e6df; color: #3e9b4f; }
+  .chip.dark { background: #141814; color: #5cbf6c; }
+  .chip svg { color: inherit; }
+  .lockup { display: flex; align-items: center; gap: 8px; justify-content: center; margin-top: 14px; font-weight: 600; letter-spacing: .01em; }
+  .lockup svg { width: 28px; height: 28px; color: var(--green); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Call of Kiuru: logo sketches</h1>
+  <p class="lead">Green dot with rings spreading out. Below each: 32 px and 16 px, on light and dark, and next to the name.</p>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- A: full rings, fading outwards -->
+      <symbol id="ripple" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="11" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="4">
+          <circle cx="50" cy="50" r="23"/>
+          <circle cx="50" cy="50" r="34" opacity=".6"/>
+          <circle cx="50" cy="50" r="45" opacity=".3"/>
+        </g>
+      </symbol>
+      <!-- B: arcs to both sides, like a call carrying -->
+      <symbol id="call" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="11" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round">
+          <path d="M65.6 34.4 A22 22 0 0 1 65.6 65.6 M34.4 34.4 A22 22 0 0 0 34.4 65.6"/>
+          <path d="M74.0 26.0 A34 34 0 0 1 74.0 74.0 M26.0 26.0 A34 34 0 0 0 26.0 74.0" opacity=".6"/>
+          <path d="M82.5 17.5 A46 46 0 0 1 82.5 82.5 M17.5 17.5 A46 46 0 0 0 17.5 82.5" opacity=".3"/>
+        </g>
+      </symbol>
+      <!-- C: half-circles rising from a horizon -->
+      <symbol id="horizon" viewBox="0 0 100 100">
+        <circle cx="50" cy="72" r="11" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+          <path d="M28 72 A22 22 0 0 1 72 72"/>
+          <path d="M16 72 A34 34 0 0 1 84 72" opacity=".6"/>
+          <path d="M4 72 A46 46 0 0 1 96 72" opacity=".3"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="grid">
+    <section class="card">
+      <h2>A · Ripple</h2>
+      <p>Full rings. The radar idea, closest to the description: spring spreading in every direction.</p>
+      <svg class="big"><use href="#ripple"/></svg>
+      <div class="sizes">
+        <div class="chip light"><svg width="32" height="32"><use href="#ripple"/></svg></div>
+        <div class="chip light"><svg width="16" height="16"><use href="#ripple"/></svg></div>
+        <div class="chip dark"><svg width="32" height="32"><use href="#ripple"/></svg></div>
+        <div class="chip dark"><svg width="16" height="16"><use href="#ripple"/></svg></div>
+      </div>
+      <div class="lockup"><svg><use href="#ripple"/></svg>Call of Kiuru</div>
+    </section>
+
+    <section class="card">
+      <h2>B · Call</h2>
+      <p>Arcs to both sides. Reads as sound carrying: the lark's call, the name.</p>
+      <svg class="big"><use href="#call"/></svg>
+      <div class="sizes">
+        <div class="chip light"><svg width="32" height="32"><use href="#call"/></svg></div>
+        <div class="chip light"><svg width="16" height="16"><use href="#call"/></svg></div>
+        <div class="chip dark"><svg width="32" height="32"><use href="#call"/></svg></div>
+        <div class="chip dark"><svg width="16" height="16"><use href="#call"/></svg></div>
+      </div>
+      <div class="lockup"><svg><use href="#call"/></svg>Call of Kiuru</div>
+    </section>
+
+    <section class="card">
+      <h2>C · Horizon</h2>
+      <p>Half-circles over a dot on the horizon. Spring rising, a sunrise as much as a radar.</p>
+      <svg class="big"><use href="#horizon"/></svg>
+      <div class="sizes">
+        <div class="chip light"><svg width="32" height="32"><use href="#horizon"/></svg></div>
+        <div class="chip light"><svg width="16" height="16"><use href="#horizon"/></svg></div>
+        <div class="chip dark"><svg width="32" height="32"><use href="#horizon"/></svg></div>
+        <div class="chip dark"><svg width="16" height="16"><use href="#horizon"/></svg></div>
+      </div>
+      <div class="lockup"><svg><use href="#horizon"/></svg>Call of Kiuru</div>
+    </section>
+  </div>
+</main>
+</body>
+</html>
