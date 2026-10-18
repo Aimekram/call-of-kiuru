@@ -221,6 +221,11 @@ private sibling repo, `call-of-kiuru-docs`.
   is US-owned (Microsoft), so a European host is still the aim; the site
   is static files, so moving means a new deploy step and a DNS change.
 - Ko-fi for the tip button (0% fee on the free plan).
+- GoatCounter for visit counts (2026-10-18), site `callofkiuru` on the
+  `aimekram` account. No cookies, no stored IPs, run from Ireland with
+  data in Finland and Germany. `count.js` (ISC) is served from our own
+  `static/`, copied from gc.zgo.at, so no outside script loads; recopy it
+  for updates. Localhost is not counted.
 
 **Stack:**
 - Pipeline: Python, because `cdsapi` is the recommended Copernicus client.
