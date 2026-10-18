@@ -2,25 +2,29 @@
 {% block title %}{% if city.bloomed %}{{ city.name }}: spring {{ city.year }} was {{ city.phrase }} usual{% else %}{{ city.name }}: spring {{ city.year }} has not started yet{% endif %} – {{ site_name }}{% endblock %}
 {% block description %}{% if city.bloomed %}The modelled start of spring in {{ city.name }} in {{ city.year }} was {{ city.date }}, {{ city.phrase }} its {{ baseline }} average.{% else %}The modelled start of spring in {{ city.name }} has not arrived yet in {{ city.year }}. Its {{ baseline }} average is around {{ city.usual_date }}.{% endif %}{% endblock %}
 {% block content %}
-<h1>{{ city.name }}, {{ city.country }}</h1>
+<p class="eyebrow">{{ city.name }}, {{ city.country }} · Spring {{ city.year }}</p>
 {% if city.bloomed %}
-<p class="headline">In {{ city.year }} the modelled start of spring was <strong>{{ city.phrase }}</strong> the {{ baseline }} average.</p>
-<dl>
+<h1>Spring came <em>{{ city.headline }}</em></h1>
+<p class="lede">In {{ city.year }} the modelled start of spring was {{ city.phrase }} the {{ baseline }} average.</p>
+<dl class="facts">
 <dt>Start of spring {{ city.year }}</dt>
 <dd><time datetime="{{ city.iso_date }}">{{ city.date }}</time></dd>
 <dt><a href="{{ root }}method/">{{ baseline }} average</a></dt>
 <dd>around {{ city.usual_date }}</dd>
 </dl>
 {% else %}
-<p class="headline">The modelled start of spring has <strong>not arrived yet</strong> in {{ city.year }}.</p>
-<dl>
+<h1>Spring <em>has not come yet</em></h1>
+<p class="lede">The modelled start of spring has not arrived yet in {{ city.year }}.</p>
+<dl class="facts">
 <dt><a href="{{ root }}method/">{{ baseline }} average</a></dt>
 <dd>around {{ city.usual_date }}</dd>
 <dt>Temperatures received up to</dt>
 <dd>{{ city.data_through }}</dd>
 </dl>
 {% endif %}
+<p><a class="chip" href="{{ root }}method/">Model, not observation</a></p>
 <h2>Every year since {{ city.years[-1].year }}</h2>
+<div class="card">
 <table class="sortable">
 <caption>Modelled start of spring in {{ city.name }}, newest first</caption>
 <thead>
@@ -40,6 +44,7 @@
 {% endfor %}
 </tbody>
 </table>
-<p>A minus sign means earlier than the {{ baseline }} average, a plus sign later. Days are rounded to whole days.</p>
+</div>
+<p class="note">A minus sign means earlier than the {{ baseline }} average, a plus sign later. Days are rounded to whole days.</p>
 <p><a href="{{ root }}">All cities</a></p>
 {% endblock %}

@@ -3,13 +3,14 @@
 {% block description %}How much earlier or later the modelled start of spring was in {{ year }} than the {{ baseline }} average, city by city.{% endblock %}
 {% block content %}
 <h1>Start of spring {{ year }}</h1>
-<p>How the modelled start of spring in each city compares with its own <a href="method/">{{ baseline }} average</a>.</p>
+<p class="lede">How the modelled start of spring in each city compares with its own <a href="method/">{{ baseline }} average</a>.</p>
+<div class="card">
 <table class="sortable">
 <caption>Modelled start of spring{% if not mixed_years %} in {{ year }}{% endif %}, earliest compared with the average first</caption>
 <thead>
 <tr>
 <th scope="col" data-sort="text">City</th>
-<th scope="col" data-sort="text">Country</th>
+<th scope="col" class="country" data-sort="text">Country</th>
 {% if mixed_years %}
 <th scope="col" data-sort="number">Year</th>
 {% endif %}
@@ -22,13 +23,13 @@
 {% for city in cities %}
 <tr>
 <th scope="row"><a href="{{ city.slug }}/">{{ city.name }}</a></th>
-<td>{{ city.country }}</td>
+<td class="country">{{ city.country }}</td>
 {% if mixed_years %}
 <td>{{ city.year }}</td>
 {% endif %}
 {% if city.bloomed %}
 <td data-value="{{ city.sort_date }}"><time datetime="{{ city.iso_date }}">{{ city.date }}</time></td>
-<td data-value="{{ city.sort_days }}">{{ city.signed_days }}</td>
+<td data-value="{{ city.sort_days }}"><span class="days"><span class="meter" aria-hidden="true"><span class="{{ city.meter.side }}" style="width: {{ city.meter.width }}"></span></span><span class="number">{{ city.signed_days }}</span></span></td>
 {% else %}
 <td data-value="">Not yet</td>
 <td data-value="">–</td>
@@ -38,5 +39,7 @@
 {% endfor %}
 </tbody>
 </table>
-<p>A minus sign means earlier than the average, a plus sign later. Days are rounded to whole days.</p>
+<p class="key" aria-hidden="true"><span><i class="early"></i>Earlier than average</span><span><i class="late"></i>Later</span></p>
+</div>
+<p class="note">A minus sign means earlier than the average, a plus sign later. Days are rounded to whole days.</p>
 {% endblock %}

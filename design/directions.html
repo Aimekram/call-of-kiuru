@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design directions</title>
+<!-- Sketch only. On the site, fonts are self-hosted so visitors' addresses don't go to Google. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* The page around the sketches stays plain. */
+  :root { color-scheme: light dark; }
+  body { margin: 0; padding: 32px 16px 64px; font: 15px/1.5 system-ui, sans-serif; background: light-dark(#fafafa, #121212); color: light-dark(#222, #ddd); }
+  .intro { max-width: 60rem; margin: 0 auto 32px; }
+  .intro h1 { margin: 0 0 8px; font-size: 1.6rem; }
+  .intro p { margin: 0 0 8px; color: light-dark(#555, #aaa); max-width: 44rem; }
+  .direction { max-width: 76rem; margin: 0 auto 64px; }
+  .direction > h2 { margin: 0 0 4px; font-size: 1.3rem; }
+  .direction > p { margin: 0 0 16px; color: light-dark(#555, #aaa); max-width: 50rem; }
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 34rem), 1fr)); gap: 16px; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 12px 0 0; padding: 0; list-style: none; font: 12px/1.3 ui-monospace, monospace; color: light-dark(#555, #aaa); }
+  .swatches li { display: flex; align-items: center; gap: 6px; }
+  .swatches i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid light-dark(#0002, #fff3); }
+
+  /* ---------- One mock city page. Each direction sets the tokens. ---------- */
+  .mock { --r: 12px; background: var(--paper); color: var(--ink); padding: 20px; border-radius: 6px; font-family: var(--body-font); min-width: 0; }
+  .mock.light { color-scheme: light; }
+  .mock.dark { color-scheme: dark; }
+  .mock .bar { display: flex; align-items: center; gap: 8px; font: 600 15px/1 var(--display-font); margin-bottom: 28px; }
+  .mock .bar svg { width: 26px; height: 26px; color: var(--brand); }
+  .mock .eyebrow { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
+  .mock h3 { margin: 0 0 10px; font: var(--h-weight) clamp(28px, 5vw, 40px)/1.05 var(--display-font); letter-spacing: var(--h-tracking, -0.01em); }
+  .mock h3 em { font-style: normal; }
+  .mock .lede { margin: 0 0 22px; color: var(--muted); max-width: 32rem; }
+  .mock .card { background: var(--card); border-radius: var(--r); padding: 14px 14px 10px; margin-bottom: 14px; }
+  .mock .card h4 { margin: 0 0 2px; font: 600 14px/1.3 var(--body-font); }
+  .mock .card .sub { margin: 0 0 8px; font-size: 12px; color: var(--muted); }
+  .mock svg.chart { display: block; width: 100%; height: auto; overflow: visible; }
+  .mock svg.chart text { fill: var(--muted); font: 11px var(--body-font); }
+  .mock svg.chart .now { fill: var(--ink); font-weight: 600; }
+  .mock .rank { list-style: none; margin: 0; padding: 0; }
+  .mock .rank li { display: grid; grid-template-columns: 1fr minmax(80px, 40%) 3.2rem; align-items: center; gap: 10px; padding: 5px 0; border-top: 1px solid var(--line); font-size: 14px; }
+  .mock .rank li:first-child { border-top: 0; }
+  .mock .rank .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .mock .rank .meter { position: relative; height: 8px; }
+  .mock .rank .meter::before { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--line); }
+  .mock .rank .meter span { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+  .mock .legend { display: flex; gap: 14px; margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+  .mock .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+  .mock .chip { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 999px; }
+  .tip { position: fixed; pointer-events: none; z-index: 9; padding: 6px 9px; border-radius: 6px; font: 12px/1.35 system-ui, sans-serif; background: #222; color: #fff; box-shadow: 0 2px 8px #0003; display: none; white-space: nowrap; }
+
+  /* ---------- A · Meadow: query.gg's paper, ink and hard shadows ---------- */
+  .meadow {
+    --display-font: "Fraunces", Georgia, serif; --body-font: "Outfit", system-ui, sans-serif; --h-weight: 900;
+    --paper: light-dark(#f8f4e1, #1d1b16); --ink: light-dark(#221f1a, #f3eedb);
+    --muted: light-dark(#5e594c, #b9b29c); --line: light-dark(#221f1a26, #f3eedb2e);
+    --card: light-dark(#fffdf3, #262319);
+    --brand: light-dark(#409d48, #6ed274); --early: light-dark(#cc4a7c, #d9668e); --late: light-dark(#1777b8, #4b99d7);
+  }
+  .meadow .card { border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+  .meadow h3 em { background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
+  .meadow .chip { border: 1.5px solid var(--ink); background: color-mix(in oklch, var(--brand) 45%, transparent); color: var(--ink); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .opt-sun   { --early: light-dark(#b67c0d, #c38824); --late: light-dark(#1777b8, #4b99d7); }
+  .opt-lilac { --early: light-dark(#9853ad, #b574c9); --late: light-dark(#b67c0d, #c38824); }
+  .opt-ink   { --early: var(--ink); --late: var(--ink); }
+  .opt-ink .legend i { display: none; }
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ripple" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="11" fill="currentColor"/>
+    <g fill="none" stroke="currentColor" stroke-width="5">
+      <circle cx="50" cy="50" r="23"/>
+      <circle cx="50" cy="50" r="34" opacity=".6"/>
+      <circle cx="50" cy="50" r="45" opacity=".3"/>
+    </g>
+  </symbol>
+</svg>
+
+<header class="intro">
+  <h1>Call of Kiuru: Meadow, early and late</h1>
+  <p>Meadow, with three ways to colour early and late. The data is real: Cologne's modelled start of spring 1940–2026 and the 2026 ranking of all eight cities. Hover the bars.</p>
+  <p>Red against blue reads as "too hot" against "fine", so the pink is gone. Both colour pairs below pass the colourblind and contrast checks in light and dark. Lilac against blue was tried and failed: for red-green colourblind readers the two look alike.</p>
+</header>
+
+<section class="direction meadow opt-sun" data-dir="meadow">
+  <h2>1 · Sun and sky</h2>
+  <p>Early is ochre, late is blue: a warm spring against a cold one, which is what drives the model. Warm, but not the red of a warning.</p>
+  <div class="pair"></div>
+</section>
+
+<section class="direction meadow opt-lilac" data-dir="meadow">
+  <h2>2 · Lilac and ochre</h2>
+  <p>Early is lilac, after the blossom; late is ochre. Neither colour carries a meaning of good or bad, but late has no obvious reason to be ochre.</p>
+  <div class="pair"></div>
+</section>
+
+<section class="direction meadow opt-ink" data-dir="meadow">
+  <h2>3 · Ink only</h2>
+  <p>No colour for direction at all: above the line is later, below is earlier, and the numbers carry the sign. Nothing to misread, but slower to scan.</p>
+  <div class="pair"></div>
+</section>
+
+<div class="tip" role="tooltip"></div>
+
+<script>
+// From data/bloom.json (generated 2026-10-13). Unrounded, as stored.
+const DATA = {"city":{"slug":"cologne","name":"Cologne","country":"Germany","lat":50.9375,"lon":6.9603,"baseline_doy":111.72222222222221,"current":{"year":2026,"status":"bloomed","data_through":"2026-10-07","bloom_doy":104.0,"days_vs_baseline":-7.722222222222214}},"rows":[{"year":1940,"bloom_doy":123.66666666666667,"days_vs_baseline":11.944444444444457},{"year":1941,"bloom_doy":139.66666666666666,"days_vs_baseline":27.944444444444443},{"year":1942,"bloom_doy":127.66666666666667,"days_vs_baseline":15.944444444444457},{"year":1943,"bloom_doy":108.66666666666667,"days_vs_baseline":-3.055555555555543},{"year":1944,"bloom_doy":124.66666666666667,"days_vs_baseline":12.944444444444457},{"year":1945,"bloom_doy":108.33333333333333,"days_vs_baseline":-3.3888888888888857},{"year":1946,"bloom_doy":117.66666666666667,"days_vs_baseline":5.944444444444457},{"year":1947,"bloom_doy":123.0,"days_vs_baseline":11.277777777777786},{"year":1948,"bloom_doy":111.33333333333333,"days_vs_baseline":-0.38888888888888573},{"year":1949,"bloom_doy":109.66666666666667,"days_vs_baseline":-2.055555555555543},{"year":1950,"bloom_doy":120.33333333333333,"days_vs_baseline":8.611111111111114},{"year":1951,"bloom_doy":130.0,"days_vs_baseline":18.277777777777786},{"year":1952,"bloom_doy":119.0,"days_vs_baseline":7.277777777777786},{"year":1953,"bloom_doy":117.0,"days_vs_baseline":5.277777777777786},{"year":1954,"bloom_doy":130.66666666666666,"days_vs_baseline":18.944444444444443},{"year":1955,"bloom_doy":130.33333333333334,"days_vs_baseline":18.61111111111113},{"year":1956,"bloom_doy":135.66666666666666,"days_vs_baseline":23.944444444444443},{"year":1957,"bloom_doy":111.0,"days_vs_baseline":-0.7222222222222143},{"year":1958,"bloom_doy":133.0,"days_vs_baseline":21.277777777777786},{"year":1959,"bloom_doy":113.0,"days_vs_baseline":1.2777777777777857},{"year":1960,"bloom_doy":110.0,"days_vs_baseline":-1.7222222222222143},{"year":1961,"bloom_doy":101.0,"days_vs_baseline":-10.722222222222214},{"year":1962,"bloom_doy":126.66666666666667,"days_vs_baseline":14.944444444444457},{"year":1963,"bloom_doy":124.66666666666667,"days_vs_baseline":12.944444444444457},{"year":1964,"bloom_doy":124.0,"days_vs_baseline":12.277777777777786},{"year":1965,"bloom_doy":125.0,"days_vs_baseline":13.277777777777786},{"year":1966,"bloom_doy":117.0,"days_vs_baseline":5.277777777777786},{"year":1967,"bloom_doy":118.66666666666667,"days_vs_baseline":6.944444444444457},{"year":1968,"bloom_doy":120.0,"days_vs_baseline":8.277777777777786},{"year":1969,"bloom_doy":127.66666666666667,"days_vs_baseline":15.944444444444457},{"year":1970,"bloom_doy":133.33333333333334,"days_vs_baseline":21.61111111111113},{"year":1971,"bloom_doy":124.0,"days_vs_baseline":12.277777777777786},{"year":1972,"bloom_doy":121.0,"days_vs_baseline":9.277777777777786},{"year":1973,"bloom_doy":136.33333333333334,"days_vs_baseline":24.61111111111113},{"year":1974,"bloom_doy":104.33333333333333,"days_vs_baseline":-7.388888888888886},{"year":1975,"bloom_doy":126.33333333333333,"days_vs_baseline":14.611111111111114},{"year":1976,"bloom_doy":126.33333333333333,"days_vs_baseline":14.611111111111114},{"year":1977,"bloom_doy":123.33333333333333,"days_vs_baseline":11.611111111111114},{"year":1978,"bloom_doy":126.0,"days_vs_baseline":14.277777777777786},{"year":1979,"bloom_doy":138.0,"days_vs_baseline":26.277777777777786},{"year":1980,"bloom_doy":129.33333333333334,"days_vs_baseline":17.61111111111113},{"year":1981,"bloom_doy":109.33333333333333,"days_vs_baseline":-2.3888888888888857},{"year":1982,"bloom_doy":127.66666666666667,"days_vs_baseline":15.944444444444457},{"year":1983,"bloom_doy":121.33333333333333,"days_vs_baseline":9.611111111111114},{"year":1984,"bloom_doy":135.0,"days_vs_baseline":23.277777777777786},{"year":1985,"bloom_doy":129.33333333333334,"days_vs_baseline":17.61111111111113},{"year":1986,"bloom_doy":130.33333333333334,"days_vs_baseline":18.61111111111113},{"year":1987,"bloom_doy":123.33333333333333,"days_vs_baseline":11.611111111111114},{"year":1988,"bloom_doy":121.0,"days_vs_baseline":9.277777777777786},{"year":1989,"bloom_doy":111.33333333333333,"days_vs_baseline":-0.38888888888888573},{"year":1990,"bloom_doy":96.66666666666667,"days_vs_baseline":-15.055555555555543},{"year":1991,"bloom_doy":107.66666666666667,"days_vs_baseline":-4.055555555555543},{"year":1992,"bloom_doy":120.33333333333333,"days_vs_baseline":8.611111111111114},{"year":1993,"bloom_doy":114.33333333333333,"days_vs_baseline":2.6111111111111143},{"year":1994,"bloom_doy":115.33333333333333,"days_vs_baseline":3.6111111111111143},{"year":1995,"bloom_doy":118.66666666666667,"days_vs_baseline":6.944444444444457},{"year":1996,"bloom_doy":125.33333333333333,"days_vs_baseline":13.611111111111114},{"year":1997,"bloom_doy":112.33333333333333,"days_vs_baseline":0.6111111111111143},{"year":1998,"bloom_doy":103.0,"days_vs_baseline":-8.722222222222214},{"year":1999,"bloom_doy":109.0,"days_vs_baseline":-2.7222222222222143},{"year":2000,"bloom_doy":112.33333333333333,"days_vs_baseline":0.6111111111111143},{"year":2001,"bloom_doy":121.33333333333333,"days_vs_baseline":9.611111111111114},{"year":2002,"bloom_doy":107.33333333333333,"days_vs_baseline":-4.388888888888886},{"year":2003,"bloom_doy":112.33333333333333,"days_vs_baseline":0.6111111111111143},{"year":2004,"bloom_doy":116.33333333333333,"days_vs_baseline":4.611111111111114},{"year":2005,"bloom_doy":106.66666666666667,"days_vs_baseline":-5.055555555555543},{"year":2006,"bloom_doy":125.66666666666667,"days_vs_baseline":13.944444444444457},{"year":2007,"bloom_doy":94.66666666666667,"days_vs_baseline":-17.055555555555543},{"year":2008,"bloom_doy":117.66666666666667,"days_vs_baseline":5.944444444444457},{"year":2009,"bloom_doy":109.33333333333333,"days_vs_baseline":-2.3888888888888857},{"year":2010,"bloom_doy":118.0,"days_vs_baseline":6.277777777777786},{"year":2011,"bloom_doy":104.33333333333333,"days_vs_baseline":-7.388888888888886},{"year":2012,"bloom_doy":108.33333333333333,"days_vs_baseline":-3.3888888888888857},{"year":2013,"bloom_doy":126.0,"days_vs_baseline":14.277777777777786},{"year":2014,"bloom_doy":92.66666666666667,"days_vs_baseline":-19.055555555555543},{"year":2015,"bloom_doy":118.33333333333333,"days_vs_baseline":6.611111111111114},{"year":2016,"bloom_doy":120.0,"days_vs_baseline":8.277777777777786},{"year":2017,"bloom_doy":100.0,"days_vs_baseline":-11.722222222222214},{"year":2018,"bloom_doy":109.66666666666667,"days_vs_baseline":-2.055555555555543},{"year":2019,"bloom_doy":102.66666666666667,"days_vs_baseline":-9.055555555555543},{"year":2020,"bloom_doy":102.0,"days_vs_baseline":-9.722222222222214},{"year":2021,"bloom_doy":121.66666666666667,"days_vs_baseline":9.944444444444457},{"year":2022,"bloom_doy":107.66666666666667,"days_vs_baseline":-4.055555555555543},{"year":2023,"bloom_doy":110.66666666666667,"days_vs_baseline":-1.055555555555543},{"year":2024,"bloom_doy":85.33333333333333,"days_vs_baseline":-26.388888888888886},{"year":2025,"bloom_doy":103.33333333333333,"days_vs_baseline":-8.388888888888886},{"year":2026,"bloom_doy":104.0,"days_vs_baseline":-7.722222222222214}],"cities":[{"name":"Munich","current":{"days_vs_baseline":1.3777777777777516}},{"name":"Frankfurt","current":{"days_vs_baseline":-4.077777777777783}},{"name":"Cologne","current":{"days_vs_baseline":-7.722222222222214}},{"name":"Berlin","current":{"days_vs_baseline":1.2777777777777573}},{"name":"Hamburg","current":{"days_vs_baseline":-0.39999999999997726}},{"name":"Malm\u00f6","current":{"days_vs_baseline":-3.144444444444474}},{"name":"Gothenburg","current":{"days_vs_baseline":-0.04444444444445139}},{"name":"Stockholm","current":{"days_vs_baseline":-6.111111111111057}}]};
+
+const BASE = [1991, 2020];
+const tokens = ['early', 'late'];
+
+function whole(v) { const r = Math.floor(Math.abs(v) + 0.5); return v < 0 && r ? -r : r; }
+function dateOf(year, doy) {
+  const d = new Date(Date.UTC(year, 0, 1) + (whole(doy) - 1) * 864e5);
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+}
+function phrase(days) {
+  const n = whole(days);
+  return n === 0 ? 'on time' : `${Math.abs(n)} day${Math.abs(n) === 1 ? '' : 's'} ${n < 0 ? 'early' : 'late'}`;
+}
+function signed(days) { const n = whole(days); return n > 0 ? `+${n}` : n < 0 ? `−${-n}` : '0'; }
+
+function chart(rows) {
+  const W = 560, H = 190, L = 34, R = 52, T = 14, B = 22;
+  const max = 30, y = v => T + (H - T - B) / 2 - v / max * (H - T - B) / 2;
+  const n = rows.length, step = (W - L - R) / n, bw = Math.max(1, step - 2);
+  const x = i => L + i * step + 1;
+  const b0 = rows.findIndex(r => r.year === BASE[0]), b1 = rows.findIndex(r => r.year === BASE[1]);
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Bar chart: days earlier or later than the ${BASE[0]}–${BASE[1]} average, every year 1940–2026">`;
+  s += `<rect x="${x(b0) - 1}" y="${T}" width="${(b1 - b0 + 1) * step}" height="${H - T - B}" fill="var(--ink)" opacity=".05"/>`;
+  s += `<text x="${x(b0) + (b1 - b0 + 1) * step / 2}" y="${T - 3}" text-anchor="middle">${BASE[0]}–${BASE[1]} average = 0</text>`;
+  for (const v of [-20, 20]) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 4}" y="${y(v) + 4}" text-anchor="end">${v > 0 ? '+' : '−'}${Math.abs(v)}</text>`;
+  rows.forEach((r, i) => {
+    const v = Math.max(-max, Math.min(max, r.days_vs_baseline));
+    const top = Math.min(y(0), y(v)), h = Math.max(1, Math.abs(y(v) - y(0)));
+    const col = v < 0 ? 'var(--early)' : 'var(--late)';
+    s += `<rect x="${x(i)}" y="${top}" width="${bw}" height="${h}" rx="${Math.min(2, bw / 2)}" fill="${col}"/>`;
+    s += `<rect class="hit" x="${x(i) - 1}" y="${T}" width="${step}" height="${H - T - B}" fill="transparent" data-i="${i}"/>`;
+  });
+  s += `<line x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--ink)" stroke-width="1"/>`;
+  s += `<text x="${L - 4}" y="${y(0) + 4}" text-anchor="end">0</text>`;
+  const last = rows[n - 1];
+  s += `<text class="now" x="${x(n - 1) + bw + 5}" y="${y(last.days_vs_baseline) + 4}">${last.year}: ${signed(last.days_vs_baseline)}</text>`;
+  s += `<text x="${L}" y="${H - 4}">1940</text><text x="${x(n - 1) + bw}" y="${H - 4}" text-anchor="end">2026</text>`;
+  return s + '</svg>';
+}
+
+function ranking(cities) {
+  const sorted = [...cities].sort((a, b) => a.current.days_vs_baseline - b.current.days_vs_baseline);
+  const max = 10;
+  return '<ol class="rank">' + sorted.map(c => {
+    const d = c.current.days_vs_baseline, w = Math.min(Math.abs(d), max) / max * 50;
+    const pos = d < 0 ? `right:50%;width:${w}%` : `left:50%;width:${w}%`;
+    return `<li><span>${c.name}</span><span class="meter" aria-hidden="true"><span style="${pos};background:var(${d < 0 ? '--early' : '--late'})"></span></span><span class="num">${signed(d)}</span></li>`;
+  }).join('') + '</ol>';
+}
+
+function mock(mode) {
+  const c = DATA.city, cur = c.current;
+  return `<article class="mock ${mode}">
+    <div class="bar"><svg aria-hidden="true"><use href="#ripple"/></svg>Call of Kiuru</div>
+    <p class="eyebrow">${c.name}, ${c.country} · Spring ${cur.year}</p>
+    <h3>Spring came <em>${phrase(cur.days_vs_baseline)}</em></h3>
+    <p class="lede">The modelled first bloom was on ${dateOf(cur.year, cur.bloom_doy)}. The ${BASE[0]}–${BASE[1]} average is around ${dateOf(2026, c.baseline_doy)}.</p>
+    <div class="card">
+      <h4>Every spring since 1940</h4>
+      <p class="sub">Days earlier or later than the ${BASE[0]}–${BASE[1]} average</p>
+      ${chart(DATA.rows)}
+      <p class="legend"><span><i style="background:var(--early)"></i>Earlier: below the line</span><span><i style="background:var(--late)"></i>Later: above</span></p>
+    </div>
+    <div class="card">
+      <h4>All cities, ${cur.year}</h4>
+      <p class="sub">Days from each city's own average</p>
+      ${ranking(DATA.cities)}
+    </div>
+    <span class="chip">Model, not observation</span>
+  </article>`;
+}
+
+for (const sec of document.querySelectorAll('.direction')) {
+  sec.querySelector('.pair').innerHTML = mock('light') + mock('dark');
+  const ul = document.createElement('ul'); ul.className = 'swatches';
+  for (const mode of ['light', 'dark']) {
+    const probe = sec.querySelector(`.mock.${mode}`), cs = getComputedStyle(probe);
+    for (const t of tokens) {
+      const probeEl = document.createElement('i'); probeEl.style.background = `var(--${t})`; probe.append(probeEl);
+      const v = getComputedStyle(probeEl).backgroundColor; probeEl.remove();
+      ul.insertAdjacentHTML('beforeend', `<li><i style="background:${v}"></i>${mode} ${t}</li>`);
+    }
+  }
+  sec.append(ul);
+}
+
+const tip = document.querySelector('.tip');
+document.addEventListener('pointermove', e => {
+  const hit = e.target.closest?.('.hit');
+  if (!hit) { tip.style.display = 'none'; return; }
+  const r = DATA.rows[+hit.dataset.i];
+  tip.innerHTML = `<b>${r.year}</b>: ${dateOf(r.year, r.bloom_doy)}<br>${phrase(r.days_vs_baseline).replace('early', 'earlier').replace('late', 'later')}${whole(r.days_vs_baseline) ? ' than average' : ''}`;
+  tip.style.display = 'block';
+  tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + 'px';
+  tip.style.top = (e.clientY + 14) + 'px';
+});
+</script>
+</body>
+</html>

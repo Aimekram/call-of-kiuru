@@ -23,6 +23,12 @@ from pipeline import build_site, run
 VOID = {"meta", "link", "br", "img", "hr", "input"}
 
 
+def ranking_cell(source, days_vs_baseline):
+    """The ranking's 'days from average' cell for one unrounded difference."""
+    start = source.index(f'<td data-value="{days_vs_baseline}">')
+    return source[start:source.index("</td>", start) + 5]
+
+
 class Page(HTMLParser):
     """Collects text, links and attributes, and checks that tags are balanced."""
 
@@ -67,6 +73,12 @@ class Wording(unittest.TestCase):
         self.assertEqual(build_site.difference_phrase(12.5), "13 days later than")
         self.assertEqual(build_site.difference_phrase(-0.4), "the same as")
         self.assertEqual(build_site.difference_phrase(0.3), "the same as")
+
+    def test_headline_phrase(self):
+        self.assertEqual(build_site.headline_phrase(-7.72), "8 days early")
+        self.assertEqual(build_site.headline_phrase(-1.2), "1 day early")
+        self.assertEqual(build_site.headline_phrase(1.38), "1 day late")
+        self.assertEqual(build_site.headline_phrase(-0.4), "on time")
 
     def test_signed_days(self):
         self.assertEqual(build_site.signed_days(-7.72), "−8")
@@ -219,9 +231,12 @@ class Built(unittest.TestCase):
                 self.assertGreater(source.index(f'<a href="{city["slug"]}/">'),
                                    max(positions, default=0))
         for city in order:
-            self.assertIn(f'<td data-value="{city["current"]["days_vs_baseline"]}">'
-                          f'{build_site.signed_days(city["current"]["days_vs_baseline"])}</td>',
-                          source)
+            days = city["current"]["days_vs_baseline"]
+            cell = ranking_cell(source, days)
+            self.assertIn(f'<span class="number">{build_site.signed_days(days)}</span>', cell)
+            # The bar shows the whole days printed beside it, on the side they fall.
+            side = "early" if build_site.whole_days(days) < 0 else "late"
+            self.assertIn(f'<span class="{side}" style="width: ', cell)
 
     def test_every_page_carries_the_attribution_and_the_caveat(self):
         for path in self.written:
@@ -276,8 +291,10 @@ class Scenarios(unittest.TestCase):
         self.assertIn(f"Start of spring {year} {date}", page.plain)
         self.assertIn(f"spring {year} was 8 days earlier than usual", page.plain)
         self.assertNotIn("not arrived yet", page.plain)
-        self.assertIn('<td data-value="-7.72">−8</td>',
-                      (self.directory / "index.html").read_text())
+        cell = ranking_cell((self.directory / "index.html").read_text(), -7.72)
+        self.assertIn('<span class="number">−8</span>', cell)
+        # Each half of the bar is at least 10 days, so 8 days is 40% of the whole bar.
+        self.assertIn('<span class="early" style="width: 40.0%">', cell)
 
     def test_before_bloom(self):
         year = self.last_year + 1

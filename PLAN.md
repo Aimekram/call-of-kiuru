@@ -254,16 +254,25 @@ page with its canonical URL on the domain. Design iterates on the live
 site, and going public is the build-in-public day 0. HTTPS waits on
 GitHub's certificate.
 
+**Design (2026-10-18): "Meadow"**, chosen from three directions in
+`design/directions.html`. Cream paper, near-black ink, cards with a hard
+offset shadow, after query.gg. Fraunces for headings, Outfit for text, both
+under the SIL Open Font License and served from the site, not Google.
+Colours in `site/static/style.css`, with light and dark mode from
+`light-dark()`. Early is ochre and late is blue, a warm spring against a
+cold one, so neither reads as good or bad. Pink against blue was dropped
+because it read as an alarm. Lilac against blue fails for red-green
+colourblind readers. The ripple logo from `design/logo-sketches.html` is
+in the header; the favicon's green (`#4a934f`) is not yet the brand green
+(`#409d48`).
+
 Still to build, in order (reordered 2026-10-18: until spring the history is
 what people see, so the interface comes before the daily job):
-1. The design: type, the colour palette, the logo from
-   `design/logo-sketches.html`. The favicon's green is a placeholder until
-   the palette is chosen.
-2. Trend chart on each city page.
-3. Share-card images, for posts on Instagram and Bluesky.
-4. Methodology page: the average is explained (`method/`); the validation
+1. Trend chart on each city page.
+2. Share-card images, for posts on Instagram and Bluesky.
+3. Methodology page: the average is explained (`method/`); the validation
    evidence and its limits are still to add.
-5. Daily job (§2 step 7), which takes over the redeploys. Needed by the end
+4. Daily job (§2 step 7), which takes over the redeploys. Needed by the end
    of February 2027: the earliest modelled bloom in the test is late March
    (Cologne 2024), and the job wants a few weeks on live data first.
 

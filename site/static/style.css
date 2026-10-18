@@ -1,15 +1,126 @@
-/* Legibility only. The design comes later. */
-:root { color-scheme: light dark; }
-body { font-family: system-ui, sans-serif; line-height: 1.5; max-width: 44rem; margin: 0 auto; padding: 1rem; }
-table { border-collapse: collapse; width: 100%; }
-caption { text-align: left; font-weight: bold; padding: 0.5rem 0; }
-th, td { text-align: left; padding: 0.3rem 0.75rem 0.3rem 0; border-bottom: 1px solid color-mix(in srgb, currentColor 20%, transparent); }
-thead th { cursor: default; }
-thead th button { all: unset; cursor: pointer; font-weight: bold; }
-thead th button:focus-visible { outline: 2px solid; outline-offset: 2px; }
-.headline { font-size: 1.4rem; }
-dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
-dt { font-weight: bold; }
-dd { margin: 0; }
-footer { margin-top: 3rem; font-size: 0.9rem; }
-footer h2 { font-size: 1rem; }
+/* Meadow: cream paper, near-black ink, cards with a hard offset shadow.
+   Early is warm (ochre), late is cold (blue): neither reads as good or bad.
+   Both pairs pass colourblind and contrast checks on their paper. */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url(fonts/fraunces.woff2) format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Outfit";
+  src: url(fonts/outfit.woff2) format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light dark;
+  --paper: light-dark(#f8f4e1, #1d1b16);
+  --card: light-dark(#fffdf3, #262319);
+  --ink: light-dark(#221f1a, #f3eedb);
+  --muted: light-dark(#5e594c, #b9b29c);
+  --line: light-dark(#221f1a26, #f3eedb2e);
+  --brand: light-dark(#409d48, #6ed274);
+  --early: light-dark(#b67c0d, #c38824);
+  --late: light-dark(#1777b8, #4b99d7);
+  --display: "Fraunces", Georgia, serif;
+  --text: "Outfit", system-ui, sans-serif;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 44rem;
+  padding: 20px 16px 48px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 1rem/1.55 var(--text);
+}
+
+a { color: inherit; text-decoration-color: var(--brand); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+h1, h2 { font-family: var(--display); line-height: 1.1; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 900; margin: 0 0 0.75rem; }
+h1 em { font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
+h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; }
+
+/* Header: logo and name */
+.site { margin-bottom: 2rem; }
+.site a { display: inline-flex; align-items: center; gap: 0.5rem; font: 700 1.05rem/1 var(--display); text-decoration: none; }
+.site svg { width: 1.75rem; height: 1.75rem; color: var(--brand); }
+
+.eyebrow { margin: 0 0 0.4rem; font-size: 0.875rem; color: var(--muted); }
+.lede { margin: 0 0 1.25rem; color: var(--muted); }
+
+/* A card: paper on paper, ink border, hard shadow */
+.card {
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 1rem;
+  margin: 0 0 1.5rem;
+  overflow-x: auto;
+}
+.card > :first-child { margin-top: 0; }
+.card > :last-child { margin-bottom: 0; }
+
+.chip {
+  display: inline-block;
+  padding: 0.15rem 0.75rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--brand) 45%, transparent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Key facts under the headline */
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0 0 1rem; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; font-weight: 500; }
+
+/* Tables */
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+caption { text-align: left; font-weight: 600; padding: 0 0 0.5rem; }
+th, td { text-align: left; padding: 0.4rem 0.75rem 0.4rem 0; border-bottom: 1px solid var(--line); }
+tbody tr:last-child > * { border-bottom: 0; }
+thead th { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+thead th button { all: unset; cursor: pointer; }
+thead th button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+thead th[aria-sort="ascending"] button::after { content: " ↑"; }
+thead th[aria-sort="descending"] button::after { content: " ↓"; }
+tbody th { font-weight: 500; }
+
+/* Days from average, with a bar either side of the average */
+.days { display: flex; align-items: center; gap: 0.75rem; }
+.days .number { min-width: 2.2em; text-align: right; }
+.meter { position: relative; flex: 1; min-width: 4rem; height: 8px; }
+.meter::before { content: ""; position: absolute; left: 50%; top: -4px; bottom: -4px; width: 1px; background: var(--line); }
+.meter span { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+.meter .early { right: 50%; background: var(--early); }
+.meter .late { left: 50%; background: var(--late); }
+.key { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0.75rem 0 0; font-size: 0.875rem; color: var(--muted); }
+.key i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 0.35rem; }
+.key .early { background: var(--early); }
+.key .late { background: var(--late); }
+
+.note { font-size: 0.875rem; color: var(--muted); }
+
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 2px solid var(--ink); font-size: 0.875rem; color: var(--muted); }
+footer h2 { font-size: 1rem; color: var(--ink); margin-top: 0; }
+
+td:has(> time) { white-space: nowrap; }
+
+/* Phones: the numbers carry the ranking, the bars and country step aside. */
+@media (max-width: 30rem) {
+  .country, .meter, .key { display: none; }
+  .card { padding: 0.75rem; }
+  th, td { padding-right: 0.5rem; }
+}

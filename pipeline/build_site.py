@@ -46,6 +46,15 @@ def difference_phrase(days_vs_baseline):
     return f"{abs(days)} {unit} {'earlier' if days < 0 else 'later'} than"
 
 
+def headline_phrase(days_vs_baseline):
+    """'8 days early', '1 day late' or 'on time', for whole days."""
+    days = whole_days(days_vs_baseline)
+    if days == 0:
+        return "on time"
+    unit = "day" if abs(days) == 1 else "days"
+    return f"{abs(days)} {unit} {'early' if days < 0 else 'late'}"
+
+
 def signed_days(days_vs_baseline):
     """'−8', '+1' or '0': whole days, with a real minus sign."""
     days = whole_days(days_vs_baseline)
@@ -100,6 +109,7 @@ def city_view(city, rows):
         date = date_of(current["bloom_doy"], current["year"])
         view.update(date=day_month(date), iso_date=date.isoformat(),
                     phrase=difference_phrase(current["days_vs_baseline"]),
+                    headline=headline_phrase(current["days_vs_baseline"]),
                     signed_days=signed_days(current["days_vs_baseline"]),
                     sort_days=current["days_vs_baseline"], sort_date=current["bloom_doy"])
     return view
@@ -114,6 +124,14 @@ def build(result, output_dir=OUTPUT_DIR):
               for city in result["cities"]]
     # Earliest compared with its own average first; cities not yet in bloom last.
     ranking = sorted(cities, key=lambda c: (not c["bloomed"], c.get("sort_days", 0), c["name"]))
+    # Ranking bars show the whole days printed beside them, on one scale for
+    # all cities: at least 10 days for a full half-bar.
+    bloomed = [c for c in cities if c["bloomed"]]
+    scale = max([10] + [abs(whole_days(c["sort_days"])) for c in bloomed])
+    for city in bloomed:
+        days = whole_days(city["sort_days"])
+        city["meter"] = {"side": "early" if days < 0 else "late",
+                         "width": f"{abs(days) / scale * 50:.1f}%"}
     first, last = result["baseline_years"]
     shared = {
         "site_name": SITE_NAME,
