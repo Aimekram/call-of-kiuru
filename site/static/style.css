@@ -98,6 +98,15 @@ thead th[aria-sort="ascending"] button::after { content: " ↑"; }
 thead th[aria-sort="descending"] button::after { content: " ↓"; }
 tbody th { font-weight: 500; }
 
+/* Whole row is the link: the city's link stretches over its row. */
+table.rows-link tbody tr { position: relative; }
+table.rows-link tbody th a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+table.rows-link tbody tr:hover > *,
+table.rows-link tbody tr:has(a:focus-visible) > * { background: color-mix(in oklch, var(--brand) 16%, transparent); }
+table.rows-link tbody tr:hover a { text-decoration-color: currentColor; }
+table.rows-link tbody tr > :first-child { padding-left: 0.5rem; }
+table.rows-link thead tr > :first-child { padding-left: 0.5rem; }
+
 /* Days from average, with a bar either side of the average */
 .days { display: flex; align-items: center; gap: 0.75rem; }
 .days .number { min-width: 2.2em; text-align: right; }
