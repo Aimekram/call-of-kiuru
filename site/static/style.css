@@ -15,6 +15,7 @@
 
 :root {
   color-scheme: light dark;
+  scroll-behavior: smooth;
   --paper: light-dark(#f8f4e1, #1d1b16);
   --card: light-dark(#fffdf3, #262319);
   --ink: light-dark(#221f1a, #f3eedb);
@@ -43,7 +44,7 @@ a:hover { text-decoration-color: currentColor; }
 h1, h2 { font-family: var(--display); line-height: 1.1; letter-spacing: -0.01em; }
 h1 { font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 900; margin: 0 0 0.75rem; }
 h1 em { font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
-h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; }
+h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; scroll-margin-top: 1.5rem; }
 
 /* Header */
 .site { margin-bottom: 2rem; }
@@ -61,6 +62,7 @@ h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; }
 .site a:is(:hover, :focus-visible) .ring:nth-child(3) { animation-delay: 0.24s; }
 @keyframes call { 0% { opacity: 0.15; } 40% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
+  :root { scroll-behavior: auto; }
   .site .name::after { transition: none; }
   .site a:is(:hover, :focus-visible) .ring { animation: none; }
 }

@@ -9,14 +9,14 @@
 <dl class="facts">
 <dt>Start of spring {{ city.year }}</dt>
 <dd><time datetime="{{ city.iso_date }}">{{ city.date }}</time></dd>
-<dt><a href="{{ root }}method/">{{ baseline }} average</a></dt>
+<dt><a href="{{ root }}method/#baseline">{{ baseline }} average</a></dt>
 <dd>around {{ city.usual_date }}</dd>
 </dl>
 {% else %}
 <h1>Spring <em>has not come yet</em></h1>
 <p class="lede">The modelled start of spring has not arrived yet in {{ city.year }}.</p>
 <dl class="facts">
-<dt><a href="{{ root }}method/">{{ baseline }} average</a></dt>
+<dt><a href="{{ root }}method/#baseline">{{ baseline }} average</a></dt>
 <dd>around {{ city.usual_date }}</dd>
 <dt>Temperatures received up to</dt>
 <dd>{{ city.data_through }}</dd>

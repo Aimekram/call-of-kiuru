@@ -218,10 +218,10 @@ class Built(unittest.TestCase):
         self.assertTrue(any("usanpn.org" in link for link in page.links))
 
     def test_the_average_links_to_its_explanation(self):
-        self.assertIn('<a href="method/">1991–2020 average</a>',
+        self.assertIn('<a href="method/#baseline">1991–2020 average</a>',
                       (self.directory / "index.html").read_text())
         for city in self.result["cities"]:
-            self.assertIn('<dt><a href="../method/">1991–2020 average</a></dt>',
+            self.assertIn('<dt><a href="../method/#baseline">1991–2020 average</a></dt>',
                           (self.directory / city["slug"] / "index.html").read_text())
 
     def test_ranking_is_ordered_by_the_unrounded_difference(self):
@@ -309,7 +309,7 @@ class Scenarios(unittest.TestCase):
 
         page = Page((self.directory / "cologne" / "index.html").read_text())
         self.assertEqual(page.errors, [])
-        self.assertIn("../method/", page.links)
+        self.assertIn("../method/#baseline", page.links)
         self.assertIn(f"The modelled start of spring has not arrived yet in {year}.", page.plain)
         self.assertIn(f"Temperatures received up to 1 March {year}", page.plain)
         self.assertIn(f"spring {year} has not started yet", page.plain)
