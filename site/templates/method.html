@@ -1,9 +1,17 @@
 {% extends "base.html" %}
-{% block title %}How the {{ baseline }} average is worked out – {{ site_name }}{% endblock %}
-{% block description %}How each city's {{ baseline }} average start of spring is calculated, and why those 30 years.{% endblock %}
+{% block title %}How it works – {{ site_name }}{% endblock %}
+{% block description %}Why the start of spring comes from a model rather than observations, and how each city's {{ baseline }} average is calculated.{% endblock %}
 {% block content %}
-<h1>How the average is worked out</h1>
-<p>Every page compares a city's start of spring with that city's {{ baseline }} average. This is how the average is calculated and why it covers those years.</p>
+<h1>How it works</h1>
+<p>Every page shows a modelled start of spring and compares it with that city's {{ baseline }} average. This page explains why it is modelled, how the average is calculated, and why it covers those years.</p>
+<h2 id="model">Why a model, not observations</h2>
+<p>Nobody records the first bloom in every city every spring, and the records that exist come in late:</p>
+<ul>
+<li>Germany's weather service collects its lilac observations once a year. On 18 October 2026 its open data held 283 for this spring, against about 910 for each of 2024 and 2025.</li>
+<li>In Sweden, open lilac records start in 2008. Near the cities on this site there is a median of 3 to 6 a year, in some years only one.</li>
+</ul>
+<p>The model needs only daily temperatures. They arrive about five days late and go back to 1940, so every city gets a date for every spring, worked out the same way.</p>
+<p>The observations are what the model is checked against: from 1951 in Germany and from 2008 in Sweden.</p>
 <h2>The calculation</h2>
 <ol>
 <li>For each of the {{ baseline_length }} years in {{ baseline }}, the model gives the city a start-of-spring day from that year's temperatures. Days are counted from 1 January, which is day 1.</li>
@@ -41,7 +49,7 @@
 <li>The USA National Phenology Network compares against the same years in its <a target="_blank" rel="noopener" href="https://www.usanpn.org/data/maps/spring">maps of spring in the United States</a>. Its averages come from different temperature data.</li>
 </ul>
 <p>It is a recent period, and spring already came earlier in it than before. In the model, the {{ earlier }} average falls {{ earlier_gap_least }} to {{ earlier_gap_most }} days later than the {{ baseline }} one in these cities. "The same as average" means the same as a recent spring, not an earlier one. The World Meteorological Organization keeps 1961–1990 as its reference period for long-term climate change.</p>
-<p>The model has been checked against observed lilac bloom from 1951 in Germany and from 2008 in Sweden. The Swedish averages for {{ earlier }} are therefore untested.</p>
+<p>Observed lilac bloom in Sweden starts in 2008, so the Swedish averages for {{ earlier }} are untested.</p>
 <p>Those observations are based on data from <a target="_blank" rel="noopener" href="https://opendata.dwd.de/">Deutscher Wetterdienst</a> (CC BY 4.0) and from <a target="_blank" rel="noopener" href="https://researchdata.se/en/catalogue/dataset/2022-86-1">SLU Naturens Kalender</a> (CC0).</p>
 <p><a href="{{ root }}">All cities</a></p>
 {% endblock %}

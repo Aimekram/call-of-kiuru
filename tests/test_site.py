@@ -126,10 +126,15 @@ class Built(unittest.TestCase):
             for link in page.links:
                 if link.startswith("https://"):
                     continue
-                target = (path.parent / link).resolve()
+                link_path, _, anchor = link.partition("#")
+                target = (path.parent / link_path).resolve()
                 self.assertTrue(target.is_dir() or target.exists(), f"{path}: {link}")
                 if target.is_dir():
-                    self.assertTrue((target / "index.html").exists(), f"{path}: {link}")
+                    target = target / "index.html"
+                    self.assertTrue(target.exists(), f"{path}: {link}")
+                if anchor:
+                    ids = {a.get("id") for _, a in Page(target.read_text()).attributes}
+                    self.assertIn(anchor, ids, f"{path}: {link}")
             for tag, attributes in page.attributes:
                 for name in ("href", "src"):
                     if (tag in ("link", "script") and name in attributes
