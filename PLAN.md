@@ -270,8 +270,18 @@ Still to build, in order (reordered 2026-10-18: until spring the history is
 what people see, so the interface comes before the daily job):
 1. Trend chart on each city page.
 2. Share-card images, for posts on Instagram and Bluesky.
-3. Methodology page: the average is explained (`method/`); the validation
-   evidence and its limits are still to add.
+3. Methodology page (`method/`): the average and "why a model" are
+   explained. Still to add, the validation evidence (decided 2026-10-18):
+   - Per city, a small chart of modelled against observed bloom by year
+     (median observed lilac, `data/bloom_multiyear.csv`: Germany
+     1951–2024, Sweden 2008–2024).
+   - A short table per city: average error, bias, and how well the
+     year-to-year differences match (anomaly correlation 0.90 overall).
+   - The offset explained once: the index averages lilac and two
+     honeysuckles, the observations are lilac only, so the index runs
+     3.3 days early on average (the lilac sub-model +0.1).
+   - Credit DWD and SLU there. No observed column on city pages for now:
+     it would be mostly empty and show the offset in every row.
 4. Daily job (§2 step 7), which takes over the redeploys. Needed by the end
    of February 2027: the earliest modelled bloom in the test is late March
    (Cologne 2024), and the job wants a few weeks on live data first.
@@ -294,7 +304,7 @@ Decided:
 
 To settle with the design:
 - The site cannot link to the validation documents: they are in the
-  private docs repo. The methodology page (step 4) has to carry the
+  private docs repo. The methodology page (step 3) has to carry the
   evidence itself.
 
 ---
