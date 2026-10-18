@@ -215,8 +215,11 @@ private sibling repo, `call-of-kiuru-docs`.
 - Domain: `callofkiuru.eu` at Scaleway (France), bought 2026-10-15.
   European on purpose: `.eu` is run by EURid, a Belgian non-profit,
   while every `.com` pays a registry fee to Verisign (US).
-- Hosting: European, to be chosen (was Cloudflare Pages). Needs a free or
-  cheap tier, HTTPS on the custom domain, and to survive a share spike.
+- Hosting: GitHub Pages to start (2026-10-18), deployed by
+  `.github/workflows/pages.yml`. Free, HTTPS on the custom domain, a soft
+  limit of 100 GB a month. The repo and the job are on GitHub already. It
+  is US-owned (Microsoft), so a European host is still the aim; the site
+  is static files, so moving means a new deploy step and a DNS change.
 - Ko-fi for the tip button (0% fee on the free plan).
 
 **Stack:**
