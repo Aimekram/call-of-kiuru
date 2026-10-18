@@ -248,17 +248,24 @@ average is worked out and why those years. English, no design yet. This is
 the only place numbers are rounded, to whole days (the averages on the
 method page to one decimal).
 
-Still to build, in order:
-1. Deploy as it is on `callofkiuru.eu`: code (MIT) and data public, docs
-   and journal moved to a private repo first (done 2026-10-15). Indexed
-   from day one, each page with its canonical URL on the domain. Design
-   then iterates on the live site, and going public is the build-in-public
-   day 0.
-2. Daily job (§2 step 7), which takes over the redeploys.
-3. Trend chart on each city page.
+**Live (2026-10-18) on `callofkiuru.eu`**, as it is: code (MIT) and data
+public, docs and journal in a private repo. Indexed from day one, each
+page with its canonical URL on the domain. Design iterates on the live
+site, and going public is the build-in-public day 0. HTTPS waits on
+GitHub's certificate.
+
+Still to build, in order (reordered 2026-10-18: until spring the history is
+what people see, so the interface comes before the daily job):
+1. The design: type, the colour palette, the logo from
+   `design/logo-sketches.html`. The favicon's green is a placeholder until
+   the palette is chosen.
+2. Trend chart on each city page.
+3. Share-card images, for posts on Instagram and Bluesky.
 4. Methodology page: the average is explained (`method/`); the validation
    evidence and its limits are still to add.
-5. Share-card images and the design.
+5. Daily job (§2 step 7), which takes over the redeploys. Needed by the end
+   of February 2027: the earliest modelled bloom in the test is late March
+   (Cologne 2024), and the job wants a few weeks on live data first.
 
 Decided:
 - Plain JavaScript, not TypeScript: the only script is a table sorter, and
@@ -313,7 +320,9 @@ A database (Supabase Postgres, Frankfurt region) comes in with the first
 feature that needs one: visitor data such as signups, or enough locations
 to search and filter.
 
-Two requests to send once the site is live:
+Two requests, sent last (decided 2026-10-18): first see how people react
+to the 8 cities, and whether anyone asks for more. Item 1 waits on the
+first.
 - PEP725, for lilac data (item 1 above).
 - USA-NPN, to add a licence to `gridded_models`. It has none, so we keep
   none of its code and only compare against it in a test.
