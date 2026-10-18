@@ -220,7 +220,14 @@ private sibling repo, `call-of-kiuru-docs`.
   limit of 100 GB a month. The repo and the job are on GitHub already. It
   is US-owned (Microsoft), so a European host is still the aim; the site
   is static files, so moving means a new deploy step and a DNS change.
-- Ko-fi for the tip button (0% fee on the free plan).
+- Suppi (suppi.pl/devtortie) for the tip link, chosen 2026-10-18. Polish:
+  Crowd8 sp. z o.o., Warsaw, the company behind Patronite; payments via
+  Autopay. No commission on tips by its own account (it asks supporters for
+  an optional extra). Checkout in Polish and PLN, so the link says "card, in
+  PLN". Considered: buycoffee.to (about 10% in fees), Ko-fi (0%, but UK and
+  Stripe/PayPal), Tipeee (FR, 8%), Liberapay (FR, recurring-first), Mollie
+  (NL payment link). A plain footer link, not a widget: nothing loads from
+  Suppi until clicked.
 - GoatCounter for visit counts (2026-10-18), site `callofkiuru` on the
   `aimekram` account. No cookies, no stored IPs, run from Ireland with
   data in Finland and Germany. `count.js` (ISC) is served from our own
@@ -378,7 +385,7 @@ first.
 
 ## 8. Monetization
 
-- Ko-fi tip button. Nothing else until usage says otherwise.
+- Suppi tip link. Nothing else until usage says otherwise.
 
 ## 9. Building-in-public journey log
 

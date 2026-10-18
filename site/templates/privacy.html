@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Privacy – {{ site_name }}{% endblock %}
+{% block description %}What happens to your data when you visit {{ site_name }}: hosting on GitHub Pages, visit counts with GoatCounter, no cookies.{% endblock %}
+{% block content %}
+<h1>Privacy</h1>
+<p>{{ site_name }} has no accounts, no forms and no cookies, and asks you for nothing. This page explains what does happen when you visit. Last updated {{ privacy_updated }}.</p>
+<h2>Who is responsible</h2>
+<p>{{ controller }}, a sole proprietorship registered in Poland (CEIDG), {{ address }}. Contact: <a href="mailto:{{ contact }}">{{ contact }}</a>.</p>
+<h2>What happens when you visit</h2>
+<h3>Hosting: GitHub Pages</h3>
+<p>The site is served by GitHub Pages. GitHub logs every visitor's IP address for security purposes. These logs are GitHub's; we don't use them. GitHub is a US company. It says it complies with the EU-U.S. Data Privacy Framework and otherwise relies on the EU's standard contractual clauses. Its <a target="_blank" rel="noopener" href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">privacy statement</a> covers this data; it gives no retention period for these logs.</p>
+<h3>Visit counts: GoatCounter</h3>
+<p>Each page view is counted with GoatCounter, which is run from Ireland on servers in Finland and Germany. Your browser sends the page address, the page you came from, and technical details: browser, operating system, screen width and language.</p>
+<p>GoatCounter uses your IP address and browser details to tell a repeat visit from a new one, keeping that link in memory for at most eight hours, and to work out your country. It does not store your IP address or your full browser details, and it stores nothing on your device. What is kept are daily totals: views per page, browsers, countries, screen sizes and referring sites. See GoatCounter's <a target="_blank" rel="noopener" href="https://www.goatcounter.com/help/privacy">privacy policy</a>.</p>
+<h3>Fonts and scripts</h3>
+<p>Fonts and scripts are served from this site. No other services are contacted.</p>
+{% if tip_url %}
+<h3>Buy me a coffee</h3>
+<p>The "Buy me a coffee" link leads to Suppi, run by Crowd8 sp. z o.o. in Warsaw, Poland (the company behind Patronite). Nothing is loaded from it until you click. If you send a tip, the payment is handled there, in Polish złoty, under their privacy policy. GoatCounter counts clicks on the link, like a page view.</p>
+{% endif %}
+<h3>Email</h3>
+<p>If you write to <a href="mailto:{{ contact }}">{{ contact }}</a>, your message and address are used to reply to you and kept only as long as that needs.</p>
+<h2>Legal basis</h2>
+<p>Legitimate interest (GDPR Article 6(1)(f)): keeping the site running and secure, and knowing how many people visit which pages, without identifying anyone.</p>
+<h2>How long data is kept</h2>
+<ul>
+<li>GitHub's security logs: as set by GitHub, see above.</li>
+<li>GoatCounter: your IP address is never stored. The link between page views lasts at most eight hours. The daily totals are kept while the site runs.</li>
+<li>Email: until the conversation is finished.</li>
+</ul>
+<h2>Your rights</h2>
+<p>You can ask for access to, correction or deletion of personal data about you, ask for its use to be restricted, object to it, or ask for it in a portable format. Write to <a href="mailto:{{ contact }}">{{ contact }}</a>. The site itself stores no IP addresses or identifiers, so there is usually nothing linked to you to show or delete. For GitHub's logs, GitHub can be reached at privacy@github.com.</p>
+<p>You can also complain to a data protection authority: in Poland, where the site is run, the <a target="_blank" rel="noopener" href="https://uodo.gov.pl/">President of the Personal Data Protection Office (UODO)</a>, or the authority in your own country.</p>
+<h2>What we don't do</h2>
+<p>No advertising, no profiling and no automated decisions about you. No data is sold or shared beyond the two services above. You don't have to provide anything to use the site.</p>
+{% endblock %}
+{# Shows no data, so no note about the data or its attribution. #}
+{% block about %}{% endblock %}

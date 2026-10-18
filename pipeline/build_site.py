@@ -26,6 +26,12 @@ SITE_DIR = Path(__file__).parent.parent / "site"
 OUTPUT_DIR = SITE_DIR / "dist"
 SITE_NAME = "Call of Kiuru"
 SITE_URL = "https://callofkiuru.eu/"
+OWNER = "nin at devtortie"
+CONTROLLER = "Devtortie Janina Byszewska"  # as registered in CEIDG
+ADDRESS = "ul. Stanisława Taczaka 24/103, 61-819 Poznań, Poland"  # CEIDG place of business
+CONTACT = "hello@devtortie.com"
+PRIVACY_UPDATED = "18 October 2026"
+TIP_URL = "https://suppi.pl/devtortie"
 # The 30 years before the baseline, shown on the method page for comparison.
 # The WMO reference period for long-term climate change.
 EARLIER_YEARS = (1961, 1990)
@@ -220,6 +226,7 @@ def build(result, output_dir=OUTPUT_DIR):
                                     chart_days, (first, last))
     shared = {
         "site_name": SITE_NAME,
+        "owner": OWNER, "contact": CONTACT, "tip_url": TIP_URL,
         "baseline": f"{first}–{last}",
         "baseline_length": last - first + 1,
         "attribution": result["attribution"],
@@ -245,6 +252,8 @@ def build(result, output_dir=OUTPUT_DIR):
     for city in cities:
         write(f"{city['slug']}/index.html", "city.html", city=city, root="../")
     gaps = [c["earlier_gap"] for c in cities]
+    write("privacy/index.html", "privacy.html", root="../", privacy_updated=PRIVACY_UPDATED,
+          controller=CONTROLLER, address=ADDRESS)
     write("method/index.html", "method.html", root="../",
           cities=sorted(cities, key=lambda c: c["sort_usual"]),
           earlier="{}–{}".format(*EARLIER_YEARS),

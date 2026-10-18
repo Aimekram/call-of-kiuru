@@ -118,7 +118,7 @@ class Built(unittest.TestCase):
         return Page((self.directory / path).read_text())
 
     def test_one_page_per_city_a_ranking_and_the_method(self):
-        expected = {"index.html", "method/index.html"} | {
+        expected = {"index.html", "method/index.html", "privacy/index.html"} | {
             f"{c['slug']}/index.html" for c in self.result["cities"]}
         self.assertEqual({str(p.relative_to(self.directory)) for p in self.written}, expected)
         self.assertTrue((self.directory / "static" / "style.css").exists())
@@ -129,7 +129,7 @@ class Built(unittest.TestCase):
             page = Page(path.read_text())
             self.assertEqual(page.errors, [], path)
             for link in page.links:
-                if link.startswith("https://"):
+                if link.startswith(("https://", "mailto:")):
                     continue
                 link_path, _, anchor = link.partition("#")
                 target = (path.parent / link_path).resolve()
@@ -241,6 +241,20 @@ class Built(unittest.TestCase):
                       "SLU Naturens Kalender (CC0).", page.plain)
         self.assertTrue(any("wmo.int" in link for link in page.links))
 
+    def test_privacy_page_names_who_and_what(self):
+        page = Page((self.directory / "privacy" / "index.html").read_text())
+        for text in (build_site.CONTROLLER, build_site.ADDRESS, build_site.CONTACT, "GitHub Pages", "GoatCounter", "UODO",
+                     "Data Privacy Framework", "Article 6(1)(f)", "data protection authority"):
+            self.assertIn(text, page.plain)
+        # The tip link's clicks are counted as a GoatCounter event.
+        if build_site.TIP_URL:
+            source = (self.directory / "index.html").read_text()
+            self.assertIn(f'href="{build_site.TIP_URL}" data-goatcounter-click="tip-link"', source)
+        # Every page links to it from the footer.
+        for path in self.written:
+            if path.name == "index.html":
+                self.assertIn("privacy/", " ".join(Page(path.read_text()).links), path)
+
     def test_method_page_shows_the_validation(self):
         page = Page((self.directory / "method" / "index.html").read_text())
         ids = {a.get("id") for _, a in page.attributes}
@@ -277,9 +291,13 @@ class Built(unittest.TestCase):
             side = "early" if build_site.whole_days(days) < 0 else "late"
             self.assertIn(f'<span class="{side}" style="width: ', cell)
 
-    def test_every_page_carries_the_attribution_and_the_caveat(self):
+    def test_every_page_with_data_carries_the_attribution_and_the_caveat(self):
         for path in self.written:
             text = Page(path.read_text()).plain
+            if path.parent.name == "privacy":
+                # The privacy page shows no data.
+                self.assertNotIn(self.result["attribution"], text)
+                continue
             self.assertIn(self.result["attribution"], text)
             self.assertIn("a model result, not an observation", text)
 
