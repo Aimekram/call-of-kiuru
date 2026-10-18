@@ -16,11 +16,11 @@
 :root {
   color-scheme: light dark;
   scroll-behavior: smooth;
-  --paper: light-dark(#f8f4e1, #1d1b16);
-  --card: light-dark(#fffdf3, #262319);
-  --ink: light-dark(#221f1a, #f3eedb);
-  --muted: light-dark(#5e594c, #b9b29c);
-  --line: light-dark(#221f1a26, #f3eedb2e);
+  --paper: light-dark(#f8f1d5, #1d1a14);
+  --card: light-dark(#fffae6, #262217);
+  --ink: light-dark(#221e18, #f3ebcf);
+  --muted: light-dark(#5e5847, #b9b093);
+  --line: light-dark(#221e1826, #f3ebcf2e);
   --brand: light-dark(#409d48, #6ed274);
   --early: light-dark(#b67c0d, #c38824);
   --late: light-dark(#1777b8, #4b99d7);
