@@ -47,6 +47,7 @@ h1, h2 { font-family: var(--display); line-height: 1.1; letter-spacing: -0.01em;
 h1 { font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 900; margin: 0 0 1.25rem; }
 h1 em { font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
 h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; scroll-margin-top: 1.5rem; }
+h3 { font: 700 1.05rem/1.2 var(--display); margin: 1.5rem 0 0.25rem; }
 
 /* Header */
 .site { margin-bottom: 2rem; }
@@ -99,7 +100,9 @@ tbody tr:last-child > * { border-bottom: 0; }
 thead th { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
 thead th button { all: unset; cursor: pointer; }
 thead th button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-thead small { display: block; font-size: 0.75rem; font-weight: 400; }
+th small, td small { display: block; font-size: 0.75rem; font-weight: 400; }
+tbody small { color: var(--muted); }
+td small { white-space: nowrap; }
 /* Sort arrows: space always reserved, so nothing shifts. No underline: that means a link. */
 thead th .label::after { content: "↕"; display: inline-block; width: 1em; margin-left: 0.25em; visibility: hidden; color: var(--muted); }
 thead th button:hover { color: var(--ink); }

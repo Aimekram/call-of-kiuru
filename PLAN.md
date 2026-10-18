@@ -280,18 +280,14 @@ what people see, so the interface comes before the daily job):
    share cards can reuse it. A ±25 scale was considered and dropped: it
    would cut 7 bars, Cologne's −26 in 2024 among them.
 2. Share-card images, for posts on Instagram and Bluesky.
-3. Methodology page (`method/`): the average and "why a model" are
-   explained. Still to add, the validation evidence (decided 2026-10-18):
-   - Per city, a small chart of modelled against observed bloom by year
-     (median observed lilac, `data/bloom_multiyear.csv`: Germany
-     1951–2024, Sweden 2008–2024).
-   - A short table per city: average error, bias, and how well the
-     year-to-year differences match (anomaly correlation 0.90 overall).
-   - The offset explained once: the index averages lilac and two
-     honeysuckles, the observations are lilac only, so the index runs
-     3.3 days early on average (the lilac sub-model +0.1).
-   - Credit DWD and SLU there. No observed column on city pages for now:
-     it would be mostly empty and show the offset in every row.
+3. Methodology page (`method/`): "why a model", the average, and (2026-10-18)
+   the validation by country (correlation, typical miss against calling
+   every spring normal, skill, 95% ranges, from `bloom_multiyear.md`), the
+   lilac-only offset, limits, and why only Germany and Sweden. DWD and SLU
+   are credited there. Still to add: per city, a small chart of modelled
+   against observed bloom by year (`data/bloom_multiyear.csv`). No observed
+   column on city pages for now: it would be mostly empty and show the
+   offset in every row.
 4. Daily job (§2 step 7), which takes over the redeploys. Needed by the end
    of February 2027: the earliest modelled bloom in the test is late March
    (Cologne 2024), and the job wants a few weeks on live data first.

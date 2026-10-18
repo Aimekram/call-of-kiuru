@@ -240,6 +240,15 @@ class Built(unittest.TestCase):
         self.assertIn("based on data from Deutscher Wetterdienst (CC BY 4.0) and from "
                       "SLU Naturens Kalender (CC0).", page.plain)
         self.assertTrue(any("wmo.int" in link for link in page.links))
+
+    def test_method_page_shows_the_validation(self):
+        page = Page((self.directory / "method" / "index.html").read_text())
+        ids = {a.get("id") for _, a in page.attributes}
+        self.assertLessEqual({"model", "validation", "coverage", "baseline"}, ids)
+        # The bloom test's by-country figures (run_bloom_test.py, 2026-10-11).
+        for figure in ("0.92 0.88–0.94", "0.69 0.46–0.87", "81% 72–87%",
+                       "48% 19–75%", "3.9 days 3.3–4.4", "4.6 days 2.7–6.0"):
+            self.assertIn(figure, page.plain)
         self.assertTrue(any("usanpn.org" in link for link in page.links))
 
     def test_the_average_links_to_its_explanation(self):
