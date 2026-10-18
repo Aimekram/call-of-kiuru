@@ -2,7 +2,7 @@
 {% block title %}{% if city.bloomed %}{{ city.name }}: spring {{ city.year }} was {{ city.phrase }} usual{% else %}{{ city.name }}: spring {{ city.year }} has not started yet{% endif %} – {{ site_name }}{% endblock %}
 {% block description %}{% if city.bloomed %}The modelled start of spring in {{ city.name }} in {{ city.year }} was {{ city.date }}, {{ city.phrase }} its {{ baseline }} average.{% else %}The modelled start of spring in {{ city.name }} has not arrived yet in {{ city.year }}. Its {{ baseline }} average is around {{ city.usual_date }}.{% endif %}{% endblock %}
 {% block content %}
-<p class="eyebrow">{{ city.name }}, {{ city.country }} · Spring {{ city.year }} · <a href="{{ root }}method/#model">Model, not observation</a></p>
+<p class="eyebrow">{{ city.name }}, {{ city.country }} · Spring {{ city.year }} · <a href="{{ root }}method/#model">model, not observation</a></p>
 {% if city.bloomed %}
 <h1>Spring came <em>{{ city.headline }}</em></h1>
 <dl class="facts">
@@ -21,6 +21,9 @@
 </dl>
 {% endif %}
 <h2>Every year since {{ city.years[-1].year }}</h2>
+<div class="card">
+{% include "chart.html" %}
+</div>
 <div class="card">
 <table class="sortable">
 <caption>Modelled start of spring in {{ city.name }}</caption>
@@ -44,4 +47,6 @@
 </div>
 <p class="note">A minus sign means earlier than the {{ baseline }} average, a plus sign later. Dates are rounded to the nearest day. The difference is worked out before rounding, so it can look a day off.</p>
 <p><a href="{{ root }}">All cities</a></p>
+{% endblock %}
+{% block scripts %}<script src="{{ root }}static/chart.js" defer></script>
 {% endblock %}

@@ -144,6 +144,38 @@ footer h2 { font-size: 1rem; color: var(--ink); margin-top: 0; }
 
 td:has(> time), td.date { white-space: nowrap; }
 
+/* Trend chart: bars on a stretched SVG, labels as HTML at their real size. */
+.chart { --gl: 2.25rem; --gr: 0.25rem; margin: 0; outline-offset: 4px; }
+.chart-area { position: relative; height: 200px; margin: 1.5rem 0 1.75rem; } /* CHART_HEIGHT in build_site.py */
+.chart-svg { position: absolute; top: 0; left: var(--gl); width: calc(100% - var(--gl) - var(--gr)); height: 100%; overflow: visible; }
+.chart-band { fill: var(--ink); opacity: 0.05; }
+.chart-grid { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.chart-zero { stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.chart .bar.early { fill: var(--early); }
+.chart .bar.late { fill: var(--late); }
+.chart .bar.active { stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.chart .hit { fill: transparent; }
+.chart-tick {
+  position: absolute; left: 0; width: calc(var(--gl) - 0.5rem); transform: translateY(-50%);
+  font-size: 0.75rem; line-height: 1; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums;
+}
+.chart-label, .chart-tip { position: absolute; left: calc(var(--gl) + (100% - var(--gl) - var(--gr)) * var(--x) / 100); transform: translateX(-50%); }
+.chart-label { font-size: 0.75rem; line-height: 1; color: var(--muted); white-space: nowrap; }
+.chart-band-label { top: -1.1rem; }
+.chart-year { bottom: -1.2rem; }
+.chart-tip {
+  top: 0; z-index: 2; pointer-events: none;
+  display: grid; grid-template-columns: auto 1fr; gap: 0 0.35rem; align-items: center;
+  padding: 0.2rem 0.45rem; border: 1px solid var(--ink); border-radius: 6px; background: var(--card);
+  box-shadow: 1.5px 1.5px 0 var(--ink); font-size: 0.75rem; line-height: 1.3; white-space: nowrap;
+}
+.chart-tip[data-edge="start"] { transform: none; }
+.chart-tip[data-edge="end"] { transform: translateX(-100%); }
+.chart-tip i { width: 8px; height: 2px; border-radius: 1px; }
+.chart-tip i.early { background: var(--early); }
+.chart-tip i.late { background: var(--late); }
+.chart-tip span { grid-column: 2; color: var(--muted); }
+
 /* Phones */
 @media (max-width: 30rem) {
   .country, .meter, .key { display: none; }

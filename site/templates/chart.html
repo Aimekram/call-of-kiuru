@@ -1,0 +1,27 @@
+{% set chart = city.chart %}
+<figure class="chart" data-chart tabindex="0" aria-label="Bar chart: days earlier or later than the {{ baseline }} average in {{ city.name }}, every year {{ chart.first_year }}–{{ chart.last_year }}. Use the arrow keys to read each year; the table below lists them all.">
+<div class="chart-area">
+{% for line in chart.grid %}
+<span class="chart-tick" aria-hidden="true"{{ {'style': line.top}|xmlattr }}>{{ line.label }}</span>
+{% endfor %}
+<svg class="chart-svg" viewBox="0 0 {{ chart.width }} {{ chart.height }}" preserveAspectRatio="none" aria-hidden="true">
+<rect class="chart-band" x="{{ chart.band.x }}" y="0" width="{{ chart.band.width }}" height="{{ chart.height }}"/>
+{% for line in chart.grid if line.label != "0" %}
+<line class="chart-grid" x1="0" x2="{{ chart.width }}" y1="{{ line.y }}" y2="{{ line.y }}"/>
+{% endfor %}
+{% for bar in chart.bars %}
+<path class="bar {{ bar.side }}{{ ' active' if loop.last }}" d="{{ bar.d }}"/>
+{% endfor %}
+<line class="chart-zero" x1="0" x2="{{ chart.width }}" y1="{{ chart.zero }}" y2="{{ chart.zero }}"/>
+{% for bar in chart.bars %}
+<rect class="hit" x="{{ bar.hit_x }}" y="0" width="{{ bar.hit_width }}" height="{{ chart.height }}" data-i="{{ loop.index0 }}" data-x="{{ bar.x }}" data-year="{{ bar.year }}" data-date="{{ bar.date }}" data-tip="{{ bar.tip }}" data-key="{{ bar.key }}"/>
+{% endfor %}
+</svg>
+<span class="chart-label chart-band-label" aria-hidden="true"{{ {'style': chart.band.label_x}|xmlattr }}>{{ baseline }} average</span>
+{% for year in chart.years %}
+<span class="chart-label chart-year" aria-hidden="true"{{ {'style': year.x}|xmlattr }}>{{ year.label }}</span>
+{% endfor %}
+<div class="chart-tip" role="status" aria-live="polite" data-edge="end"{{ {'style': chart.newest.style}|xmlattr }}><i class="{{ chart.newest.key }}"></i><strong>{{ chart.newest.tip }}</strong><span>{{ chart.newest.year }} · {{ chart.newest.date }}</span></div>
+</div>
+<figcaption class="key"><span><i class="early"></i>Earlier: below the line</span><span><i class="late"></i>Later: above</span></figcaption>
+</figure>

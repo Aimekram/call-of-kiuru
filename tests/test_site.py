@@ -80,6 +80,11 @@ class Wording(unittest.TestCase):
         self.assertEqual(build_site.headline_phrase(1.38), "1 day late")
         self.assertEqual(build_site.headline_phrase(-0.4), "on time")
 
+    def test_tip_phrase(self):
+        self.assertEqual(build_site.tip_phrase(-7.72), "8 days earlier")
+        self.assertEqual(build_site.tip_phrase(1.2), "1 day later")
+        self.assertEqual(build_site.tip_phrase(-0.4), "Same as the average")
+
     def test_signed_days(self):
         self.assertEqual(build_site.signed_days(-7.72), "−8")
         self.assertEqual(build_site.signed_days(1.38), "+1")
@@ -175,6 +180,26 @@ class Built(unittest.TestCase):
                               f'<td data-value="{row["days_vs_baseline"]}">'
                               f'{build_site.signed_days(row["days_vs_baseline"])}</td>',
                               source, f"{city['slug']} {row['year']}")
+
+    def test_each_city_charts_every_year_on_one_scale(self):
+        scale = build_site.chart_scale(self.result["rows"])
+        largest = max(abs(build_site.whole_days(r["days_vs_baseline"])) for r in self.result["rows"])
+        self.assertGreaterEqual(scale, largest)
+        for city in self.result["cities"]:
+            rows = sorted((r for r in self.result["rows"] if r["city"] == city["slug"]),
+                          key=lambda r: r["year"])
+            chart = build_site.trend_chart(rows, scale, (1991, 2020))
+            self.assertEqual([b["year"] for b in chart["bars"]], [r["year"] for r in rows])
+            for bar, row in zip(chart["bars"], rows):
+                days = build_site.whole_days(row["days_vs_baseline"])
+                # A bar for every year that is not 0, on the side its sign says.
+                self.assertEqual(bar["d"] == "", days == 0, (city["slug"], row["year"]))
+                self.assertEqual(bar["side"], "early" if days < 0 else "late")
+                self.assertEqual(bar["key"], "" if days == 0 else bar["side"])
+                self.assertEqual(bar["tip"], build_site.tip_phrase(row["days_vs_baseline"]))
+            source = (self.directory / city["slug"] / "index.html").read_text()
+            self.assertEqual(source.count('class="hit"'), len(rows), city["slug"])
+            self.assertIn('static/chart.js', source)
 
     def test_external_links_open_in_a_new_tab(self):
         external = 0

@@ -84,6 +84,87 @@ def earlier_gap(city, rows):
     return sum(days) / len(days) - city["baseline_doy"]
 
 
+# The trend chart's plot is this many CSS pixels tall at every width (the
+# same 200px is in style.css). Bars are drawn on a 1000-unit-wide box
+# stretched to the plot's width, so labels can stay HTML text at their size.
+CHART_HEIGHT = 200
+CHART_WIDTH = 1000
+
+
+def tip_phrase(days_vs_baseline):
+    """'8 days earlier', '1 day later' or 'Same as the average', for whole days."""
+    days = whole_days(days_vs_baseline)
+    if days == 0:
+        return "Same as the average"
+    unit = "day" if abs(days) == 1 else "days"
+    return f"{abs(days)} {unit} {'earlier' if days < 0 else 'later'}"
+
+
+def chart_scale(rows):
+    """Days from the line to the top (and bottom) of every city's chart: the
+    largest whole-day difference in any city, up to the next 10, at least 20."""
+    largest = max(abs(whole_days(r["days_vs_baseline"])) for r in rows)
+    return max(20, math.ceil(largest / 10) * 10)
+
+
+def trend_chart(rows, scale, baseline_years):
+    """Geometry and labels for one city's bars, oldest year first. Bars show
+    whole days, like the table beside them."""
+    rows = sorted(rows, key=lambda r: r["year"])
+    zero = CHART_HEIGHT / 2
+
+    def y(days):
+        return zero - days / scale * (zero - 4)
+    step = CHART_WIDTH / len(rows)
+    width = step * 0.68
+    ry = 2  # the rounded outer end, in px
+    first, last = baseline_years
+
+    def pct(x):
+        return f"{x / CHART_WIDTH * 100:.2f}"
+
+    bars = []
+    for i, r in enumerate(rows):
+        days = whole_days(r["days_vs_baseline"])
+        x = i * step + (step - width) / 2
+        end = y(days)
+        if days == 0:
+            d = ""
+        elif abs(end - zero) <= ry:
+            d = f"M{x:.2f},{zero:.2f}V{end:.2f}H{x + width:.2f}V{zero:.2f}Z"
+        elif days > 0:
+            d = (f"M{x:.2f},{zero:.2f}V{end + ry:.2f}A{width / 2:.2f},{ry} 0 0 1 "
+                 f"{x + width:.2f},{end + ry:.2f}V{zero:.2f}Z")
+        else:
+            d = (f"M{x:.2f},{zero:.2f}V{end - ry:.2f}A{width / 2:.2f},{ry} 0 0 0 "
+                 f"{x + width:.2f},{end - ry:.2f}V{zero:.2f}Z")
+        side = "early" if days < 0 else "late"
+        bars.append({"d": d, "side": side, "key": side if days else "",
+                     "hit_x": f"{i * step:.2f}", "hit_width": f"{step:.2f}",
+                     "x": pct(i * step + step / 2), "year": r["year"],
+                     "date": day_month(date_of(r["bloom_doy"], r["year"])),
+                     "tip": tip_phrase(r["days_vs_baseline"])})
+
+    years = [r["year"] for r in rows]
+    band_start = years.index(first) * step if first in years else 0
+    band_end = (years.index(last) + 1) * step if last in years else CHART_WIDTH
+    grid = [{"y": f"{y(v):.2f}", "top": f"top: {y(v):.1f}px",
+             "label": "0" if v == 0 else f"{'+' if v > 0 else '−'}{abs(v)}"}
+            for v in range(-scale, scale + 1, 10)]
+    newest = bars[-1]
+    return {
+        "height": CHART_HEIGHT, "width": CHART_WIDTH, "zero": f"{zero:.2f}",
+        "bars": bars, "grid": grid,
+        "band": {"x": f"{band_start:.2f}", "width": f"{band_end - band_start:.2f}",
+                 "label_x": f"--x: {pct((band_start + band_end) / 2)}"},
+        "years": [{"label": b["year"], "x": f"--x: {b['x']}"} for b in bars
+                  if b["year"] % 20 == 0],
+        # Shown in the tooltip until someone points at another year.
+        "newest": {**newest, "style": f"--x: {newest['x']}"},
+        "first_year": years[0], "last_year": years[-1],
+    }
+
+
 def city_view(city, rows):
     """Everything a template needs for one city, already worded and rounded."""
     current = city["current"]
@@ -133,6 +214,10 @@ def build(result, output_dir=OUTPUT_DIR):
         city["meter"] = {"side": "early" if days < 0 else "late",
                          "width": f"{abs(days) / scale * 50:.1f}%"}
     first, last = result["baseline_years"]
+    chart_days = chart_scale(result["rows"])
+    for city in cities:
+        city["chart"] = trend_chart([r for r in result["rows"] if r["city"] == city["slug"]],
+                                    chart_days, (first, last))
     shared = {
         "site_name": SITE_NAME,
         "baseline": f"{first}–{last}",

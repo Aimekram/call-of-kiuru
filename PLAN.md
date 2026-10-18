@@ -272,7 +272,13 @@ the header logo and the favicon (a simplified version at tab size).
 
 Still to build, in order (reordered 2026-10-18: until spring the history is
 what people see, so the interface comes before the daily job):
-1. Trend chart on each city page.
+1. Trend chart on each city page. Built 2026-10-18: a bar per year since
+   1940, earlier below the line in ochre, later above in blue, all cities
+   on one scale (±30 days) so they compare. Bars show whole days like the
+   table. A box in the plot's top corner shows the newest year; hover or
+   the arrow keys switch it to any other. SVG made at build time, so the
+   share cards can reuse it. A ±25 scale was considered and dropped: it
+   would cut 7 bars, Cologne's −26 in 2024 among them.
 2. Share-card images, for posts on Instagram and Bluesky.
 3. Methodology page (`method/`): the average and "why a model" are
    explained. Still to add, the validation evidence (decided 2026-10-18):
