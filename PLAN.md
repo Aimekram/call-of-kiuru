@@ -336,7 +336,11 @@ In rough order:
    European forecast source (a new data source, licence to check).
 8. **"How unusual is this year."** USA-NPN's return-interval maps show how
    often a spring has been as early or late as this one. Our 1940–present
-   series supports the same thing without a new model.
+   series supports the same thing without a new model. On city pages, a
+   line under the headline, e.g. Malmö 2026: "Only 15 of the 86 springs
+   since 1940 came earlier." Settle ties and the not-yet-bloomed case;
+   pairs well with the trend chart. (Its place was a sentence that only
+   repeated the headline, removed 2026-10-18.)
 
 A database (Supabase Postgres, Frankfurt region) comes in with the first
 feature that needs one: visitor data such as signups, or enough locations

@@ -14,8 +14,8 @@
 {% if mixed_years %}
 <th scope="col" data-sort="number">Year</th>
 {% endif %}
-<th scope="col" data-sort="number">Start of spring</th>
-<th scope="col" data-sort="number" aria-sort="ascending">Days from average<small class="order"><span class="none">− earlier, + later</span><span class="asc">earliest first</span><span class="desc">latest first</span></small></th>
+<th scope="col" data-sort="number">Start of spring{% if not mixed_years %}<small>{{ year }}</small>{% endif %}</th>
+<th scope="col" data-sort="number" aria-sort="ascending" data-sorted>Days from average<small class="order"><span class="none">− earlier, + later</span><span class="asc">earliest first</span><span class="desc">latest first</span></small></th>
 <th scope="col" data-sort="number">Average date<small>rounded</small></th>
 </tr>
 </thead>

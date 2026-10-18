@@ -38,11 +38,13 @@ body {
 }
 
 a { color: inherit; text-decoration-color: var(--brand); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+/* Links to other sites: muted underline instead of the brand green. */
+a[href^="http"] { text-decoration-color: var(--muted); }
 a:hover { text-decoration-color: currentColor; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 h1, h2 { font-family: var(--display); line-height: 1.1; letter-spacing: -0.01em; }
-h1 { font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 900; margin: 0 0 0.75rem; }
+h1 { font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 900; margin: 0 0 1.25rem; }
 h1 em { font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
 h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; scroll-margin-top: 1.5rem; }
 
@@ -67,8 +69,9 @@ h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; scroll-margin-
   .site a:is(:hover, :focus-visible) .ring { animation: none; }
 }
 
-.eyebrow { margin: 0 0 0.4rem; font-size: 0.875rem; color: var(--muted); }
-.lede { margin: 0 0 1.25rem; color: var(--muted); }
+.eyebrow { margin: 0 0 1rem; font-size: 0.875rem; color: var(--muted); }
+.eyebrow a { white-space: nowrap; }
+.lede { margin: 0 0 1.5rem; color: var(--muted); }
 
 /* Cards */
 .card {
@@ -82,19 +85,6 @@ h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; scroll-margin-
 }
 .card > :first-child { margin-top: 0; }
 .card > :last-child { margin-bottom: 0; }
-
-.chip {
-  display: inline-block;
-  padding: 0.15rem 0.75rem;
-  border: 1.5px solid var(--ink);
-  border-radius: 999px;
-  background: color-mix(in oklch, var(--brand) 45%, transparent);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
 
 /* Key facts */
 .facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0 0 1rem; }
@@ -117,7 +107,7 @@ thead th:not([aria-sort]) button:hover .label::after { visibility: visible; }
 thead th[aria-sort] .label::after { visibility: visible; color: inherit; }
 thead th[aria-sort="ascending"] .label::after { content: "↑"; }
 thead th[aria-sort="descending"] .label::after { content: "↓"; }
-/* "− earlier, + later" until sorted by a click; all three lines share one spot. */
+/* "− earlier, + later" until sorted by that column; all three lines share one spot. */
 thead th .order { display: grid; }
 thead th .order > span { grid-area: 1 / 1; visibility: hidden; }
 thead th:not([data-sorted]) .order .none,

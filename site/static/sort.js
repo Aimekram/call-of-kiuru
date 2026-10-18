@@ -49,7 +49,8 @@ function makeSortable(table) {
         delete other.dataset.sorted;
       });
       heading.setAttribute("aria-sort", descending ? "descending" : "ascending");
-      // Sorted by a click: headings with an "order" line now say which way.
+      // Sorted: headings with an "order" line say which way. The ranking
+      // starts out sorted, so its page marks that heading the same way.
       heading.dataset.sorted = "";
       body.append(...rows);
     });
