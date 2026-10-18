@@ -263,8 +263,7 @@ Colours in `site/static/style.css`, with light and dark mode from
 cold one, so neither reads as good or bad. Pink against blue was dropped
 because it read as an alarm. Lilac against blue fails for red-green
 colourblind readers. The ripple logo from `design/logo-sketches.html` is
-in the header; the favicon's green (`#4a934f`) is not yet the brand green
-(`#409d48`).
+the header logo and the favicon (a simplified version at tab size).
 
 Still to build, in order (reordered 2026-10-18: until spring the history is
 what people see, so the interface comes before the daily job):
