@@ -20,7 +20,7 @@
 </head>
 <body>
 <header class="site">
-<a href="{{ root }}"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="11" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="5"><circle cx="50" cy="50" r="23"/><circle cx="50" cy="50" r="34" opacity=".6"/><circle cx="50" cy="50" r="45" opacity=".3"/></g></svg>{{ site_name }}</a>
+<a href="{{ root }}"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="11" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="5"><circle class="ring" cx="50" cy="50" r="23"/><circle class="ring" cx="50" cy="50" r="34" opacity=".6"/><circle class="ring" cx="50" cy="50" r="45" opacity=".3"/></g></svg><span class="name">{{ site_name }}</span></a>
 </header>
 <main>
 {% block content %}{% endblock %}

@@ -49,6 +49,21 @@ h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; }
 .site { margin-bottom: 2rem; }
 .site a { display: inline-flex; align-items: center; gap: 0.5rem; font: 700 1.05rem/1 var(--display); text-decoration: none; }
 .site svg { width: 1.75rem; height: 1.75rem; color: var(--brand); }
+/* Hover: a line grows under the name and the rings light up outwards, once. */
+.site .name { position: relative; }
+.site .name::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px;
+  background: var(--brand); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+}
+.site a:is(:hover, :focus-visible) .name::after { transform: scaleX(1); }
+.site a:is(:hover, :focus-visible) .ring { animation: call 0.9s ease-out both; }
+.site a:is(:hover, :focus-visible) .ring:nth-child(2) { animation-delay: 0.12s; }
+.site a:is(:hover, :focus-visible) .ring:nth-child(3) { animation-delay: 0.24s; }
+@keyframes call { 0% { opacity: 0.15; } 40% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .site .name::after { transition: none; }
+  .site a:is(:hover, :focus-visible) .ring { animation: none; }
+}
 
 .eyebrow { margin: 0 0 0.4rem; font-size: 0.875rem; color: var(--muted); }
 .lede { margin: 0 0 1.25rem; color: var(--muted); }
