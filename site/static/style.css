@@ -94,6 +94,7 @@ tbody tr:last-child > * { border-bottom: 0; }
 thead th { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
 thead th button { all: unset; cursor: pointer; }
 thead th button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+thead small { display: block; font-size: 0.75rem; font-weight: 400; }
 thead th[aria-sort="ascending"] button::after { content: " ↑"; }
 thead th[aria-sort="descending"] button::after { content: " ↓"; }
 tbody th { font-weight: 500; }
@@ -125,7 +126,7 @@ table.rows-link thead tr > :first-child { padding-left: 0.5rem; }
 footer { margin-top: 3rem; padding-top: 1rem; border-top: 2px solid var(--ink); font-size: 0.875rem; color: var(--muted); }
 footer h2 { font-size: 1rem; color: var(--ink); margin-top: 0; }
 
-td:has(> time) { white-space: nowrap; }
+td:has(> time), td.date { white-space: nowrap; }
 
 /* Phones: the numbers carry the ranking, the bars and country step aside. */
 @media (max-width: 30rem) {

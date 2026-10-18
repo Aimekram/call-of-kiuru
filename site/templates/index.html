@@ -16,7 +16,7 @@
 {% endif %}
 <th scope="col" data-sort="number">Start of spring</th>
 <th scope="col" data-sort="number">Days from average</th>
-<th scope="col" data-sort="number">Average date</th>
+<th scope="col" data-sort="number">Average date<small>rounded</small></th>
 </tr>
 </thead>
 <tbody>
@@ -34,12 +34,12 @@
 <td data-value="">Not yet</td>
 <td data-value="">–</td>
 {% endif %}
-<td data-value="{{ city.sort_usual }}">{{ city.usual_date }}</td>
+<td class="date" data-value="{{ city.sort_usual }}">{{ city.usual_date }}</td>
 </tr>
 {% endfor %}
 </tbody>
 </table>
 <p class="key" aria-hidden="true"><span><i class="early"></i>Earlier than average</span><span><i class="late"></i>Later</span></p>
 </div>
-<p class="note">A minus sign means earlier than the average, a plus sign later. Days are rounded to whole days.</p>
+<p class="note">A minus sign means earlier than the average, a plus sign later. Dates are rounded to the nearest day. The difference is worked out before rounding, so it can look a day off.</p>
 {% endblock %}

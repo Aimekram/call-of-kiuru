@@ -25,8 +25,14 @@ function makeSortable(table) {
   headings.forEach((heading, column) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = heading.textContent;
-    heading.textContent = "";
+    // The heading's text goes in a label that carries the sort arrow; any
+    // small print (such as "rounded") follows on its own line.
+    const label = document.createElement("span");
+    label.className = "label";
+    for (const node of Array.from(heading.childNodes)) {
+      if (node.nodeName !== "SMALL") label.append(node);
+    }
+    button.append(label, ...heading.childNodes);
     heading.append(button);
 
     button.addEventListener("click", () => {

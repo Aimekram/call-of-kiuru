@@ -281,15 +281,18 @@ Decided:
   TypeScript would add a build step for it.
 - All cities are shown the same way. The wording for Sweden's weaker
   evidence is settled at the end.
+- Differences are worked out from the unrounded days, and each date is
+  rounded on its own, so the two can look a day apart: Hamburg 2026 shows
+  2 May against an average of 3 May, and a difference of 0 (it is −0.4).
+  This happens in 185 of the 696 city-years. Kept as it is (2026-10-18):
+  the ranking's column says "Average date, rounded", city pages say
+  "around", and the notes under the tables explain it.
 - DWD and SLU are credited on the method page, where the lilac check is
   mentioned, in DWD's wording for processed data ("Based on data from
   Deutscher Wetterdienst"). The other pages show none of their data and
   carry the Copernicus line only.
 
 To settle with the design:
-- The difference is rounded from the unrounded value, and each date is
-  rounded on its own, so the two can look a day apart: Hamburg 2026 shows
-  2 May against an average of 3 May, and a difference of 0 (it is −0.4).
 - The site cannot link to the validation documents: they are in the
   private docs repo. The methodology page (step 4) has to carry the
   evidence itself.
