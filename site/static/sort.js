@@ -44,8 +44,13 @@ function makeSortable(table) {
       };
       const rows = Array.from(body.rows).sort(
         (a, b) => compareKeys(key(a), key(b), numeric, descending));
-      headings.forEach((other) => other.removeAttribute("aria-sort"));
+      headings.forEach((other) => {
+        other.removeAttribute("aria-sort");
+        delete other.dataset.sorted;
+      });
       heading.setAttribute("aria-sort", descending ? "descending" : "ascending");
+      // Sorted by a click: headings with an "order" line now say which way.
+      heading.dataset.sorted = "";
       body.append(...rows);
     });
   });

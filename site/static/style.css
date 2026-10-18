@@ -1,6 +1,4 @@
-/* Meadow: cream paper, near-black ink, cards with a hard offset shadow.
-   Early is warm (ochre), late is cold (blue): neither reads as good or bad.
-   Both pairs pass colourblind and contrast checks on their paper. */
+/* Meadow. Early is warm, late is cold: neither reads as good or bad. */
 
 @font-face {
   font-family: "Fraunces";
@@ -47,7 +45,7 @@ h1 { font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 900; margin: 0 0 0.75rem
 h1 em { font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
 h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; }
 
-/* Header: logo and name */
+/* Header */
 .site { margin-bottom: 2rem; }
 .site a { display: inline-flex; align-items: center; gap: 0.5rem; font: 700 1.05rem/1 var(--display); text-decoration: none; }
 .site svg { width: 1.75rem; height: 1.75rem; color: var(--brand); }
@@ -55,7 +53,7 @@ h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; }
 .eyebrow { margin: 0 0 0.4rem; font-size: 0.875rem; color: var(--muted); }
 .lede { margin: 0 0 1.25rem; color: var(--muted); }
 
-/* A card: paper on paper, ink border, hard shadow */
+/* Cards */
 .card {
   background: var(--card);
   border: 2px solid var(--ink);
@@ -81,7 +79,7 @@ h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; }
   text-decoration: none;
 }
 
-/* Key facts under the headline */
+/* Key facts */
 .facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0 0 1rem; }
 .facts dt { color: var(--muted); }
 .facts dd { margin: 0; font-weight: 500; }
@@ -95,11 +93,22 @@ thead th { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
 thead th button { all: unset; cursor: pointer; }
 thead th button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 thead small { display: block; font-size: 0.75rem; font-weight: 400; }
-thead th[aria-sort="ascending"] button::after { content: " ↑"; }
-thead th[aria-sort="descending"] button::after { content: " ↓"; }
+/* Sort arrows: space always reserved, so nothing shifts. No underline: that means a link. */
+thead th .label::after { content: "↕"; display: inline-block; width: 1em; margin-left: 0.25em; visibility: hidden; color: var(--muted); }
+thead th button:hover { color: var(--ink); }
+thead th:not([aria-sort]) button:hover .label::after { visibility: visible; }
+thead th[aria-sort] .label::after { visibility: visible; color: inherit; }
+thead th[aria-sort="ascending"] .label::after { content: "↑"; }
+thead th[aria-sort="descending"] .label::after { content: "↓"; }
+/* "− earlier, + later" until sorted by a click; all three lines share one spot. */
+thead th .order { display: grid; }
+thead th .order > span { grid-area: 1 / 1; visibility: hidden; }
+thead th:not([data-sorted]) .order .none,
+thead th[data-sorted][aria-sort="ascending"] .order .asc,
+thead th[data-sorted][aria-sort="descending"] .order .desc { visibility: visible; }
 tbody th { font-weight: 500; }
 
-/* Whole row is the link: the city's link stretches over its row. */
+/* Whole row links to the city */
 table.rows-link tbody tr { position: relative; }
 table.rows-link tbody th a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
 table.rows-link tbody tr:hover > *,
@@ -108,14 +117,14 @@ table.rows-link tbody tr:hover a { text-decoration-color: currentColor; }
 table.rows-link tbody tr > :first-child { padding-left: 0.5rem; }
 table.rows-link thead tr > :first-child { padding-left: 0.5rem; }
 
-/* Days from average, with a bar either side of the average */
-.days { display: flex; align-items: center; gap: 0.75rem; }
+/* Days from average */
+.days { display: flex; align-items: center; gap: 0.75rem; padding-right: 0.75rem; }
 .days .number { min-width: 2.2em; text-align: right; }
-.meter { position: relative; flex: 1; min-width: 4rem; height: 8px; }
+.meter { position: relative; flex: 1; min-width: 4rem; height: 8px; border-radius: 4px; background: color-mix(in oklch, var(--ink) 7%, transparent); }
 .meter::before { content: ""; position: absolute; left: 50%; top: -4px; bottom: -4px; width: 1px; background: var(--line); }
-.meter span { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
-.meter .early { right: 50%; background: var(--early); }
-.meter .late { left: 50%; background: var(--late); }
+.meter span { position: absolute; top: 0; bottom: 0; }
+.meter .early { right: 50%; background: var(--early); border-radius: 4px 0 0 4px; }
+.meter .late { left: 50%; background: var(--late); border-radius: 0 4px 4px 0; }
 .key { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0.75rem 0 0; font-size: 0.875rem; color: var(--muted); }
 .key i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 0.35rem; }
 .key .early { background: var(--early); }
@@ -128,9 +137,10 @@ footer h2 { font-size: 1rem; color: var(--ink); margin-top: 0; }
 
 td:has(> time), td.date { white-space: nowrap; }
 
-/* Phones: the numbers carry the ranking, the bars and country step aside. */
+/* Phones */
 @media (max-width: 30rem) {
   .country, .meter, .key { display: none; }
   .card { padding: 0.75rem; }
   th, td { padding-right: 0.5rem; }
+  .days { padding-right: 0; }
 }

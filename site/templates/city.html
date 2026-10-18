@@ -26,12 +26,12 @@
 <h2>Every year since {{ city.years[-1].year }}</h2>
 <div class="card">
 <table class="sortable">
-<caption>Modelled start of spring in {{ city.name }}, newest first</caption>
+<caption>Modelled start of spring in {{ city.name }}</caption>
 <thead>
 <tr>
-<th scope="col" data-sort="number">Year</th>
+<th scope="col" data-sort="number" aria-sort="descending">Year</th>
 <th scope="col" data-sort="number">Start of spring</th>
-<th scope="col" data-sort="number">Days from average</th>
+<th scope="col" data-sort="number">Days from average<small class="order"><span class="none">− earlier, + later</span><span class="asc">earliest first</span><span class="desc">latest first</span></small></th>
 </tr>
 </thead>
 <tbody>
