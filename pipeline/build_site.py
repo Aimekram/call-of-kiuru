@@ -32,6 +32,7 @@ ADDRESS = "ul. Stanisława Taczaka 24/103, 61-819 Poznań, Poland"  # CEIDG plac
 CONTACT = "hello@callofkiuru.eu"
 PRIVACY_UPDATED = "18 October 2026"
 TIP_URL = "https://suppi.pl/devtortie"
+REPO_URL = "https://github.com/Aimekram/call-of-kiuru"
 # Share cards (og:image), made by share_cards.py into cards/.
 CARD_SIZE = (1200, 630)
 SITE_CARD_ALT = "Call of Kiuru: the modelled start of spring in European cities, every year since 1940."
@@ -233,7 +234,7 @@ def prepare(result):
                                     chart_days, (first, last))
     shared = {
         "site_name": SITE_NAME,
-        "owner": OWNER, "contact": CONTACT, "tip_url": TIP_URL,
+        "owner": OWNER, "contact": CONTACT, "tip_url": TIP_URL, "repo_url": REPO_URL,
         "baseline": f"{first}–{last}",
         "baseline_length": last - first + 1,
         "attribution": result["attribution"],

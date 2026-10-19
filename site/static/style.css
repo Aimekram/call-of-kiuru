@@ -148,7 +148,6 @@ table.rows-link thead tr > :first-child { padding-left: 0.5rem; }
 .about h2 { font-size: 1rem; color: var(--ink); margin-top: 0; }
 .about strong { color: var(--ink); font-weight: 600; }
 
-/* Footer: who runs the site, contact, privacy */
 .site-footer {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1.5rem;
   margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line);

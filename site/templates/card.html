@@ -46,6 +46,7 @@
   .instagram .card-ranking div { grid-template-columns: 1fr 3ch 300px; gap: 24px; padding: 14px 0; }
   .instagram .card-ranking .meter { height: 14px; }
   .instagram .card-sub { font-size: 28px; margin-top: 24px; }
+  .instagram.ranking-card .card-sub span { display: block; }
   .instagram.site-card h1 { font-size: 112px; }
 </style>
 </head>
@@ -74,7 +75,7 @@
 <div><span>{{ city.name }} <small>{{ city.country }}</small></span>{% if city.bloomed %}<span class="number">{{ city.signed_days }}</span><span class="meter"><span{{ {'class': city.meter.side, 'style': 'width: ' ~ city.meter.width}|xmlattr }}></span></span>{% else %}<span class="number">–</span><span></span>{% endif %}</div>
 {% endfor %}
 </div>
-<p class="card-sub">Days from average: − earlier, + later. A model, checked against observed lilac bloom.</p>
+<p class="card-sub"><span>Days from average: − earlier, + later.</span> <span>A model, checked against observed lilac bloom.</span></p>
 </div>
 {% else %}
 <div class="card-body">
