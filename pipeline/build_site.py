@@ -29,7 +29,7 @@ SITE_URL = "https://callofkiuru.eu/"
 OWNER = "nin at devtortie"
 CONTROLLER = "Devtortie Janina Byszewska"  # as registered in CEIDG
 ADDRESS = "ul. Stanisława Taczaka 24/103, 61-819 Poznań, Poland"  # CEIDG place of business
-CONTACT = "hello@devtortie.com"
+CONTACT = "hello@callofkiuru.eu"
 PRIVACY_UPDATED = "18 October 2026"
 TIP_URL = "https://suppi.pl/devtortie"
 # Share cards (og:image), made by share_cards.py into cards/.
