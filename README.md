@@ -1,8 +1,8 @@
 # Call of Kiuru
 
-A planned dashboard that shows, for each tracked city, how many days earlier
-or later the modelled start of spring is this year than the model's own
-1991–2020 average for that city. The first version is planned for 8 cities
+A dashboard that shows, for each tracked city, how many days earlier or
+later the modelled start of spring is this year than the model's own
+1991–2020 average for that city: https://callofkiuru.eu. It covers 8 cities
 in Germany and Sweden.
 
 "Start of spring" here is a published model, not an observation: the Extended
@@ -17,14 +17,6 @@ early on average in the 2024 paper cited below (RMSE 17.5 days, 1,227
 observations, against 7.4 days for first bloom), and weeks early in our own
 check, which covers one year and few observations. A US "spring is early"
 figure based on first leaf is therefore not the same measure as ours.
-
-## Status
-
-**The site is not online yet.** What exists is the model, a test of it
-against observed lilac bloom, a test that it matches the reference
-implementation, the pipeline that computes each city's numbers
-([data/bloom.json](data/bloom.json)), and a generator for the first pages.
-The build plan is in [PLAN.md](PLAN.md).
 
 ## What has been checked
 
@@ -52,8 +44,10 @@ Limits:
 - The implementation test shows agreement with USA-NPN's code, not with the
   papers that define the model.
 
-The full results and an audit of what was claimed, what held up and what
-is still unverified are kept in a private repository for now.
+The results by country, with their limitations, are on the site's
+[method page](https://callofkiuru.eu/method/). The full report and an audit
+of what was claimed, what held up and what is still unverified are kept in
+a private repository for now.
 
 ## Run it
 
@@ -162,6 +156,8 @@ tests/
   make_usanpn_reference.py      produces the reference days in tests/fixtures/
 data/bloom.json          the pipeline's output
 data/                    downloads and working files (not in the repository)
+.github/workflows/
+  pages.yml              builds the site and share cards, deploys to GitHub Pages
 ```
 
 `run_validation.py`, `validation/validator.py` and `VALIDATION_LOG.md` are
