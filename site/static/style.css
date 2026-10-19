@@ -73,6 +73,7 @@ h3 { font: 700 1.05rem/1.2 var(--display); margin: 1.5rem 0 0.25rem; }
 .eyebrow { margin: 0 0 1rem; font-size: 0.875rem; color: var(--muted); }
 .eyebrow a { white-space: nowrap; }
 .lede { margin: 0 0 1.5rem; color: var(--muted); }
+.lede a { white-space: nowrap; }
 
 /* Cards */
 .card {
