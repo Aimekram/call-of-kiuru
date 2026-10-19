@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"{{ {'style': '--card-width: %dpx; --card-height: %dpx' % (card_width, card_height)}|xmlattr }}>
+<head>
+<meta charset="utf-8">
+<title>{{ site_name }} card</title>
+<link rel="stylesheet" href="{{ root }}static/style.css">
+<style>
+  /* A share card: the site's light theme at a fixed size, photographed by
+     share_cards.py. Everything is sized to read in a feed thumbnail. */
+  :root { color-scheme: light; }
+  html, body { margin: 0; width: var(--card-width); height: var(--card-height); overflow: hidden; }
+  body { max-width: none; box-sizing: border-box; padding: 44px 60px 52px; display: flex; flex-direction: column; background: var(--paper); }
+  .card-top { display: flex; justify-content: space-between; align-items: center; }
+  .card-brand { display: flex; align-items: center; gap: 12px; font: 700 28px/1 var(--display); }
+  .card-brand svg { width: 42px; height: 42px; color: var(--brand); }
+  .card-url { font: 500 22px/1 var(--text); color: var(--muted); }
+  .card-eyebrow { margin: 30px 0 8px; font-size: 24px; color: var(--muted); }
+  h1 { font-size: 66px; margin: 0; }
+  .card-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+  /* The chart at 1.2x, without its interactive box. */
+  .card-body .chart { zoom: 1.2; --gr: 1.5rem; }
+  .card-body .chart-area { margin: 1.6rem 0 1.5rem; }
+  .card-body .chart-tip { display: none; }
+  .card-body .key { margin-top: 0.25rem; }
+  /* Ranking: two columns of cities with their bars. */
+  .card-ranking { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 6px 56px; font-size: 25px; }
+  .card-ranking div { display: grid; grid-template-columns: 1fr 3ch 150px; align-items: center; gap: 14px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .card-ranking small { font-size: 0.7em; color: var(--muted); }
+  .card-ranking .number { text-align: right; font-variant-numeric: tabular-nums; }
+  .card-ranking .meter { min-width: 0; height: 10px; }
+  .card-sub { margin: 14px 0 0; font-size: 22px; color: var(--muted); }
+  /* The general card. */
+  .site-card .card-body { justify-content: center; }
+  .site-card h1 { font-size: 72px; }
+  /* Instagram, 4:5 portrait: bigger type, a taller chart, one column. */
+  .instagram { padding: 64px 64px 60px; }
+  .instagram .card-brand { font-size: 34px; }
+  .instagram .card-brand svg { width: 52px; height: 52px; }
+  .instagram .card-url { font-size: 26px; }
+  .instagram .card-eyebrow { margin: 72px 0 14px; font-size: 32px; }
+  .instagram h1 { font-size: 96px; line-height: 1.05; }
+  .instagram .card-body .chart { zoom: 2.3; }
+  .card-chart-title { display: none; }
+  .instagram .card-chart-title { display: block; margin: 0 0 4px; font: 700 34px/1.2 var(--display); }
+  .instagram .card-ranking { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; font-size: 36px; }
+  .instagram .card-ranking div { grid-template-columns: 1fr 3ch 300px; gap: 24px; padding: 14px 0; }
+  .instagram .card-ranking .meter { height: 14px; }
+  .instagram .card-sub { font-size: 28px; margin-top: 24px; }
+  .instagram.site-card h1 { font-size: 112px; }
+</style>
+</head>
+<body class="{{ kind }}-card {{ card_format }}">
+<div class="card-top">
+<span class="card-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="11" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="5"><circle cx="50" cy="50" r="23"/><circle cx="50" cy="50" r="34" opacity=".6"/><circle cx="50" cy="50" r="45" opacity=".3"/></g></svg>{{ site_name }}</span>
+<span class="card-url">callofkiuru.eu</span>
+</div>
+{% if kind == "city" %}
+<p class="card-eyebrow">{{ city.name }}, {{ city.country }} · Spring {{ city.year }}</p>
+{% if city.bloomed %}
+<h1>Spring came <em>{{ city.headline }}</em></h1>
+{% else %}
+<h1>Spring <em>has not come yet</em></h1>
+{% endif %}
+<div class="card-body">
+<p class="card-chart-title">Every spring since {{ city.chart.first_year }}</p>
+{% include "chart.html" %}
+</div>
+{% elif kind == "ranking" %}
+<p class="card-eyebrow">{{ cities|length }} cities against their own {{ baseline }} average</p>
+<h1>Start of spring {{ year }}</h1>
+<div class="card-body">
+<div class="card-ranking">
+{% for city in cities %}
+<div><span>{{ city.name }} <small>{{ city.country }}</small></span>{% if city.bloomed %}<span class="number">{{ city.signed_days }}</span><span class="meter"><span{{ {'class': city.meter.side, 'style': 'width: ' ~ city.meter.width}|xmlattr }}></span></span>{% else %}<span class="number">–</span><span></span>{% endif %}</div>
+{% endfor %}
+</div>
+<p class="card-sub">Days from average: − earlier, + later. A model, checked against observed lilac bloom.</p>
+</div>
+{% else %}
+<div class="card-body">
+<h1>When spring came, <em>city by city</em></h1>
+<p class="card-sub">The modelled start of spring in {{ cities|length }} European cities, every year since 1940.</p>
+</div>
+{% endif %}
+</body>
+</html>

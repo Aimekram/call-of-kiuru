@@ -11,6 +11,11 @@
 <meta property="og:site_name" content="{{ site_name }}">
 <meta property="og:title" content="{{ self.title() }}">
 <meta property="og:description" content="{{ self.description() }}">
+<meta property="og:image" content="{{ site_url }}cards/{{ card }}.png">
+<meta property="og:image:width" content="{{ card_width }}">
+<meta property="og:image:height" content="{{ card_height }}">
+<meta property="og:image:alt" content="{{ card_alt }}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{{ root }}static/favicon.ico" sizes="32x32">
 <link rel="icon" href="{{ root }}static/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{ root }}static/apple-touch-icon.png">

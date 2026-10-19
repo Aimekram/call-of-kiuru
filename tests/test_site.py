@@ -255,6 +255,34 @@ class Built(unittest.TestCase):
             if path.name == "index.html":
                 self.assertIn("privacy/", " ".join(Page(path.read_text()).links), path)
 
+    def test_every_page_names_a_share_card_that_is_made(self):
+        from pipeline import share_cards
+        names = {name for name, _ in share_cards.card_pages(self.result)}
+        width, height = build_site.CARD_SIZE
+        for path in self.written:
+            attributes = dict((a.get("property") or a.get("name"), a.get("content"))
+                              for tag, a in Page(path.read_text()).attributes if tag == "meta")
+            image = attributes["og:image"]
+            self.assertTrue(image.startswith(build_site.SITE_URL + "cards/"), path)
+            self.assertIn(image.rsplit("/", 1)[1].removesuffix(".png"), names, path)
+            self.assertEqual((attributes["og:image:width"], attributes["og:image:height"]),
+                             (str(width), str(height)), path)
+            self.assertTrue(attributes["og:image:alt"], path)
+            self.assertEqual(attributes["twitter:card"], "summary_large_image", path)
+
+    def test_card_pages_render(self):
+        from pipeline import share_cards
+        for card_format in share_cards.FORMATS:
+            folder = self.directory / "_cards" / card_format
+            names = share_cards.write_card_pages(self.result, folder, card_format)
+            for city in self.result["cities"]:
+                page = Page((folder / f"{city['slug']}.html").read_text())
+                self.assertEqual(page.errors, [], (card_format, city["slug"]))
+                self.assertIn(f"{city['name']}, {city['country']}", page.plain)
+            self.assertIn("ranking", names)
+            self.assertIn("site", names)
+        shutil.rmtree(self.directory / "_cards")
+
     def test_method_page_shows_the_validation(self):
         page = Page((self.directory / "method" / "index.html").read_text())
         ids = {a.get("id") for _, a in page.attributes}

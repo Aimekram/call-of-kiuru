@@ -32,6 +32,9 @@ ADDRESS = "ul. Stanisława Taczaka 24/103, 61-819 Poznań, Poland"  # CEIDG plac
 CONTACT = "hello@devtortie.com"
 PRIVACY_UPDATED = "18 October 2026"
 TIP_URL = "https://suppi.pl/devtortie"
+# Share cards (og:image), made by share_cards.py into cards/.
+CARD_SIZE = (1200, 630)
+SITE_CARD_ALT = "Call of Kiuru: the modelled start of spring in European cities, every year since 1940."
 # The 30 years before the baseline, shown on the method page for comparison.
 # The WMO reference period for long-term climate change.
 EARLIER_YEARS = (1961, 1990)
@@ -202,11 +205,15 @@ def city_view(city, rows):
     return view
 
 
-def build(result, output_dir=OUTPUT_DIR):
-    """Write the site for one pipeline output. Returns the files written."""
-    environment = Environment(loader=FileSystemLoader(SITE_DIR / "templates"),
-                              autoescape=select_autoescape(["html"]),
-                              undefined=StrictUndefined, trim_blocks=True, lstrip_blocks=True)
+def environment():
+    return Environment(loader=FileSystemLoader(SITE_DIR / "templates"),
+                       autoescape=select_autoescape(["html"]),
+                       undefined=StrictUndefined, trim_blocks=True, lstrip_blocks=True)
+
+
+def prepare(result):
+    """The cities (in data order), the ranking, and what every template
+    shares, for one pipeline output. Used by the pages and the share cards."""
     cities = [city_view(city, [r for r in result["rows"] if r["city"] == city["slug"]])
               for city in result["cities"]]
     # Earliest compared with its own average first; cities not yet in bloom last.
@@ -232,7 +239,22 @@ def build(result, output_dir=OUTPUT_DIR):
         "attribution": result["attribution"],
         "updated": day_month(datetime.date.fromisoformat(result["generated"]))
                    + f" {result['generated'][:4]}",
+        "site_url": SITE_URL, "card_width": CARD_SIZE[0], "card_height": CARD_SIZE[1],
+        "year": sorted({c["year"] for c in cities})[-1],
+        "mixed_years": len({c["year"] for c in cities}) > 1,
     }
+    for city in cities:
+        city["card_alt"] = (
+            f"{city['name']}: spring {city['year']} came {city['headline']}"
+            if city["bloomed"] else f"{city['name']}: spring {city['year']} has not come yet"
+        ) + f". Bars for every spring since {city['chart']['first_year']}, earlier or later than the {shared['baseline']} average."
+    return cities, ranking, shared
+
+
+def build(result, output_dir=OUTPUT_DIR):
+    """Write the site for one pipeline output. Returns the files written."""
+    templates = environment()
+    cities, ranking, shared = prepare(result)
 
     if output_dir.exists():
         shutil.rmtree(output_dir)
@@ -243,18 +265,20 @@ def build(result, output_dir=OUTPUT_DIR):
         target = output_dir / path
         target.parent.mkdir(parents=True, exist_ok=True)
         url = SITE_URL + path.removesuffix("index.html")
-        target.write_text(environment.get_template(template).render(**shared, **context, url=url))
+        target.write_text(templates.get_template(template).render(**shared, **context, url=url))
         written.append(target)
 
-    years = sorted({c["year"] for c in cities})
-    write("index.html", "index.html", cities=ranking, root="",
-          year=years[-1], mixed_years=len(years) > 1)
+    # Each page names its share card (made by share_cards.py) and describes it.
+    write("index.html", "index.html", cities=ranking, root="", card="ranking",
+          card_alt=f"Start of spring {shared['year']} in {len(cities)} cities, earliest first.")
     for city in cities:
-        write(f"{city['slug']}/index.html", "city.html", city=city, root="../")
+        write(f"{city['slug']}/index.html", "city.html", city=city, root="../",
+              card=city["slug"], card_alt=city["card_alt"])
     gaps = [c["earlier_gap"] for c in cities]
-    write("privacy/index.html", "privacy.html", root="../", privacy_updated=PRIVACY_UPDATED,
+    write("privacy/index.html", "privacy.html", root="../", card="site", card_alt=SITE_CARD_ALT,
+          privacy_updated=PRIVACY_UPDATED,
           controller=CONTROLLER, address=ADDRESS)
-    write("method/index.html", "method.html", root="../",
+    write("method/index.html", "method.html", root="../", card="site", card_alt=SITE_CARD_ALT,
           cities=sorted(cities, key=lambda c: c["sort_usual"]),
           earlier="{}–{}".format(*EARLIER_YEARS),
           earlier_gap_least=whole_days(min(gaps)), earlier_gap_most=whole_days(max(gaps)))

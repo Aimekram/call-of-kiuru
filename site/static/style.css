@@ -45,7 +45,7 @@ a:hover { text-decoration-color: currentColor; }
 
 h1, h2 { font-family: var(--display); line-height: 1.1; letter-spacing: -0.01em; }
 h1 { font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 900; margin: 0 0 1.25rem; }
-h1 em { font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
+h1 em { white-space: nowrap; font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
 h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; scroll-margin-top: 1.5rem; }
 h3 { font: 700 1.05rem/1.2 var(--display); margin: 1.5rem 0 0.25rem; }
 

@@ -121,6 +121,7 @@ German lilac observations.
 
 ```bash
 python -m pipeline.build_site
+python -m pipeline.share_cards     # optional: the share images, needs Chrome
 python -m http.server --directory site/dist
 ```
 
@@ -143,6 +144,7 @@ pipeline/
   era5.py, bloom.py      temperature loading and the calculation
   check_recent.py        years after the validation period vs observations
   build_site.py          turns data/bloom.json into the static site
+  share_cards.py         share images via Chrome: link previews and Instagram posts
 site/
   templates/, static/    page templates, stylesheet, table sorter
   dist/                  the built site (not in the repository)

@@ -286,7 +286,20 @@ what people see, so the interface comes before the daily job):
    the arrow keys switch it to any other. SVG made at build time, so the
    share cards can reuse it. A ±25 scale was considered and dropped: it
    would cut 7 bars, Cologne's −26 in 2024 among them.
-2. Share-card images, for posts on Instagram and Bluesky.
+2. Share-card images, for posts on Instagram and Bluesky. Built 2026-10-18:
+   `pipeline/share_cards.py` renders a card per city (headline and trend
+   chart), one for the ranking and one for the other pages, from
+   `templates/card.html` in the site's light theme, photographed by headless
+   Chrome at 1200×630 into `cards/`. Every page's og:image and
+   twitter:card point at its card; the deploy runs the step after the build.
+   The same cards in Instagram's 4:5 portrait (1080×1350, a larger chart
+   with "Every spring since 1940") go to `cards/instagram/`, published with
+   the site so the current ones can be posted from a phone.
+   Later (decided 2026-10-18 to wait): a "Share" button on city pages and
+   the ranking. The phone's own share sheet (Web Share API), copying the
+   link on desktop, no third-party scripts, clicks counted in GoatCounter.
+   Optionally share the Instagram image itself on phones. Until then,
+   sharing happens through the account's own posts.
 3. Methodology page (`method/`): "why a model", the average, and (2026-10-18)
    the validation by country (correlation, typical miss against calling
    every spring normal, skill, 95% ranges, from `bloom_multiyear.md`), the
