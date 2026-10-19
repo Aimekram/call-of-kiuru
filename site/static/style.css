@@ -190,6 +190,32 @@ td:has(> time), td.date { white-space: nowrap; }
 .chart-tip i.late { background: var(--late); }
 .chart-tip span { grid-column: 2; color: var(--muted); }
 
+/* Model against observed, per city. Ink and green: not early or late. */
+.checks h4 { margin: 1.25rem 0 0; font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+.checks .key { display: flex; margin: 0; } /* also on phones */
+.checks .note { margin-top: 1rem; }
+.key .observed, .chart-tip i.observed { background: var(--ink); }
+.key .model, .chart-tip i.model { background: var(--brand); }
+.checks .key i { height: 3px; border-radius: 1.5px; vertical-align: middle; }
+.check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 0 1.5rem; }
+.check { --gl: 2.75rem; }
+.check figcaption { margin-top: 0.75rem; font-weight: 600; }
+.check figcaption small { margin-left: 0.25rem; font-weight: 400; color: var(--muted); }
+.check .chart-area { height: 120px; margin: 0.5rem 0 1.75rem; } /* CHECK_HEIGHT in build_site.py */
+.check-line { fill: none; stroke-width: 1.75; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.check-line.observed { stroke: var(--ink); }
+.check-line.model { stroke: var(--brand); }
+.check-mark { position: absolute; left: calc(var(--gl) + (100% - var(--gl) - var(--gr)) * var(--x, 0) / 100); pointer-events: none; }
+.check-mark.rule { top: 0; bottom: 0; width: 1px; background: var(--line); }
+.check-mark.dot { width: 8px; height: 8px; border-radius: 50%; border: 2px solid var(--card); transform: translate(-50%, -50%); }
+.check-mark.dot.observed { background: var(--ink); }
+.check-mark.dot.model { background: var(--brand); }
+.check:not([data-active]) :is(.check-mark, .chart-tip) { display: none; }
+.check .chart-tip { left: calc(var(--gl) + (100% - var(--gl) - var(--gr)) * var(--x, 0) / 100); top: auto; bottom: calc(100% + 0.35rem); }
+.check .chart-tip i { width: 8px; height: 3px; border-radius: 1.5px; }
+.check .chart-tip span { color: var(--ink); }
+.check .chart-tip .when { color: var(--muted); }
+
 /* Phones */
 @media (max-width: 30rem) {
   .country, .meter, .key { display: none; }

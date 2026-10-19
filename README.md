@@ -90,8 +90,9 @@ runs for the cities whose ERA5 download is present and is skipped otherwise.
 
    It downloads the lilac observations (about 60 MB) and ERA5 temperatures
    for the 8 cities (about 5 MB and 90 seconds each), then writes
-   `data/bloom_multiyear.csv` and a report, `bloom_multiyear.md`, into
-   `../call-of-kiuru-docs/docs/` (the private docs repo, if you have it).
+   `data/bloom_multiyear.csv` (committed: the method page draws it) and a
+   report, `bloom_multiyear.md`, into `../call-of-kiuru-docs/docs/` (the
+   private docs repo, if you have it).
 
 **Draw the charts** from that result:
 
@@ -137,7 +138,8 @@ pipeline/
   locations.json         the cities
   era5.py, bloom.py      temperature loading and the calculation
   check_recent.py        years after the validation period vs observations
-  build_site.py          turns data/bloom.json into the static site
+  build_site.py          turns data/bloom.json into the static site, and
+                         data/bloom_multiyear.csv into the method page's charts
   share_cards.py         share images via Chrome: link previews and Instagram posts
 site/
   templates/, static/    page templates, stylesheet, table sorter

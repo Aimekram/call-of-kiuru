@@ -304,8 +304,12 @@ what people see, so the interface comes before the daily job):
    the validation by country (correlation, typical miss against calling
    every spring normal, skill, 95% ranges, from `bloom_multiyear.md`), the
    lilac-only offset, limits, and why only Germany and Sweden. DWD and SLU
-   are credited there. Still to add: per city, a small chart of modelled
-   against observed bloom by year (`data/bloom_multiyear.csv`). No observed
+   are credited there. Per city, a small chart of modelled against observed
+   bloom by year (built 2026-10-19, from `data/bloom_multiyear.csv`, now
+   committed): two lines on real dates, later higher, observed in ink and
+   the model in green, one date scale for all cities and one year range per
+   country. Dates, not days from average, so the page has one "average"
+   only; the offset shows as a gap, explained just above. No observed
    column on city pages for now: it would be mostly empty and show the
    offset in every row.
 4. Daily job (§2 step 7), which takes over the redeploys. Needed by the end

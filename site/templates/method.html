@@ -56,6 +56,20 @@
 </div>
 <p>The ranges come from resampling whole springs. Cities share each year's weather, so the evidence is the number of springs, not of city-years.</p>
 <p>The model's dates run early: by 3.7 days on average in Germany and 0.3 days in Sweden. It averages a lilac and two honeysuckles, and the honeysuckles bloom earlier, while the observations are lilac only. Its lilac part alone is 0.2 days off in Germany. The offset does not change the numbers on this site, because each city is compared with the model's own average for that city.</p>
+<h3 id="by-city">City by city</h3>
+<p>Every spring checked, with later dates higher. The figures above measure how closely the two lines rise and fall together. Where the model's line sits below the observed one, the model is early: that is the offset.</p>
+<div class="card checks">
+<p class="key"><span><i class="observed"></i>Observed: median of nearby observers</span><span><i class="model"></i>Model</span></p>
+{% for country in checks %}
+<h4>{{ country.name }}, {{ country.first_year }}–{{ country.last_year }}</h4>
+<div class="check-grid">
+{% for chart in country.charts %}
+{% include "check_chart.html" %}
+{% endfor %}
+</div>
+{% endfor %}
+<p class="note">Every value is in <a target="_blank" rel="noopener" href="{{ check_file_url }}">bloom_multiyear.csv</a></p>
+</div>
 <p>The observations are based on data from <a target="_blank" rel="noopener" href="https://opendata.dwd.de/">Deutscher Wetterdienst</a> (CC BY 4.0) and from <a target="_blank" rel="noopener" href="https://researchdata.se/en/catalogue/dataset/2022-86-1">SLU Naturens Kalender</a> (CC0).</p>
 <p>The code behind the model and this comparison is <a target="_blank" rel="noopener" href="{{ repo_url }}">on GitHub</a>, along with each city's numbers.</p>
 <h3>Limitations</h3>
@@ -103,4 +117,6 @@
 </ul>
 <p>It is a recent period, and spring already came earlier in it than before. In the model, the {{ earlier }} average falls {{ earlier_gap_least }} to {{ earlier_gap_most }} days later than the {{ baseline }} one in these cities. "The same as average" means the same as a recent spring, not an earlier one.</p>
 <p><a href="{{ root }}">All cities</a></p>
+{% endblock %}
+{% block scripts %}<script src="{{ root }}static/chart.js" defer></script>
 {% endblock %}

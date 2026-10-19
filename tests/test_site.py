@@ -293,6 +293,23 @@ class Built(unittest.TestCase):
             self.assertIn(figure, page.plain)
         self.assertTrue(any("usanpn.org" in link for link in page.links))
 
+    def test_method_page_charts_each_city_against_observed_bloom(self):
+        rows = build_site.check_rows()
+        self.assertEqual(set(rows), {c["slug"] for c in self.result["cities"]})
+        low, high = build_site.check_scale(rows)
+        source = (self.directory / "method" / "index.html").read_text()
+        self.assertEqual(Page(source).errors, [])
+        self.assertEqual(source.count("data-check"), len(rows))
+        self.assertEqual(source.count('class="hit"'), sum(len(years) for years in rows.values()))
+        for slug, years in rows.items():
+            self.assertIn(f'<a href="../{slug}/">', source)
+            for r in years:
+                self.assertTrue(low <= min(r["model"], r["observed"]) <= max(r["model"], r["observed"]) <= high)
+        # Berlin 1951 in data/bloom_multiyear.csv: model day 136.67, observed day 133, 17 observations.
+        self.assertIn('data-year="1951" data-observed="13 May" data-model="17 May"', source)
+        self.assertIn('data-n="median of 17 observations"', source)
+        self.assertIn('static/chart.js', source)
+
     def test_the_average_links_to_its_explanation(self):
         self.assertIn('<a href="method/#baseline">1991–2020 average</a>',
                       (self.directory / "index.html").read_text())

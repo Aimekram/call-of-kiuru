@@ -1,0 +1,25 @@
+<figure class="chart check" data-check tabindex="0" aria-label="Line chart: modelled and observed first lilac bloom in {{ chart.name }}, every year {{ chart.first_year }}–{{ chart.last_year }}. Use the arrow keys to read each year.">
+<figcaption><a href="{{ root }}{{ chart.slug }}/">{{ chart.name }}</a> <small>{{ chart.springs }} springs</small></figcaption>
+<div class="chart-area">
+{% for tick in chart.ticks %}
+<span class="chart-tick" aria-hidden="true"{{ {'style': tick.top}|xmlattr }}>{{ tick.label }}</span>
+{% endfor %}
+<svg class="chart-svg" viewBox="0 0 {{ chart.width }} {{ chart.height }}" preserveAspectRatio="none" aria-hidden="true">
+{% for tick in chart.ticks %}
+<line class="chart-grid" x1="0" x2="{{ chart.width }}" y1="{{ tick.y }}" y2="{{ tick.y }}"/>
+{% endfor %}
+<path class="check-line observed" d="{{ chart.observed }}"/>
+<path class="check-line model" d="{{ chart.model }}"/>
+{% for point in chart.points %}
+<rect class="hit" x="{{ point.hit_x }}" y="0" width="{{ point.hit_width }}" height="{{ chart.height }}" data-i="{{ loop.index0 }}" data-x="{{ point.x }}" data-year="{{ point.year }}" data-observed="{{ point.observed }}" data-model="{{ point.model }}" data-observed-top="{{ point.observed_top }}" data-model-top="{{ point.model_top }}" data-n="{{ point.n_obs }}"/>
+{% endfor %}
+</svg>
+{% for year in chart.years %}
+<span class="chart-label chart-year" aria-hidden="true"{{ {'style': year.x}|xmlattr }}>{{ year.label }}</span>
+{% endfor %}
+<span class="check-mark rule" aria-hidden="true"></span>
+<span class="check-mark dot observed" aria-hidden="true"></span>
+<span class="check-mark dot model" aria-hidden="true"></span>
+<div class="chart-tip" role="status" aria-live="polite"></div>
+</div>
+</figure>

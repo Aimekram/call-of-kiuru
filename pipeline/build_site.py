@@ -12,6 +12,7 @@ Usage:
     python -m http.server --directory site/dist      # then open localhost:8000
 """
 
+import csv
 import datetime
 import json
 import math
@@ -21,6 +22,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 
 from pipeline import run
+from validation.config import DATA_DIR
 
 SITE_DIR = Path(__file__).parent.parent / "site"
 OUTPUT_DIR = SITE_DIR / "dist"
@@ -175,6 +177,97 @@ def trend_chart(rows, scale, baseline_years):
     }
 
 
+# The model against observed lilac bloom, from run_bloom_test.py: one small
+# chart per city on the method page, every city on one date scale.
+CHECK_FILE = DATA_DIR / "bloom_multiyear.csv"
+CHECK_HEIGHT = 120  # the same 120px is in style.css
+
+
+def check_rows():
+    """The bloom test's city-years by city slug, oldest first."""
+    slugs = {location["key"]: location["slug"] for location in run.load_locations()}
+    rows = {}
+    with CHECK_FILE.open(newline="") as f:
+        for r in csv.DictReader(f):
+            rows.setdefault(slugs[r["location"]], []).append(
+                {"year": int(r["year"]), "model": float(r["model"]),
+                 "observed": float(r["observed"]), "n_obs": int(r["n_obs"])})
+    return {slug: sorted(years, key=lambda r: r["year"]) for slug, years in rows.items()}
+
+
+def check_scale(rows_by_city):
+    """Days of the year at the bottom and top of every check chart, out to
+    the nearest 10 beyond the earliest and latest date in any city."""
+    days = [d for rows in rows_by_city.values() for r in rows for d in (r["model"], r["observed"])]
+    return math.floor(min(days) / 10) * 10, math.ceil(max(days) / 10) * 10
+
+
+def observations_phrase(count):
+    return "1 observation" if count == 1 else f"median of {count} observations"
+
+
+def check_chart(rows, scale, years):
+    """Geometry and labels for one city's model and observed lines. `years`
+    is the country's first and last year, so its cities share an x scale."""
+    low, high = scale
+    first, last = years
+    step = CHART_WIDTH / (last - first + 1)
+
+    def y(day):
+        return CHECK_HEIGHT - (day - low) / (high - low) * CHECK_HEIGHT
+
+    def x(year):
+        return (year - first) * step + step / 2
+
+    def line(key):
+        return "M" + "L".join(f"{x(r['year']):.2f},{y(r[key]):.2f}" for r in rows)
+
+    points = [{"year": r["year"], "hit_x": f"{(r['year'] - first) * step:.2f}",
+               "hit_width": f"{step:.2f}", "x": f"{x(r['year']) / CHART_WIDTH * 100:.2f}",
+               "model": day_month(date_of(r["model"], r["year"])),
+               "observed": day_month(date_of(r["observed"], r["year"])),
+               "model_top": f"{y(r['model']):.1f}", "observed_top": f"{y(r['observed']):.1f}",
+               "n_obs": observations_phrase(r["n_obs"])}
+              for r in rows]
+    # The first of each month inside the scale, on a 365-day calendar.
+    ticks = []
+    for month in range(1, 13):
+        day = datetime.date(2023, month, 1).timetuple().tm_yday
+        if low < day < high:
+            ticks.append({"y": f"{y(day):.2f}", "top": f"top: {y(day):.1f}px",
+                          "label": f"1 {datetime.date(2023, month, 1):%b}"})
+    every = 10 if last - first > 30 else 5
+    return {
+        "height": CHECK_HEIGHT, "width": CHART_WIDTH,
+        "model": line("model"), "observed": line("observed"),
+        "points": points, "ticks": ticks,
+        "years": [{"label": year, "x": f"--x: {x(year) / CHART_WIDTH * 100:.2f}"}
+                  for year in range(first, last + 1) if year % every == 0],
+        "first_year": rows[0]["year"], "last_year": rows[-1]["year"], "springs": len(rows),
+    }
+
+
+def check_charts(cities):
+    """The check charts by country, in data order: cities that have any."""
+    rows_by_city = check_rows()
+    scale = check_scale(rows_by_city)
+    countries = []
+    for city in cities:
+        if city["slug"] not in rows_by_city:
+            continue
+        if not countries or countries[-1]["name"] != city["country"]:
+            countries.append({"name": city["country"], "cities": []})
+        countries[-1]["cities"].append(city)
+    for country in countries:
+        years = [r["year"] for c in country["cities"] for r in rows_by_city[c["slug"]]]
+        country["first_year"], country["last_year"] = min(years), max(years)
+        country["charts"] = [{"slug": c["slug"], "name": c["name"],
+                              **check_chart(rows_by_city[c["slug"]], scale, (min(years), max(years)))}
+                             for c in country["cities"]]
+        del country["cities"]
+    return countries
+
+
 def city_view(city, rows):
     """Everything a template needs for one city, already worded and rounded."""
     current = city["current"]
@@ -280,7 +373,8 @@ def build(result, output_dir=OUTPUT_DIR):
           privacy_updated=PRIVACY_UPDATED,
           controller=CONTROLLER, address=ADDRESS)
     write("method/index.html", "method.html", root="../", card="site", card_alt=SITE_CARD_ALT,
-          cities=sorted(cities, key=lambda c: c["sort_usual"]),
+          cities=sorted(cities, key=lambda c: c["sort_usual"]), checks=check_charts(cities),
+          check_file_url=f"{REPO_URL}/blob/main/data/{CHECK_FILE.name}",
           earlier="{}–{}".format(*EARLIER_YEARS),
           earlier_gap_least=whole_days(min(gaps)), earlier_gap_most=whole_days(max(gaps)))
     return written

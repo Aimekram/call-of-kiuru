@@ -40,6 +40,8 @@ ENV/
 data/raw/
 data/cache/
 *.csv
+# The bloom test's result, drawn on the method page.
+!data/bloom_multiyear.csv
 *.db
 *.sqlite
 
