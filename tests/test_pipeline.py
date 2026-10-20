@@ -64,7 +64,8 @@ class Output(unittest.TestCase):
                 self.assertEqual(self.by_city[city["slug"]][int(year)]["bloom_doy"],
                                  usanpn_bloom(days), f"{city['key']} {year}")
                 compared += 1
-        self.assertEqual(compared, 680)
+        first, last = era5.ARCHIVE_YEARS
+        self.assertEqual(compared, len(run.load_locations()) * (last - first + 1))
 
     def test_no_year_missing_or_repeated(self):
         first = era5.ARCHIVE_YEARS[0]

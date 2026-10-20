@@ -106,6 +106,38 @@ def by_country(df):
     return rows
 
 
+# Grades for the site, from the low end of each city's 95% interval of the
+# anomaly correlation (resampling that city's years). Fixed 2026-10-20,
+# before the new cities were tested; see PLAN.md §3.
+MIN_SPRINGS = 10
+GRADES = [(0.8, "strong"), (0.5, "moderate")]
+
+
+def grade(low):
+    return next((name for threshold, name in GRADES if low >= threshold), "weak")
+
+
+def city_grades(df):
+    """Per city: springs checked, median observers, anomaly correlation with
+    its interval, typical miss against calling every spring normal, and the
+    grade. Cities with fewer than MIN_SPRINGS springs are left out."""
+    rows = []
+    for location, group in df.groupby("location"):
+        if len(group) < MIN_SPRINGS:
+            continue
+        model, observed = to_matrices(group)
+        estimate = summary(model, observed)
+        low, high = block_bootstrap(model, observed, "year")["anomaly_r"]
+        rows.append({"location": location, "springs": len(group),
+                     "first_year": int(group["year"].min()), "last_year": int(group["year"].max()),
+                     "median_n_obs": float(group["n_obs"].median()),
+                     "anomaly_r": estimate["anomaly_r"], "anomaly_r_low": low, "anomaly_r_high": high,
+                     "anomaly_rmse": estimate["anomaly_rmse"],
+                     "normal_year_rmse": estimate["normal_year_rmse"],
+                     "grade": grade(low)})
+    return pd.DataFrame(rows)
+
+
 def index_vs_lilac(df):
     """The published 3-plant bloom index and its lilac component, each
     compared with the same lilac observations, pooled and per country. The

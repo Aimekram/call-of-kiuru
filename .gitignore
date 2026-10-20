@@ -42,6 +42,7 @@ data/cache/
 *.csv
 # The bloom test's result, drawn on the method page.
 !data/bloom_multiyear.csv
+!data/bloom_grades.csv
 *.db
 *.sqlite
 

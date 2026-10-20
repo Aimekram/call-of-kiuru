@@ -300,9 +300,9 @@ class Built(unittest.TestCase):
         page = Page((self.directory / "method" / "index.html").read_text())
         ids = {a.get("id") for _, a in page.attributes}
         self.assertLessEqual({"model", "validation", "coverage", "baseline"}, ids)
-        # The bloom test's by-country figures (run_bloom_test.py, 2026-10-11).
-        for figure in ("0.92 0.88–0.94", "0.69 0.46–0.87", "81% 72–87%",
-                       "48% 19–75%", "3.9 days 3.3–4.4", "4.6 days 2.7–6.0"):
+        # The bloom test's by-country figures (run_bloom_test.py, 20 cities, 2026-10-20).
+        for figure in ("0.92 0.89–0.95", "0.72 0.54–0.87", "82% 73–88%",
+                       "52% 25–75%", "3.8 days 3.2–4.3", "3.9 days 2.6–4.8"):
             self.assertIn(figure, page.plain)
         self.assertTrue(any("usanpn.org" in link for link in page.links))
         # The model's paper and the European benchmark are linked.

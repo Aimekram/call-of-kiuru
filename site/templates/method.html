@@ -11,7 +11,7 @@
 <li><strong>One method throughout.</strong> Observer networks change: Sweden had about 20 lilac records nationwide in 2008, against 76 or more a year from 2010. The model calculates every year with the same published rule, independent of who was watching which bush.</li>
 <li><strong>A number within days.</strong> The temperatures it needs arrive about five days late. Germany's observers send in their dates once a year: by 18 October 2026, five months after this spring's bloom, 283 had reported, against about 910 for each of 2024 and 2025.</li>
 </ul>
-<!-- Figures from the bloom test (run_bloom_test.py), 2026-10-11: SI-x bloom
+<!-- Figures from the bloom test (run_bloom_test.py), 20 cities, 2026-10-20: SI-x bloom
      against the median observed lilac first bloom near each city. -->
 <h2 id="validation">How well the model does</h2>
 <p>We compared the model with observed first lilac bloom near each city, the median of the nearby observers each year. Nothing in the model was fitted to these observations.</p>
@@ -33,29 +33,29 @@
 </tr>
 <tr>
 <th scope="row">How closely early and late years match<small>correlation, 1 is perfect</small></th>
-<td>0.92<small>0.88–0.94</small></td>
-<td>0.69<small>0.46–0.87</small></td>
+<td>0.92<small>0.89–0.95</small></td>
+<td>0.72<small>0.54–0.87</small></td>
 </tr>
 <tr>
 <th scope="row">Typical miss in days from average</th>
-<td>3.9 days<small>3.3–4.4</small></td>
-<td>4.6 days<small>2.7–6.0</small></td>
+<td>3.8 days<small>3.2–4.3</small></td>
+<td>3.9 days<small>2.6–4.8</small></td>
 </tr>
 <tr>
 <th scope="row">The same, calling every spring normal</th>
 <td>8.9 days</td>
-<td>6.4 days</td>
+<td>5.6 days</td>
 </tr>
 <tr>
 <th scope="row">Share of year-to-year variation captured<small>100% is perfect, 0% no better than calling every spring normal</small></th>
-<td>81%<small>72–87%</small></td>
-<td>48%<small>19–75%</small></td>
+<td>82%<small>73–88%</small></td>
+<td>52%<small>25–75%</small></td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>The ranges come from resampling whole springs. Cities share each year's weather, so the evidence is the number of springs, not of city-years.</p>
-<p>The model's dates run early: by 3.7 days on average in Germany and 0.3 days in Sweden. It averages a lilac and two honeysuckles, and the honeysuckles bloom earlier, while the observations are lilac only. Its lilac part alone is 0.2 days off in Germany. The offset does not change the numbers on this site, because each city is compared with the model's own average for that city.</p>
+<p>In Germany the model's dates run early, by 2.8 days on average; in Sweden they are 0.1 days late. The model averages a lilac and two honeysuckles, and the honeysuckles bloom earlier, while the observations are lilac only. Its lilac part alone is 0.7 days off in Germany. The offset does not change the numbers on this site, because each city is compared with the model's own average for that city.</p>
 <h3 id="by-city">City by city</h3>
 <p>Every spring checked, with later dates higher. The figures above measure how closely the two lines rise and fall together. Where the model's line sits below the observed one, the model is early: that is the offset.</p>
 <div class="card checks">
@@ -74,7 +74,7 @@
 <p>The code behind the model and this comparison is <a target="_blank" rel="noopener" href="{{ repo_url }}">on GitHub</a>, along with each city's numbers.</p>
 <h3>Limitations</h3>
 <ul>
-<li>Sweden's evidence is thinner: 17 springs, with a median of 3 to 4 observations per city and year, in some years one. The first two years, 2008 and 2009, pull it down. From 2010 on, the correlation is 0.82 (0.67–0.92).</li>
+<li>Sweden's evidence is thinner: 17 springs, with a median of 3 to 4.5 observations per city and year in Stockholm, Gothenburg and Malmö and 8 to 8.5 in the other three, in some years one. The first two years, 2008 and 2009, pull it down. From 2010 on, the correlation is 0.82 (0.68–0.91).</li>
 <li>Years before 1951 in Germany and before 2008 in Sweden are modelled only. There are too few observations to check them.</li>
 <li>Against single lilac bushes rather than local medians, a European study found the model about a week off on average (<a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41597-024-03710-5">Izquierdo-Verdiguier and Zurita-Milla, 2024</a>).</li>
 </ul>

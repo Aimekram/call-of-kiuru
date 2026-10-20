@@ -38,6 +38,18 @@ VALIDATION_LOCATIONS = [
     ("Hamburg, Germany", 53.5511, 9.9937, "maritime"),
     ("Gothenburg, Sweden", 57.7089, 11.9746, "maritime"),
     ("Malmo, Sweden", 55.6050, 13.0038, "temperate"),
+    ("Stuttgart, Germany", 48.7758, 9.1829, "temperate"),
+    ("Freiburg, Germany", 47.9990, 7.8421, "temperate"),
+    ("Nuremberg, Germany", 49.4521, 11.0767, "continental"),
+    ("Leipzig, Germany", 51.3397, 12.3731, "continental"),
+    ("Dresden, Germany", 51.0504, 13.7373, "continental"),
+    ("Hannover, Germany", 52.3759, 9.7320, "temperate"),
+    ("Bremen, Germany", 53.0793, 8.8017, "maritime"),
+    ("Kiel, Germany", 54.3233, 10.1228, "maritime"),
+    ("Rostock, Germany", 54.0924, 12.0991, "maritime"),
+    ("Orebro, Sweden", 59.2753, 15.2134, "nordic"),
+    ("Jonkoping, Sweden", 57.7826, 14.1618, "nordic"),
+    ("Vaxjo, Sweden", 56.8777, 14.8091, "nordic"),
 ]
 
 # Time period for validation

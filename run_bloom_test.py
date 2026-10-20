@@ -294,6 +294,25 @@ def write_report(df, start, end):
         lines.append(f"| {c['location']} | {c['years']} | {c['median_n_obs']:.0f} | "
                      f"{c['rmse']:.1f} | {c['bias']:+.1f} | {c['anomaly_r']:.2f} | "
                      f"{c['observed_sd']:.1f} |")
+    grades = bloom_stats.city_grades(df)
+    grades.to_csv(DATA_DIR / "bloom_grades.csv", index=False)
+    lines += [
+        "",
+        "## Grade per city",
+        "",
+        f"For the site (rule in PLAN.md §3): cities with at least {bloom_stats.MIN_SPRINGS} "
+        "springs, graded by the low end of the 95% interval of the anomaly "
+        "correlation, resampling that city's years: strong ≥ 0.8, moderate ≥ 0.5, "
+        "weak below. Typical miss is the anomaly RMSE; calling every spring "
+        "normal is the observed SD.",
+        "",
+        "| City | Springs | Median obs/year | Anomaly correlation | Typical miss | Calling every spring normal | Grade |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for _, g in grades.sort_values("location").iterrows():
+        lines.append(f"| {g['location']} | {g['springs']} | {g['median_n_obs']:.0f} | "
+                     f"{g['anomaly_r']:.2f} ({g['anomaly_r_low']:.2f} to {g['anomaly_r_high']:.2f}) | "
+                     f"{g['anomaly_rmse']:.1f} | {g['normal_year_rmse']:.1f} | {g['grade']} |")
     countries = list(decades["mean"].columns)
     lines += [
         "",

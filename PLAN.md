@@ -10,9 +10,12 @@ open climate data. Shareable, and honest about its own uncertainty.
 
 ## 1. MVP scope (decided 2026-10-11)
 
-**Cities: the 8 already validated.** Berlin, Munich, Cologne, Frankfurt,
-Hamburg, Stockholm, Gothenburg, Malmö. A city is added only after it passes
-the same test (§3).
+**Cities: 20, each tested and graded (2026-10-20).** Germany: Freiburg,
+Munich, Stuttgart, Nuremberg, Frankfurt, Cologne, Dresden, Leipzig, Hanover,
+Berlin, Bremen, Hamburg, Rostock, Kiel. Sweden: Malmö, Växjö, Gothenburg,
+Jönköping, Örebro, Stockholm. The first 8 launched on 2026-10-18; 12 more
+added on 2026-10-20. A city is added only after it has been tested against
+observations (§3, rules for adding a city).
 
 **In:**
 - A page per city: days early/late this year vs the 1991–2020 baseline, with
@@ -39,8 +42,8 @@ history.
 ## 2. Data pipeline
 
 **Built (2026-10-12): steps 1 to 6.** `python -m pipeline.run` writes
-`data/bloom.json` for the 8 cities: 696 rows, 1940–2026. A normal run takes
-about 7 minutes, nearly all of it waiting for 8 small CDS requests. Tests in
+`data/bloom.json` for the 20 cities: 1,740 rows, 1940–2026. A normal run
+takes about 10 minutes, nearly all of it waiting for 20 small CDS requests. Tests in
 `tests/test_pipeline.py` tie the output to the USA-NPN reference. Still to
 build: the daily job (step 7). The site (step 8) has its first pages, see
 §5.
@@ -108,6 +111,21 @@ what the app shows; intervals are 95%.
 | Germany, 5 cities, 1951–2024 | 74 | **0.92** (0.88 to 0.94) | 3.9 vs 8.9 days | 5.5, −3.7 |
 | Sweden, 3 cities, 2008–2024 | 17 | **0.69** (0.46 to 0.87) | 4.6 vs 6.4 days | 5.0, −0.3 |
 
+**With 20 cities (2026-10-20).** Nine German and three Swedish cities
+added, spread across regions, graded by the rule below:
+
+| | Cities | City-years | Correlation | Error vs normal-year | Skill |
+|---|---|---|---|---|---|
+| Germany | 14 | 1036 | **0.92** (0.89 to 0.95) | 3.8 vs 8.9 days | 0.82 |
+| Sweden | 6 | 99 | **0.72** (0.54 to 0.87) | 3.9 vs 5.6 days | 0.52 |
+
+All 14 German cities and Gothenburg are strong; Jönköping, Växjö and
+Örebro moderate; Stockholm and Malmö weak. In Sweden the result tracks the
+observers: the new cities have about 8 a year, Stockholm and Malmö 3 to 4.
+Swedish misses in days are like Germany's; its springs vary less, so the
+correlation is lower. Bremen and Hannover run 5 to 6 days early, steadily
+(drift under 0.3 days per decade), mostly the honeysuckles.
+
 **Germany is solid.**
 - It holds in every period: correlation 0.89 for 1951–1978, 0.90 for
   1979–2009, 0.94 for 2010–2024.
@@ -148,8 +166,8 @@ what the app shows; intervals are 95%.
 
 **Our code is the same model as USA-NPN's.** A test in the repo
 (`tests/test_si_x_matches_usanpn.py`) compares every leaf and bloom day
-with USA-NPN's own code at a pinned version: identical on all 680 ERA5
-city-years (8 cities, 1940–2024) and on 512 synthetic series, 7,152 days in
+with USA-NPN's own code at a pinned version: identical on all 1,700 ERA5
+city-years (20 cities, 1940–2024) and on 512 synthetic series, 13,272 days in
 all. The test shows we compute what USA-NPN's map function computes; that
 this function is the model of the papers rests on USA-NPN
 (`validation_audit.md` in the docs repo has the detail). Three known differences from
@@ -175,15 +193,34 @@ methodology page says "within about a week for a single lilac".
    maintenance. Licence to settle first: the 4TU record says CC BY 4.0,
    the Earth Engine community catalog's copy says CC BY-NC 4.0.
 
+**Rules for adding a city (decided 2026-10-20, before the new cities were
+tested).** No pass mark: every city is tested and shows its result.
+- A city is shown only if it can be tested: at least 10 springs with
+  nearby lilac observations (same networks and search boxes as above).
+- Each city gets a grade from the low end of the 95% range of its anomaly
+  correlation, resampling whole years for that city alone:
+  **strong** at 0.8 or higher, **moderate** at 0.5 or higher, **weak**
+  below 0.5. The low end, not the estimate, so a city with few springs
+  can't be strong on a lucky handful of years.
+- The grade and the numbers behind it are on the city page, in the
+  ranking, and explained on the method page.
+- Fixed before the 12 new cities were run. The 8 existing cities' point
+  estimates were already known, so for them the rule is not blind.
+
 **Rules for adding a zone.**
-- A new zone is claimed only after its cities pass this test against
-  observations.
+- A new zone is claimed only after its cities are tested against
+  observations, as above.
 - If the model fails there, don't launch there, or show a categorical badge
   ("earlier / typical / later") instead of days.
 
 **Reference data** (detail in `reference_data_research.md`, docs repo):
 - In use: DWD, Germany (CC BY 4.0); SLU Naturens Kalender, Sweden (CC0,
   programme observers only).
+- A lilac "first bloom" after 31 August is left out, in both networks
+  (2026-10-20). It removes one record of 164,749: SLU 2008 near Örebro, day
+  273, filed with the observer's autumn records after their own spring
+  bloom records. Without the rule Örebro would be weak (−0.18), with it
+  moderate (0.81).
 - PEP725: licence per dataset since May 2026, no longer non-commercial
   only. The route to a third zone; request deferred until after the MVP.
 - No open lilac data: UK, Switzerland, Czechia, the Mediterranean.
@@ -254,7 +291,7 @@ private sibling repo, `call-of-kiuru-docs`.
 
 **Built (2026-10-13): the ranking, the city pages and a method page.**
 `python -m pipeline.build_site` turns `data/bloom.json` into `site/dist/`:
-a sortable ranking of the 8 cities, a page per city with its headline,
+a sortable ranking of the cities, a page per city with its headline,
 dates and every year since 1940, and a method page on how the 1991–2020
 average is worked out and why those years. English, no design yet. This is
 the only place numbers are rounded, to whole days (the averages on the
@@ -337,6 +374,22 @@ Decided:
   mentioned, in DWD's wording for processed data ("Based on data from
   Deutscher Wetterdienst"). The other pages show none of their data and
   carry the Copernicus line only.
+
+Next round of site improvements (decided 2026-10-20, kept separate from
+adding the 12 cities):
+- A quality block on each city page from `data/bloom_grades.csv`: springs
+  checked, observers, correlation, typical miss, and the strong / moderate
+  / weak grade (rule in §3).
+- The grade in the ranking.
+- Split the method page: validation (the by-country table, the grades and
+  the 10-spring floor, the 20 city charts) on its own page. The method page
+  is about 6,100px tall on desktop with 20 charts.
+- Two AI lines, raised then (reminder requested): on the method page, that
+  no AI or machine learning produces the dates (the model is a published
+  temperature formula, checked against observations and USA-NPN's code);
+  on the about page under "The build", that it is built with AI coding
+  assistance (Claude) and the numbers don't depend on it. No commentary on
+  AI companies.
 
 ---
 

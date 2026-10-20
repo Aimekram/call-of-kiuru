@@ -26,10 +26,11 @@
   .card-body .chart-area { margin: 1.6rem 0 1.5rem; }
   .card-body .chart-tip { display: none; }
   .card-body .key { margin-top: 0.25rem; }
-  /* Ranking: two columns of cities with their bars. */
-  .card-ranking { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); grid-auto-flow: column; gap: 6px 56px; font-size: 25px; }
-  .card-ranking div { display: grid; grid-template-columns: 1fr 3ch 150px; align-items: center; gap: 14px; padding: 7px 0; border-bottom: 1px solid var(--line); }
-  .card-ranking small { font-size: 0.7em; color: var(--muted); }
+  /* Ranking: four columns of cities with their bars, read down each column;
+     the rows are counted from the cities, so every city fits. */
+  .card-ranking { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(var(--rows), auto); grid-auto-flow: column; gap: 0 28px; font-size: 19px; }
+  .card-ranking div { display: grid; grid-template-columns: 1fr 2.5ch 64px; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--line); line-height: 1.2; }
+  .card-ranking small { display: block; font-size: 0.72em; color: var(--muted); }
   .card-ranking .number { text-align: right; font-variant-numeric: tabular-nums; }
   .card-ranking .meter { min-width: 0; height: 10px; }
   .card-sub { margin: 14px 0 0; font-size: 22px; color: var(--muted); }
@@ -47,8 +48,8 @@
   .instagram .card-body .chart { zoom: 2.3; }
   .card-chart-title { display: none; }
   .instagram .card-chart-title { display: block; margin: 0 0 4px; font: 700 34px/1.2 var(--display); }
-  .instagram .card-ranking { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; font-size: 36px; }
-  .instagram .card-ranking div { grid-template-columns: 1fr 3ch 300px; gap: 24px; padding: 14px 0; }
+  .instagram .card-ranking { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(var(--ig-rows), auto); gap: 0 40px; font-size: 27px; }
+  .instagram .card-ranking div { grid-template-columns: 1fr 2.5ch 110px; gap: 14px; padding: 9px 0; }
   .instagram .card-ranking .meter { height: 14px; }
   .instagram .card-sub { font-size: 28px; margin-top: 24px; }
   .instagram.ranking-card .card-sub span { display: block; }
@@ -76,7 +77,7 @@
 <p class="card-eyebrow">{{ cities|length }} cities against their own {{ baseline }} average</p>
 <h1>Start of spring {{ year }}</h1>
 <div class="card-body">
-<div class="card-ranking">
+<div class="card-ranking"{{ {'style': '--rows: %d; --ig-rows: %d' % ((cities|length + 3) // 4, (cities|length + 1) // 2)}|xmlattr }}>
 {% for city in cities %}
 <div><span>{{ city.name }} <small>{{ city.country }}</small></span>{% if city.bloomed %}<span class="number">{{ city.signed_days }}</span><span class="meter"><span{{ {'class': city.meter.side, 'style': 'width: ' ~ city.meter.width}|xmlattr }}></span></span>{% else %}<span class="number">–</span><span></span>{% endif %}</div>
 {% endfor %}

@@ -2,8 +2,9 @@
 
 A dashboard that shows, for each tracked city, how many days earlier or
 later the modelled start of spring is this year than the model's own
-1991–2020 average for that city: https://callofkiuru.eu. It covers 8 cities
-in Germany and Sweden.
+1991–2020 average for that city: https://callofkiuru.eu. It covers cities
+in Germany and Sweden, each tested against observed lilac bloom first (the
+list is in `pipeline/locations.json`).
 
 "Start of spring" here is a published model, not an observation: the Extended
 Spring Indices (SI-x) first-bloom index, computed from open temperature data
@@ -20,24 +21,25 @@ figure based on first leaf is therefore not the same measure as ours.
 
 ## What has been checked
 
-The model is compared with observed first bloom of common lilac near 8
-cities, for every year the open records cover. Nothing is fitted. The
+The model is compared with observed first bloom of common lilac near each
+city, for every year the open records cover. Nothing is fitted. The
 correlation is for "early or late compared with the city's usual date",
-which is what the dashboard will show.
+which is what the dashboard shows. Last run 2026-10-20:
 
 | | Springs | Correlation (95% interval) | Error vs always predicting a normal year |
 |---|---|---|---|
-| Germany, 5 cities, 1951–2024 | 74 | 0.92 (0.88 to 0.94) | 3.9 vs 8.9 days |
-| Sweden, 3 cities, 2008–2024 | 17 | 0.69 (0.46 to 0.87) | 4.6 vs 6.4 days |
+| Germany, 14 cities, 1951–2024 | 74 | 0.92 (0.89 to 0.95) | 3.8 vs 8.9 days |
+| Sweden, 6 cities, 2008–2024 | 17 | 0.72 (0.54 to 0.87) | 3.9 vs 5.6 days |
 
 Our implementation gives the same leaf and bloom days as USA-NPN's code on
-all 7,152 days compared (680 city-years of ERA5 data and 512 synthetic
-series).
+all 13,272 days compared (1,700 city-years of ERA5 data and 512 synthetic
+series; 2026-10-20).
 
 Limits:
 
 - Two countries only. Nothing is claimed for other climate zones.
-- The Swedish result is weak and rests on few observations.
+- The Swedish result is weaker and rests on fewer observations: a median
+  of 3 to 8.5 per city and year, against 19 to 65.5 in Germany.
 - SI-x averages three plant models (a lilac and two honeysuckles). The
   observations are lilac only, and of common lilac, not the cloned lilac
   that USA-NPN's documentation names for the model.
@@ -89,7 +91,7 @@ runs for the cities whose ERA5 download is present and is skipped otherwise.
    ```
 
    It downloads the lilac observations (about 60 MB) and ERA5 temperatures
-   for the 8 cities (about 5 MB and 90 seconds each), then writes
+   for each city (about 5 MB and 90 seconds each), then writes
    `data/bloom_multiyear.csv` (committed: the method page draws it) and a
    report, `bloom_multiyear.md`, into `../call-of-kiuru-docs/docs/` (the
    private docs repo, if you have it).
@@ -101,13 +103,13 @@ python plot_bloom_test.py anomalies.png
 python plot_bloom_test.py uncertainty.png --chart uncertainty
 ```
 
-**Update the numbers** (about 7 minutes, needs the Copernicus account):
+**Update the numbers** (about 30 seconds per city, needs the Copernicus account):
 
 ```bash
 python -m pipeline.run
 ```
 
-It downloads temperatures from January 2025 to today for the 8 cities and
+It downloads temperatures from January 2025 to today for each city and
 rewrites `data/bloom.json`. Add `--rebuild` to recompute every year since
 1940, or `--offline` to use the downloads already on disk. `python -m pipeline.check_recent` compares the years after 2024 with
 German lilac observations.

@@ -51,6 +51,20 @@ SLU_PROGRAMME_OBSERVER = 1
 # records.
 NETWORKS = {"Germany": ("DWD", 0.5, 1951), "Sweden": ("SLU", 1.0, 2008)}
 
+# A lilac "first bloom" recorded after 31 August is not a spring first bloom
+# (an autumn re-bloom or a mis-coded entry) and is left out, in both
+# networks. Added 2026-10-20: one record of 164,749, SLU 2008 near Örebro on
+# day 273, filed with the observer's autumn records after their own spring
+# bloom records ("flowers are blooming" on day 156, withered by day 161).
+LAST_BLOOM_DATE = (8, 31)
+
+
+def _spring_only(obs):
+    """Drop records after LAST_BLOOM_DATE in their own year."""
+    month, day = LAST_BLOOM_DATE
+    last = pd.to_datetime(obs["year"].astype(str) + f"-{month:02d}-{day:02d}").dt.dayofyear
+    return obs[obs["doy"] <= last.to_numpy()]
+
 
 def _download(url):
     path = PHENOLOGY_DIR / url.rsplit("/", 1)[-1]
@@ -84,8 +98,8 @@ def load_dwd_bloom():
     stations = stations.assign(station=stations["Stations_id"].astype(int),
                                lat=stations["geograph.Breite"].astype(float),
                                lon=stations["geograph.Laenge"].astype(float))
-    return obs.merge(stations[["station", "lat", "lon"]], on="station")[
-        ["year", "doy", "lat", "lon"]]
+    return _spring_only(obs.merge(stations[["station", "lat", "lon"]], on="station")[
+        ["year", "doy", "lat", "lon"]])
 
 
 def load_slu_bloom():
@@ -93,9 +107,9 @@ def load_slu_bloom():
     df = pd.read_csv(_download(SLU_URL), low_memory=False)
     df = df[(df["species_id"] == SLU_LILAC_SPECIES) & (df["phase_id"] == SLU_BLOOM_PHASE)
             & (df["quality"] == SLU_PROGRAMME_OBSERVER)]
-    return df.rename(columns={"obs_year": "year", "obs_doy": "doy",
-                              "latitude": "lat", "longitude": "lon"})[
-        ["year", "doy", "lat", "lon"]]
+    return _spring_only(df.rename(columns={"obs_year": "year", "obs_doy": "doy",
+                                           "latitude": "lat", "longitude": "lon"})[
+        ["year", "doy", "lat", "lon"]])
 
 
 def build_bloom_references(start_year, end_year):
