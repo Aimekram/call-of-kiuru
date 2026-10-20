@@ -268,8 +268,7 @@ would be wrong whenever the code changes a page and the data doesn't).
 A custom `404.html` (2026-10-20): "Spring came 404 days late", with a lilac
 sprig that blooms from the bottom up; not indexed, links from the root.
 Design iterates on the live site, and going public is the build-in-public
-day 0. HTTPS waits on
-GitHub's certificate.
+day 0. HTTPS works, and plain HTTP redirects to it (checked 2026-10-20).
 
 **Design (2026-10-18): "Meadow"**, chosen from three directions in
 `design/directions.html`. Cream paper, near-black ink, cards with a hard
@@ -332,15 +331,12 @@ Decided:
   This happens in 185 of the 696 city-years. Kept as it is (2026-10-18):
   the ranking's column says "Average date, rounded", city pages say
   "around", and the notes under the tables explain it.
+- The validation documents stay in the private docs repo, so the method
+  page carries the evidence itself (done 2026-10-18, step 3).
 - DWD and SLU are credited on the method page, where the lilac check is
   mentioned, in DWD's wording for processed data ("Based on data from
   Deutscher Wetterdienst"). The other pages show none of their data and
   carry the Copernicus line only.
-
-To settle with the design:
-- The site cannot link to the validation documents: they are in the
-  private docs repo. The methodology page (step 3) has to carry the
-  evidence itself.
 
 ---
 
@@ -408,8 +404,9 @@ first.
   build is shared: Bluesky @callofkiuru.eu for the work in progress,
   Instagram @callofkiuru for results. Linked from every footer; the link
   for bios.
-- Put the Bluesky account on a Eurosky PDS (EU-hosted), consistent with the
-  open, EU-native premise.
+- The Bluesky account is on a Eurosky PDS (eurosky.social, EU-hosted),
+  consistent with the open, EU-native premise (done; per its PLC record,
+  checked 2026-10-20).
 - **Say which index.** USA-NPN maps first leaf, first bloom and a late-bloom
   index against an average over the same 1991–2020 period; we show first
   bloom only. A US "spring is
