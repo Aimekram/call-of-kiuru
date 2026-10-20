@@ -91,7 +91,7 @@ h3 { font: 700 1.05rem/1.2 var(--display); margin: 1.5rem 0 0.25rem; }
 /* Key facts */
 .facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0 0 1rem; }
 .facts dt { color: var(--muted); }
-.facts dd { margin: 0; font-weight: 500; }
+.facts dd { margin: 0; font-weight: 500; text-wrap: pretty; }
 
 /* Tables */
 table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
@@ -219,6 +219,8 @@ td:has(> time), td.date { white-space: nowrap; }
 /* Phones */
 @media (max-width: 30rem) {
   .country, .meter, .key { display: none; }
+  .facts { grid-template-columns: 1fr; gap: 0; }
+  .facts dd + dt { margin-top: 0.6rem; }
   .card { padding: 0.75rem; }
   th, td { padding-right: 0.5rem; }
   .days { padding-right: 0; }
