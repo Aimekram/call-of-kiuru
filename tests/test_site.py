@@ -88,15 +88,15 @@ class Wording(unittest.TestCase):
 
     def test_rarity_phrase(self):
         def phrase(day, *days):
-            return build_site.rarity_phrase(day, [{"bloom_doy": d} for d in days])
+            return build_site.rarity_phrase(day, 2026, [{"bloom_doy": d} for d in days])
         # Unrounded: 109.67 is later than 109.33, though both show as the same date.
-        self.assertEqual(phrase(109.67, 109.33, 110, 112), "1 of 3 came earlier")
-        self.assertEqual(phrase(120, 110, 115, 125), "1 of 3 came later")
+        self.assertEqual(phrase(109.67, 109.33, 110, 112), "1 of 3 came earlier than 2026")
+        self.assertEqual(phrase(120, 110, 115, 125), "1 of 3 came later than 2026")
         self.assertEqual(phrase(120, 120, 119, 125, 130),
-                         "1 of 4 came earlier, 1 on the same day of the year")
-        self.assertEqual(phrase(100, 110, 120), "none of 2 came earlier")
+                         "1 of 4 came earlier than 2026, 1 on the same day of the year")
+        self.assertEqual(phrase(100, 110, 120), "none of 2 came earlier than 2026")
         self.assertEqual(phrase(100, 100, 100, 120),
-                         "none of 3 came earlier, 2 on the same day of the year")
+                         "none of 3 came earlier than 2026, 2 on the same day of the year")
 
     def test_signed_days(self):
         self.assertEqual(build_site.signed_days(-7.72), "−8")
@@ -423,7 +423,7 @@ class Scenarios(unittest.TestCase):
         earlier = sum(r["bloom_doy"] < current["bloom_doy"] for r in before)
         later = sum(r["bloom_doy"] > current["bloom_doy"] for r in before)
         self.assertIn(f"Springs 1940–{year - 1} {min(earlier, later)} of {len(before)} came "
-                      f"{'earlier' if earlier <= later else 'later'}", page.plain)
+                      f"{'earlier' if earlier <= later else 'later'} than {year}", page.plain)
         cell = ranking_cell((self.directory / "index.html").read_text(), -7.72)
         self.assertIn('<span class="number">−8</span>', cell)
         # Each half of the bar is at least 10 days, so 8 days is 40% of the whole bar.

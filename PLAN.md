@@ -370,8 +370,9 @@ In rough order:
    often a spring has been as early or late as this one. Our 1940–present
    series supports the same thing without a new model. Built 2026-10-19:
    on city pages, a row in the facts under the headline, e.g. Malmö
-   "Springs 1940–2025: 15 of 86 came earlier, 1 on the same day of the
-   year". Not next to the chart: the bars measure against the 1991–2020
+   "Springs 1940–2025: 15 of 86 came earlier than 2026, 1 on the same day
+   of the year" ("than 2026" added 2026-10-20: without it, a cold reader,
+   Mistral, took the range for an off-by-one). Not next to the chart: the bars measure against the 1991–2020
    average, this ranks against every past spring, and both say "earlier".
    Unrounded days; the rarer side
    (earlier or later) is counted, with no adjectives. Ties are common (the

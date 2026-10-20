@@ -87,15 +87,16 @@ def usual_date(baseline_doy):
     return day_month(date_of(baseline_doy, 2023))
 
 
-def rarity_phrase(bloom_doy, history):
-    """'6 of 86 came earlier, 1 on the same day of the year': how many past
-    springs came earlier (or later, whichever is fewer), on unrounded days."""
+def rarity_phrase(bloom_doy, year, history):
+    """'6 of 86 came earlier than 2026, 1 on the same day of the year': how
+    many past springs came earlier (or later, whichever is fewer), on
+    unrounded days."""
     days = [r["bloom_doy"] for r in history]
     earlier = sum(d < bloom_doy for d in days)
     later = sum(d > bloom_doy for d in days)
     same = len(days) - earlier - later
     side, count = ("earlier", earlier) if earlier <= later else ("later", later)
-    text = f"{count or 'none'} of {len(days)} came {side}"
+    text = f"{count or 'none'} of {len(days)} came {side} than {year}"
     return text + (f", {same} on the same day of the year" if same else "")
 
 
@@ -309,7 +310,7 @@ def city_view(city, rows):
                     headline=headline_phrase(current["days_vs_baseline"]),
                     signed_days=signed_days(current["days_vs_baseline"]),
                     sort_days=current["days_vs_baseline"], sort_date=current["bloom_doy"],
-                    rarity=rarity_phrase(current["bloom_doy"], history),
+                    rarity=rarity_phrase(current["bloom_doy"], current["year"], history),
                     rarity_years=f"{history[0]['year']}–{history[-1]['year']}")
     return view
 
