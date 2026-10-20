@@ -131,7 +131,7 @@ class Built(unittest.TestCase):
         return Page((self.directory / path).read_text())
 
     def test_one_page_per_city_a_ranking_and_the_method(self):
-        expected = {"index.html", "method/index.html", "privacy/index.html"} | {
+        expected = {"index.html", "method/index.html", "privacy/index.html", "about/index.html"} | {
             f"{c['slug']}/index.html" for c in self.result["cities"]}
         self.assertEqual({str(p.relative_to(self.directory)) for p in self.written}, expected)
         self.assertTrue((self.directory / "static" / "style.css").exists())
@@ -323,6 +323,20 @@ class Built(unittest.TestCase):
         self.assertIn('data-n="median of 17 observations"', source)
         self.assertIn('static/chart.js', source)
 
+    def test_about_page_explains_the_name_and_links_out(self):
+        page = self.page("about/index.html")
+        self.assertEqual(page.errors, [])
+        self.assertIn("Kiuru is Finnish for the skylark", page.plain)
+        self.assertIn("Kuu kiurusta kesään", page.plain)
+        self.assertIn(build_site.SAYING_SOURCE, page.links)
+        self.assertIn("../method/", page.links)
+        self.assertIn("https://www.usanpn.org/data/maps/spring", page.links)
+        self.assertIn(build_site.BLUESKY_URL, page.links)
+        self.assertIn(build_site.INSTAGRAM_URL, page.links)
+        # Linked from every page's footer.
+        for path in self.written:
+            self.assertTrue(any(link.endswith("about/") for link in Page(path.read_text()).links), path)
+
     def test_sitemap_lists_every_page_by_its_canonical_url(self):
         tree = ElementTree.parse(self.directory / "sitemap.xml")
         namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
@@ -365,8 +379,8 @@ class Built(unittest.TestCase):
     def test_every_page_with_data_carries_the_attribution_and_the_caveat(self):
         for path in self.written:
             text = Page(path.read_text()).plain
-            if path.parent.name == "privacy":
-                # The privacy page shows no data.
+            if path.parent.name in ("privacy", "about"):
+                # The privacy and about pages show no data.
                 self.assertNotIn(self.result["attribution"], text)
                 continue
             self.assertIn(self.result["attribution"], text)

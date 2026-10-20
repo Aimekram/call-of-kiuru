@@ -394,8 +394,17 @@ first.
 
 ## 7. Marketing & content
 
-- Instagram and Bluesky from day one, same assets on both: per-city cards,
-  rankings, the trend chart, and validation entries from the journal.
+- Instagram and Bluesky from day one, with different jobs (decided
+  2026-10-20): Bluesky for the work in progress (validation entries and
+  decisions from the journal), Instagram for results (per-city cards,
+  rankings, the trend chart).
+- **About page** (`about/`, 2026-10-20): what the site is, where it comes
+  from (USA-NPN's spring maps, same model and average, for Europe), the name
+  (*kiuru* is the skylark; the Finnish saying "kuu kiurusta kesään", and
+  Luontoliitto on warming moving the birds' arrival earlier), and where the
+  build is shared: Bluesky @callofkiuru.eu for the work in progress,
+  Instagram @callofkiuru for results. Linked from every footer; the link
+  for bios.
 - Put the Bluesky account on a Eurosky PDS (EU-hosted), consistent with the
   open, EU-native premise.
 - **Say which index.** USA-NPN maps first leaf, first bloom and a late-bloom

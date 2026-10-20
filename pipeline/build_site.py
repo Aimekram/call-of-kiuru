@@ -35,6 +35,13 @@ CONTACT = "hello@callofkiuru.eu"
 PRIVACY_UPDATED = "18 October 2026"
 TIP_URL = "https://suppi.pl/devtortie"
 REPO_URL = "https://github.com/Aimekram/call-of-kiuru"
+# Linked from the about page: Bluesky for the work in progress, Instagram for results.
+BLUESKY_URL = "https://bsky.app/profile/callofkiuru.eu"
+INSTAGRAM_URL = "https://www.instagram.com/callofkiuru/"
+# The Finnish saying on the about page, and Luontoliitto on the birds' earlier arrival.
+SAYING_SOURCE = ("https://www.mtvuutiset.fi/artikkeli/kuu-kiurusta-kesaan-puolikuuta-peipposesta-"
+                 "vastarakista-vahasen-monen-linnun-kevatmuutto-on-aikaistunut-eika-vanha-"
+                 "sananlasku-pida-enaa-ilmastonmuutoksen-myota-paikkaansa/7356942")
 # Share cards (og:image), made by share_cards.py into cards/.
 CARD_SIZE = (1200, 630)
 SITE_CARD_ALT = "Call of Kiuru: the modelled start of spring in European cities, every year since 1940."
@@ -387,6 +394,9 @@ def build(result, output_dir=OUTPUT_DIR):
         write(f"{city['slug']}/index.html", "city.html", city=city, root="../",
               card=city["slug"], card_alt=city["card_alt"])
     gaps = [c["earlier_gap"] for c in cities]
+    write("about/index.html", "about.html", root="../", card="site", card_alt=SITE_CARD_ALT,
+          bluesky_url=BLUESKY_URL, instagram_url=INSTAGRAM_URL,
+          saying_source=SAYING_SOURCE)
     write("privacy/index.html", "privacy.html", root="../", card="site", card_alt=SITE_CARD_ALT,
           privacy_updated=PRIVACY_UPDATED,
           controller=CONTROLLER, address=ADDRESS)

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}About – {{ site_name }}{% endblock %}
+{% block description %}What {{ site_name }} is, where the idea and the name come from, and where the build is shared.{% endblock %}
+{% block content %}
+<h1>About</h1>
+<p>{{ site_name }} shows how early or late spring came this year in European cities, each against its own {{ baseline }} average. The date comes from a published model of when lilac and honeysuckle first bloom, run on daily temperatures from the EU's Copernicus Climate Change Service. In Germany and Sweden it has been checked against observed lilac bloom. <a href="{{ root }}method/">How it works</a></p>
+<h2>The idea</h2>
+<p>In the United States, the USA National Phenology Network <a target="_blank" rel="noopener" href="https://www.usanpn.org/data/maps/spring">maps the start of spring</a> with the Extended Spring Indices and compares each year with the 1991–2020 average. {{ site_name }} brings the same idea to European cities: the first-bloom index of the same published model, unchanged, and the same average, run on European temperature data and checked against European observations.</p>
+<h2>The name</h2>
+<p><em>Kiuru</em> is Finnish for the skylark. An old Finnish saying counts down to summer from the return of three birds: <q lang="fi">Kuu kiurusta kesään, puolikuuta peipposesta, västäräkistä vähäsen</q>, a month from the skylark to summer, half a month from the chaffinch, a little from the white wagtail. In 2019 the Finnish Nature Association (Luontoliitto) <a target="_blank" rel="noopener" href="{{ saying_source }}">pointed out</a> that warming has moved the birds' arrival earlier, so the saying no longer holds as well.</p>
+<h2>The build</h2>
+<p>{{ site_name }} is built in public: the code and the numbers are <a target="_blank" rel="noopener" href="{{ repo_url }}">open on GitHub</a>. Follow the build on <a target="_blank" rel="noopener" href="{{ bluesky_url }}">Bluesky</a> and the results on <a target="_blank" rel="noopener" href="{{ instagram_url }}">Instagram</a>. Questions and corrections are welcome at <a href="mailto:{{ contact }}">{{ contact }}</a></p>
+{% endblock %}
+{% block about %}{% endblock %}
