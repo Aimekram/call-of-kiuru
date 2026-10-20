@@ -3,7 +3,7 @@
 {% block description %}Why the start of spring comes from a model, how well it matches observed bloom, why only Germany and Sweden, and how each city's {{ baseline }} average is calculated.{% endblock %}
 {% block content %}
 <h1>How it works</h1>
-<p>Every page shows a modelled start of spring and compares it with that city's {{ baseline }} average. This page explains why it is modelled, how well the model matches observed bloom, and how the average is calculated.</p>
+<p>Every page shows a modelled start of spring and compares it with that city's {{ baseline }} average. The model is the first-bloom index of the Extended Spring Indices (SI-x), published by <a target="_blank" rel="noopener" href="https://doi.org/10.1002/joc.3625">Schwartz, Ault and Betancourt (2013)</a> and used unchanged. This page explains why it is modelled, how well the model matches observed bloom, and how the average is calculated.</p>
 <h2 id="model">Why a model, not observations</h2>
 <p>Observed bloom is the ground truth: it is what the model is checked against, <a href="#validation">below</a>. The model adds what observations alone can't give:</p>
 <ul>
@@ -76,7 +76,7 @@
 <ul>
 <li>Sweden's evidence is thinner: 17 springs, with a median of 3 to 4 observations per city and year, in some years one. The first two years, 2008 and 2009, pull it down. From 2010 on, the correlation is 0.82 (0.67–0.92).</li>
 <li>Years before 1951 in Germany and before 2008 in Sweden are modelled only. There are too few observations to check them.</li>
-<li>Against single lilac bushes rather than local medians, a European study found the model about a week off on average (Izquierdo-Verdiguier and Zurita-Milla, 2024).</li>
+<li>Against single lilac bushes rather than local medians, a European study found the model about a week off on average (<a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41597-024-03710-5">Izquierdo-Verdiguier and Zurita-Milla, 2024</a>).</li>
 </ul>
 <h2 id="coverage">Why only Germany and Sweden</h2>
 <p>A city is added only after the model has been checked against observed bloom there. Of about 20 European countries we looked at, only Germany and Sweden publish their lilac observations openly. PEP725, the pan-European phenology database, may hold more, under licences set per dataset since May 2026. We have not asked for its lilac data yet.</p>

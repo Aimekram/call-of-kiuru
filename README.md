@@ -191,7 +191,7 @@ The code in this repository is MIT-licensed (`LICENSE`).
 - Schwartz, M. D., Ault, T. R., & Betancourt, J. L. (2013). Spring onset
   variations and trends in the continental United States: past and regional
   assessment using temperature-based indices. *International Journal of
-  Climatology*, 33, 2917–2922.
+  Climatology*, 33(13), 2917–2922. https://doi.org/10.1002/joc.3625
 - Crimmins, T. M., and others (2017). *USA National Phenology Network
   gridded products documentation*. USGS Open-File Report 2017–1003.
   https://doi.org/10.3133/ofr20171003

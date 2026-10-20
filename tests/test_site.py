@@ -305,6 +305,9 @@ class Built(unittest.TestCase):
                        "48% 19–75%", "3.9 days 3.3–4.4", "4.6 days 2.7–6.0"):
             self.assertIn(figure, page.plain)
         self.assertTrue(any("usanpn.org" in link for link in page.links))
+        # The model's paper and the European benchmark are linked.
+        self.assertIn("https://doi.org/10.1002/joc.3625", page.links)
+        self.assertIn("https://www.nature.com/articles/s41597-024-03710-5", page.links)
 
     def test_method_page_charts_each_city_against_observed_bloom(self):
         rows = build_site.check_rows()
