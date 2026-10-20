@@ -35,7 +35,14 @@ body {
   background: var(--paper);
   color: var(--ink);
   font: 1rem/1.55 var(--text);
+  /* The footer at the bottom of the window on short pages. */
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
+main { flex: 1; }
 
 a { color: inherit; text-decoration-color: var(--brand); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 /* Links to other sites: muted underline instead of the brand green. */
