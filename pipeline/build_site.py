@@ -361,14 +361,15 @@ def prepare(result):
 
 
 def build(result, output_dir=OUTPUT_DIR):
-    """Write the site for one pipeline output. Returns the files written."""
+    """Write the site for one pipeline output, with a sitemap and robots.txt
+    for search engines. Returns the pages written."""
     templates = environment()
     cities, ranking, shared = prepare(result)
 
     if output_dir.exists():
         shutil.rmtree(output_dir)
     shutil.copytree(SITE_DIR / "static", output_dir / "static")
-    written = []
+    written, urls = [], []
 
     def write(path, template, **context):
         target = output_dir / path
@@ -376,6 +377,7 @@ def build(result, output_dir=OUTPUT_DIR):
         url = SITE_URL + path.removesuffix("index.html")
         target.write_text(templates.get_template(template).render(**shared, **context, url=url))
         written.append(target)
+        urls.append(url)
 
     # Each page names its share card (made by share_cards.py) and describes it.
     write("index.html", "index.html", cities=ranking, root="", card="ranking",
@@ -392,6 +394,15 @@ def build(result, output_dir=OUTPUT_DIR):
           check_file_url=f"{REPO_URL}/blob/main/data/{CHECK_FILE.name}",
           earlier="{}–{}".format(*EARLIER_YEARS),
           earlier_gap_least=whole_days(min(gaps)), earlier_gap_most=whole_days(max(gaps)))
+    # No <lastmod>: pages change with the code as well as the data, and a
+    # wrong date is worse than none.
+    (output_dir / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join(f"<url><loc>{url}</loc></url>\n" for url in urls)
+        + "</urlset>\n")
+    (output_dir / "robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n")
     return written
 
 

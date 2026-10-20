@@ -262,7 +262,9 @@ method page to one decimal).
 
 **Live (2026-10-18) on `callofkiuru.eu`**, as it is: code (MIT) and data
 public, docs and journal in a private repo. Indexed from day one, each
-page with its canonical URL on the domain. Design iterates on the live
+page with its canonical URL on the domain, all listed in `sitemap.xml`
+(2026-10-20, written by the build with `robots.txt`; no `<lastmod>`, which
+would be wrong whenever the code changes a page and the data doesn't). Design iterates on the live
 site, and going public is the build-in-public day 0. HTTPS waits on
 GitHub's certificate.
 

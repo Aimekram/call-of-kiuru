@@ -17,6 +17,7 @@ import tempfile
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
+from xml.etree import ElementTree
 
 from pipeline import build_site, run
 
@@ -321,6 +322,19 @@ class Built(unittest.TestCase):
         self.assertIn('data-year="1951" data-observed="13 May" data-model="17 May"', source)
         self.assertIn('data-n="median of 17 observations"', source)
         self.assertIn('static/chart.js', source)
+
+    def test_sitemap_lists_every_page_by_its_canonical_url(self):
+        tree = ElementTree.parse(self.directory / "sitemap.xml")
+        namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+        listed = [loc.text for loc in tree.iter(f"{namespace}loc")]
+        canonical = [next(a["href"] for tag, a in self.page(p).attributes
+                          if tag == "link" and a.get("rel") == "canonical")
+                     for p in self.written]
+        self.assertEqual(sorted(listed), sorted(canonical))
+        self.assertEqual(len(set(listed)), len(listed))
+        robots = (self.directory / "robots.txt").read_text()
+        self.assertIn(f"Sitemap: {build_site.SITE_URL}sitemap.xml", robots)
+        self.assertNotIn("Disallow", robots)
 
     def test_the_average_links_to_its_explanation(self):
         self.assertIn('<a href="method/#baseline">1991–2020 average</a>',
