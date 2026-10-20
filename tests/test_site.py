@@ -85,6 +85,18 @@ class Wording(unittest.TestCase):
         self.assertEqual(build_site.tip_phrase(1.2), "1 day later")
         self.assertEqual(build_site.tip_phrase(-0.4), "Same as the average")
 
+    def test_rarity_phrase(self):
+        def phrase(day, *days):
+            return build_site.rarity_phrase(day, [{"bloom_doy": d} for d in days])
+        # Unrounded: 109.67 is later than 109.33, though both show as the same date.
+        self.assertEqual(phrase(109.67, 109.33, 110, 112), "1 of 3 came earlier")
+        self.assertEqual(phrase(120, 110, 115, 125), "1 of 3 came later")
+        self.assertEqual(phrase(120, 120, 119, 125, 130),
+                         "1 of 4 came earlier, 1 on the same day of the year")
+        self.assertEqual(phrase(100, 110, 120), "none of 2 came earlier")
+        self.assertEqual(phrase(100, 100, 100, 120),
+                         "none of 3 came earlier, 2 on the same day of the year")
+
     def test_signed_days(self):
         self.assertEqual(build_site.signed_days(-7.72), "−8")
         self.assertEqual(build_site.signed_days(1.38), "+1")
@@ -155,14 +167,14 @@ class Built(unittest.TestCase):
             self.assertIn(f"around {build_site.usual_date(city['baseline_doy'])}", text)
             if current["status"] != "bloomed":
                 through = datetime.date.fromisoformat(current["data_through"])
-                self.assertIn(f"Spring {current['year']}", text)
+                self.assertIn(f"spring {current['year']}", text)
                 self.assertIn("Spring has not come yet", text)
                 self.assertIn("Temperatures received up to "
                               f"{build_site.day_month(through)} {through.year}", text)
                 continue
             headline = build_site.headline_phrase(current["days_vs_baseline"])
             date = build_site.day_month(build_site.date_of(current["bloom_doy"], current["year"]))
-            self.assertIn(f"Spring {current['year']}", text)
+            self.assertIn(f"spring {current['year']}", text)
             self.assertIn(f"Spring came {headline}", text)
             self.assertIn(f"Start of spring {current['year']} {date}", text)
 
@@ -392,6 +404,12 @@ class Scenarios(unittest.TestCase):
         self.assertIn(f"Start of spring {year} {date}", page.plain)
         self.assertIn(f"spring {year} was 8 days earlier than usual", page.plain)
         self.assertNotIn("has not come yet", page.plain)
+        # Counted against the springs before this one, on unrounded days.
+        before = [r for r in self.result["rows"] if r["city"] == "cologne" and r["year"] < year]
+        earlier = sum(r["bloom_doy"] < current["bloom_doy"] for r in before)
+        later = sum(r["bloom_doy"] > current["bloom_doy"] for r in before)
+        self.assertIn(f"Springs 1940–{year - 1} {min(earlier, later)} of {len(before)} came "
+                      f"{'earlier' if earlier <= later else 'later'}", page.plain)
         cell = ranking_cell((self.directory / "index.html").read_text(), -7.72)
         self.assertIn('<span class="number">−8</span>', cell)
         # Each half of the bar is at least 10 days, so 8 days is 40% of the whole bar.
@@ -406,11 +424,12 @@ class Scenarios(unittest.TestCase):
         page = Page((self.directory / "cologne" / "index.html").read_text())
         self.assertEqual(page.errors, [])
         self.assertIn("../method/#baseline", page.links)
-        self.assertIn(f"Spring {year}", page.plain)
+        self.assertIn(f"spring {year}", page.plain)
         self.assertIn("Spring has not come yet", page.plain)
         self.assertIn(f"Temperatures received up to 1 March {year}", page.plain)
         self.assertIn(f"spring {year} has not started yet", page.plain)
         self.assertNotIn("earlier than", page.plain.split("Every year since")[0])
+        self.assertNotIn("Springs 1940", page.plain)
         # The city's latest result is still in the table.
         latest = max(r["year"] for r in self.result["rows"] if r["city"] == "cologne")
         self.assertIn(f'<th scope="row">{latest}</th>',

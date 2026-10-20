@@ -87,6 +87,18 @@ def usual_date(baseline_doy):
     return day_month(date_of(baseline_doy, 2023))
 
 
+def rarity_phrase(bloom_doy, history):
+    """'6 of 86 came earlier, 1 on the same day of the year': how many past
+    springs came earlier (or later, whichever is fewer), on unrounded days."""
+    days = [r["bloom_doy"] for r in history]
+    earlier = sum(d < bloom_doy for d in days)
+    later = sum(d > bloom_doy for d in days)
+    same = len(days) - earlier - later
+    side, count = ("earlier", earlier) if earlier <= later else ("later", later)
+    text = f"{count or 'none'} of {len(days)} came {side}"
+    return text + (f", {same} on the same day of the year" if same else "")
+
+
 def earlier_gap(city, rows):
     """How many days later the EARLIER_YEARS mean is than the city's baseline."""
     first, last = EARLIER_YEARS
@@ -290,12 +302,15 @@ def city_view(city, rows):
         "years": years,
     }
     if view["bloomed"]:
+        history = sorted((r for r in rows if r["year"] < current["year"]), key=lambda r: r["year"])
         date = date_of(current["bloom_doy"], current["year"])
         view.update(date=day_month(date), iso_date=date.isoformat(),
                     phrase=difference_phrase(current["days_vs_baseline"]),
                     headline=headline_phrase(current["days_vs_baseline"]),
                     signed_days=signed_days(current["days_vs_baseline"]),
-                    sort_days=current["days_vs_baseline"], sort_date=current["bloom_doy"])
+                    sort_days=current["days_vs_baseline"], sort_date=current["bloom_doy"],
+                    rarity=rarity_phrase(current["bloom_doy"], history),
+                    rarity_years=f"{history[0]['year']}–{history[-1]['year']}")
     return view
 
 
