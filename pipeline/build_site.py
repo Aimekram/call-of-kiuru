@@ -16,6 +16,7 @@ import csv
 import datetime
 import json
 import math
+import random
 import shutil
 from pathlib import Path
 
@@ -288,6 +289,28 @@ def check_charts(cities):
     return countries
 
 
+def lilac_sprig(seed=7):
+    """Florets for the 404 page's lilac: a cone of four-petalled flowers on a
+    200 x 280 box, opening from the bottom of the cluster up."""
+    rng = random.Random(seed)
+    top, bottom = 62, 196
+    florets = []
+    y = bottom
+    while y >= top:
+        half = 8 + (y - top) / (bottom - top) * 52
+        count = max(1, round(2 * half / 13))
+        for i in range(count):
+            x = 100 - half + (i + 0.5) * 2 * half / count + rng.uniform(-3, 3)
+            fy = y + rng.uniform(-3, 3)
+            florets.append({
+                "x": f"{x:.1f}", "y": f"{fy:.1f}", "rotate": rng.randrange(0, 90),
+                "r": f"{rng.uniform(4.2, 5.8):.1f}", "shade": rng.choice(("light", "deep")),
+                "delay": f"--d: {1.1 + (bottom - fy) / (bottom - top) * 1.6 + rng.uniform(0, 0.2):.2f}s"})
+        y -= 10
+    # Drawn bottom to top, so the upper florets sit over the lower ones.
+    return florets
+
+
 def city_view(city, rows):
     """Everything a template needs for one city, already worded and rounded."""
     current = city["current"]
@@ -405,6 +428,10 @@ def build(result, output_dir=OUTPUT_DIR):
           check_file_url=f"{REPO_URL}/blob/main/data/{CHECK_FILE.name}",
           earlier="{}–{}".format(*EARLIER_YEARS),
           earlier_gap_least=whole_days(min(gaps)), earlier_gap_most=whole_days(max(gaps)))
+    # Served by GitHub Pages at any address that has no page, so its links
+    # start at the site root. Not indexed, and not in the sitemap.
+    (output_dir / "404.html").write_text(templates.get_template("404.html").render(
+        **shared, root="/", noindex=True, florets=lilac_sprig()))
     # No <lastmod>: pages change with the code as well as the data, and a
     # wrong date is worse than none.
     (output_dir / "sitemap.xml").write_text(

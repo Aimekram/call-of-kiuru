@@ -264,8 +264,11 @@ method page to one decimal).
 public, docs and journal in a private repo. Indexed from day one, each
 page with its canonical URL on the domain, all listed in `sitemap.xml`
 (2026-10-20, written by the build with `robots.txt`; no `<lastmod>`, which
-would be wrong whenever the code changes a page and the data doesn't). Design iterates on the live
-site, and going public is the build-in-public day 0. HTTPS waits on
+would be wrong whenever the code changes a page and the data doesn't).
+A custom `404.html` (2026-10-20): "Spring came 404 days late", with a lilac
+sprig that blooms from the bottom up; not indexed, links from the root.
+Design iterates on the live site, and going public is the build-in-public
+day 0. HTTPS waits on
 GitHub's certificate.
 
 **Design (2026-10-18): "Meadow"**, chosen from three directions in

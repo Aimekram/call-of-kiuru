@@ -340,6 +340,27 @@ class Built(unittest.TestCase):
         for path in self.written:
             self.assertTrue(any(link.endswith("about/") for link in Page(path.read_text()).links), path)
 
+    def test_404_page_works_at_any_address_and_is_not_indexed(self):
+        source = (self.directory / "404.html").read_text()
+        page = Page(source)
+        self.assertEqual(page.errors, [])
+        self.assertIn('<meta name="robots" content="noindex">', source)
+        self.assertNotIn("canonical", source)
+        self.assertNotIn("404", (self.directory / "sitemap.xml").read_text())
+        # Served at any address, so links start at the site root and resolve from it.
+        for link in page.links:
+            if link.startswith(("https://", "mailto:")):
+                continue
+            self.assertTrue(link.startswith("/"), link)
+            target = self.directory / link.lstrip("/")
+            self.assertTrue((target / "index.html").exists() or target.exists(), link)
+        for tag, attributes in page.attributes:
+            asset = attributes.get("href") or attributes.get("src")
+            if tag in ("link", "script") and asset and not asset.startswith("https://"):
+                self.assertTrue(asset.startswith("/"), asset)
+                self.assertTrue((self.directory / asset.lstrip("/")).exists(), asset)
+        self.assertEqual(source.count('class="floret'), len(build_site.lilac_sprig()))
+
     def test_sitemap_lists_every_page_by_its_canonical_url(self):
         tree = ElementTree.parse(self.directory / "sitemap.xml")
         namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"

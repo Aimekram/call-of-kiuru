@@ -223,11 +223,35 @@ td:has(> time), td.date { white-space: nowrap; }
 .check .chart-tip span { color: var(--ink); }
 .check .chart-tip .when { color: var(--muted); }
 
+/* 404: a lilac sprig that grows, unfolds and blooms from the bottom up. */
+.not-found { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1rem 2rem; }
+.sprig { width: 200px; height: auto; overflow: visible; --lilac: light-dark(#b28ad6, #c3a2e6); --lilac-deep: light-dark(#8a5fbd, #a682d6); }
+.sprig-sway { transform-box: fill-box; transform-origin: 50% 100%; animation: sprig-sway 5s ease-in-out 3.6s infinite alternate; }
+.sprig .stem { fill: none; stroke: var(--brand); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: sprig-grow 0.9s ease-out 0.1s forwards; }
+.sprig .leaf { fill: var(--brand); transform-box: fill-box; transform-origin: 0 50%; transform: scale(0); animation: sprig-unfold 0.5s ease-out 0.7s forwards; }
+.sprig .late-leaf { animation-delay: 0.85s; }
+.floret { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: sprig-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) forwards; }
+.floret.light { fill: var(--lilac); }
+.floret.deep { fill: var(--lilac-deep); }
+.floret .eye { fill: var(--card); }
+@keyframes sprig-grow { to { stroke-dashoffset: 0; } }
+@keyframes sprig-unfold { to { transform: scale(1); } }
+@keyframes sprig-pop { to { transform: scale(1) rotate(45deg); } }
+@keyframes sprig-sway { from { transform: rotate(-1.5deg); } to { transform: rotate(1.5deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .sprig *, .sprig-sway { animation: none; }
+  .sprig .stem { stroke-dashoffset: 0; }
+  .sprig .leaf { transform: none; }
+  .floret { transform: rotate(45deg); }
+}
+
 /* Phones */
 @media (max-width: 30rem) {
   .country, .meter, .key { display: none; }
   .facts { grid-template-columns: 1fr; gap: 0; }
   .facts dd + dt { margin-top: 0.6rem; }
+  .not-found { grid-template-columns: 1fr; }
+  .sprig { width: 150px; justify-self: center; }
   .card { padding: 0.75rem; }
   th, td { padding-right: 0.5rem; }
   .days { padding-right: 0; }

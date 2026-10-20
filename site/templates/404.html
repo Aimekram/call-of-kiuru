@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Page not found – {{ site_name }}{% endblock %}
+{% block description %}There is no page at this address.{% endblock %}
+{% block content %}
+<div class="not-found">
+<div>
+<p class="eyebrow">Page not found · error 404</p>
+<h1>Spring came <em>404 days late</em></h1>
+<p class="lede">Nothing has bloomed at this address. The link may be mistyped, or the page has moved.</p>
+<p>Try the <a href="{{ root }}">ranking of all cities</a>, or read <a href="{{ root }}method/">how it works</a>.</p>
+</div>
+<svg class="sprig" viewBox="0 0 200 280" aria-hidden="true">
+<g class="sprig-sway">
+<path class="stem" pathLength="1" d="M100,276 C101,240 98,170 100,64"/>
+<g transform="translate(99 238) rotate(-28)"><path class="leaf" d="M0,0 C8,-15 34,-17 50,-2 C34,10 10,12 0,0Z"/></g>
+<g transform="translate(101 226) scale(-1 1) rotate(-22)"><path class="leaf late-leaf" d="M0,0 C8,-15 34,-17 50,-2 C34,10 10,12 0,0Z"/></g>
+{% for f in florets %}
+<g transform="translate({{ f.x }} {{ f.y }}) rotate({{ f.rotate }})"><g class="floret {{ f.shade }}"{{ {'style': f.delay}|xmlattr }}>
+<ellipse cx="0" cy="-{{ f.r }}" rx="{{ (f.r|float * 0.62)|round(1) }}" ry="{{ f.r }}"/>
+<ellipse cx="0" cy="{{ f.r }}" rx="{{ (f.r|float * 0.62)|round(1) }}" ry="{{ f.r }}"/>
+<ellipse cx="-{{ f.r }}" cy="0" rx="{{ f.r }}" ry="{{ (f.r|float * 0.62)|round(1) }}"/>
+<ellipse cx="{{ f.r }}" cy="0" rx="{{ f.r }}" ry="{{ (f.r|float * 0.62)|round(1) }}"/>
+<circle class="eye" r="{{ (f.r|float * 0.32)|round(1) }}"/>
+</g></g>
+{% endfor %}
+</g>
+</svg>
+</div>
+{% endblock %}
+{% block about %}{% endblock %}
