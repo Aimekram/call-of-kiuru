@@ -46,7 +46,7 @@ SAYING_SOURCE = ("https://www.mtvuutiset.fi/artikkeli/kuu-kiurusta-kesaan-puolik
                  "sananlasku-pida-enaa-ilmastonmuutoksen-myota-paikkaansa/7356942")
 # Share cards (og:image), made by share_cards.py into cards/.
 CARD_SIZE = (1200, 630)
-SITE_CARD_ALT = "Call of Kiuru: the modelled start of spring in European cities, every year since 1940."
+SITE_CARD_ALT = "Call of Kiuru: the modelled spring bloom in European cities, every year since 1940."
 # The 30 years before the baseline, shown on the method page for comparison.
 # The WMO reference period for long-term climate change.
 EARLIER_YEARS = (1961, 1990)
@@ -500,7 +500,7 @@ def prepare(result):
     for city in cities:
         city["card_alt"] = (
             f"{city['name']}: spring {city['year']} came {city['headline']}"
-            if city["bloomed"] else f"{city['name']}: spring {city['year']} has not come yet"
+            if city["bloomed"] else f"{city['name']}: spring bloom {city['year']} has not come yet"
         ) + f". Bars for every spring since {city['chart']['first_year']}, earlier or later than the {shared['baseline']} average."
     return cities, ranking, shared
 
@@ -526,7 +526,7 @@ def build(result, output_dir=OUTPUT_DIR):
 
     # Each page names its share card (made by share_cards.py) and describes it.
     write("index.html", "index.html", cities=ranking, root="", card="ranking",
-          card_alt=f"Start of spring {shared['year']} in {len(cities)} cities, earliest first.")
+          card_alt=f"Spring bloom {shared['year']} in {len(cities)} cities, earliest first.")
     for city in cities:
         write(f"{city['slug']}/index.html", "city.html", city=city, root="../",
               card=city["slug"], card_alt=city["card_alt"])

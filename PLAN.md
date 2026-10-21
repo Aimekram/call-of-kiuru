@@ -4,7 +4,19 @@ A European phenology dashboard: for each tracked city, show how many days
 earlier or later spring arrived this year than in 1991–2020, modelled from
 open climate data. Shareable, and honest about its own uncertainty.
 
-"Spring" means the SI-x bloom index (first lilac bloom).
+"Spring" means the SI-x bloom index (first lilac bloom), shown as the
+"spring bloom" (renamed from "start of spring" on 2026-10-21). DWD's
+phenological calendar (phaeno_faltblatt.pdf) opens each season with a
+marker phase: early spring with hazel bloom, first spring with
+forsythia, full spring with apple bloom, early summer with elder bloom.
+Lilac is not a marker, so checked in DWD's own observations near the 14
+German cities, 1951-2024: lilac first bloom fell between apple and elder
+bloom in 600 of 608 city-years (98.7%), 6 to 8 days after the apples
+(Germany-wide medians 1991-2020: apple day 118, lilac 125, elder 148).
+So the spring bloom marks full spring, not its start. Shown for Germany
+only; the Swedish season names are not checked. USA-NPN describes its
+indices as models of the "start of spring", meaning first leaf or first
+bloom; for a first-bloom index in Europe that label didn't fit.
 
 ---
 

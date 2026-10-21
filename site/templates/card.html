@@ -67,7 +67,7 @@
 {% if city.bloomed %}
 <h1>Spring came <em>{{ city.headline }}</em></h1>
 {% else %}
-<h1>Spring <em>has not come yet</em></h1>
+<h1>Spring bloom <em>has not come yet</em></h1>
 {% endif %}
 <div class="card-body">
 <p class="card-chart-title">Every spring since {{ city.chart.first_year }}</p>
@@ -75,7 +75,7 @@
 </div>
 {% elif kind == "ranking" %}
 <p class="card-eyebrow">{{ cities|length }} cities against their own {{ baseline }} average</p>
-<h1>Start of spring {{ year }}</h1>
+<h1>Spring bloom {{ year }}</h1>
 <div class="card-body">
 <div class="card-ranking"{{ {'style': '--rows: %d; --ig-rows: %d' % ((cities|length + 3) // 4, (cities|length + 1) // 2)}|xmlattr }}>
 {% for city in cities %}
@@ -87,7 +87,7 @@
 {% else %}
 <div class="card-body">
 <h1>When spring came, <em>city by city</em></h1>
-<p class="card-sub">The modelled start of spring in {{ cities|length }} European cities, every year since 1940.</p>
+<p class="card-sub">The modelled spring bloom in {{ cities|length }} European cities, every year since 1940.</p>
 </div>
 {% endif %}
 </div>

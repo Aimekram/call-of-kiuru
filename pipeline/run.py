@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Build data/bloom.json: for every city in pipeline/locations.json, the
-modelled start of spring for each year since 1940, the 1991-2020 average,
+modelled spring bloom for each year since 1940, the 1991-2020 average,
 and how the current year compares.
 
 Past years come from the file itself once it exists; a normal run only

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% from "macros.html" import grade_bars %}
 {% block title %}How it works – {{ site_name }}{% endblock %}
-{% block description %}Why the start of spring comes from a model, how well it matches observed bloom, why only Germany and Sweden, and how each city's {{ baseline }} average is calculated.{% endblock %}
+{% block description %}Why the spring bloom comes from a model, how well it matches observed bloom, why only Germany and Sweden, and how each city's {{ baseline }} average is calculated.{% endblock %}
 {% block content %}
 <h1>How it works</h1>
-<p>Every page shows a modelled start of spring and compares it with that city's {{ baseline }} average. The model is the first-bloom index of the Extended Spring Indices (SI-x), published by <a target="_blank" rel="noopener" href="https://doi.org/10.1002/joc.3625">Schwartz, Ault and Betancourt (2013)</a> and used unchanged. This page explains why it is modelled, how well the model matches observed bloom, and how the average is calculated.</p>
+<p>Every page shows a modelled spring bloom and compares it with that city's {{ baseline }} average. Spring bloom means full spring in the <a target="_blank" rel="noopener" href="https://www.dwd.de/SharedDocs/broschueren/DE/presse/phaeno_faltblatt.pdf">phenological calendar</a> of Germany's weather service, DWD: early spring starts with hazel bloom, first spring with forsythia, full spring with apple bloom. Lilac first blooms about a week after the apples, well inside full spring. The model is the first-bloom index of the Extended Spring Indices (SI-x), published by <a target="_blank" rel="noopener" href="https://doi.org/10.1002/joc.3625">Schwartz, Ault and Betancourt (2013)</a> and used unchanged. This page explains why it is modelled, how well the model matches observed bloom, and how the average is calculated.</p>
 <h2 id="model">Why a model, not observations</h2>
 <p>Observed bloom is the ground truth: it is what the model is checked against, <a href="#validation">below</a>. The model adds what observations alone can't give:</p>
 <ul>
@@ -97,14 +97,14 @@
 <p>A city is added only after the model has been checked against observed bloom there. Of about 20 European countries we looked at, only Germany and Sweden publish their lilac observations openly. PEP725, the pan-European phenology database, may hold more, under licences set per dataset since May 2026. We have not asked for its lilac data yet.</p>
 <h2>The calculation</h2>
 <ol>
-<li>For each of the {{ baseline_length }} years in {{ baseline }}, the model gives the city a start-of-spring day from that year's temperatures. Days are counted from 1 January, which is day 1.</li>
+<li>For each of the {{ baseline_length }} years in {{ baseline }}, the model gives the city a spring-bloom day from that year's temperatures. Days are counted from 1 January, which is day 1.</li>
 <li>The average is the plain mean of those {{ baseline_length }} days.</li>
 <li>A year's "days from average" is its own day minus that average. A minus sign means earlier, a plus sign later.</li>
 </ol>
 <p>The average is of the model's own results, not of observed bloom. Both sides of the comparison come from the same model and the same temperature data, so an error that is the same every year cancels out.</p>
 <div class="card">
 <table class="rows-link">
-<caption>{{ baseline }} average start of spring, earliest first</caption>
+<caption>{{ baseline }} average spring bloom, earliest first</caption>
 <thead>
 <tr>
 <th scope="col">City</th>

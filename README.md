@@ -1,14 +1,16 @@
 # Call of Kiuru
 
 A dashboard that shows, for each tracked city, how many days earlier or
-later the modelled start of spring is this year than the model's own
+later the modelled spring bloom is this year than the model's own
 1991–2020 average for that city: https://callofkiuru.eu. It covers cities
 in Germany and Sweden, each tested against observed lilac bloom first (the
 list is in `pipeline/locations.json`).
 
-"Start of spring" here is a published model, not an observation: the Extended
+"Spring bloom" here is a published model, not an observation: the Extended
 Spring Indices (SI-x) first-bloom index, computed from open temperature data
-(Copernicus ERA5).
+(Copernicus ERA5). It falls in full spring as Germany's weather service (DWD)
+defines it, which starts with apple bloom, after early and first spring: not
+the start of spring.
 
 The USA National Phenology Network maps the same kind of comparison for the
 United States, over the same 1991–2020 period. It maps first leaf, first

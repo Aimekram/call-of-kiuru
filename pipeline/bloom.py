@@ -1,5 +1,5 @@
 """
-From daily temperatures to what the site shows: the modelled start of spring
+From daily temperatures to what the site shows: the modelled spring bloom
 (SI-x first bloom index) per city and year, each city's 1991-2020 average,
 and the difference from it.
 

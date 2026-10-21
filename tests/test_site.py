@@ -173,7 +173,7 @@ class Built(unittest.TestCase):
             if current["status"] != "bloomed":
                 through = datetime.date.fromisoformat(current["data_through"])
                 self.assertIn(f"spring {current['year']}", text)
-                self.assertIn("Spring has not come yet", text)
+                self.assertIn("Spring bloom has not come yet", text)
                 self.assertIn("Temperatures received up to "
                               f"{build_site.day_month(through)} {through.year}", text)
                 continue
@@ -181,7 +181,7 @@ class Built(unittest.TestCase):
             date = build_site.day_month(build_site.date_of(current["bloom_doy"], current["year"]))
             self.assertIn(f"spring {current['year']}", text)
             self.assertIn(f"Spring came {headline}", text)
-            self.assertIn(f"Start of spring {current['year']} {date}", text)
+            self.assertIn(f"Spring bloom {current['year']} {date}", text)
 
     def test_city_pages_list_every_year(self):
         for city in self.result["cities"]:
@@ -509,7 +509,7 @@ class Scenarios(unittest.TestCase):
         date = build_site.day_month(build_site.date_of(current["bloom_doy"], year))
         self.assertEqual(page.errors, [])
         self.assertIn("Spring came 8 days early", page.plain)
-        self.assertIn(f"Start of spring {year} {date}", page.plain)
+        self.assertIn(f"Spring bloom {year} {date}", page.plain)
         self.assertIn(f"spring {year} was 8 days earlier than usual", page.plain)
         self.assertNotIn("has not come yet", page.plain)
         # Counted against the springs before this one, on unrounded days.
@@ -533,9 +533,9 @@ class Scenarios(unittest.TestCase):
         self.assertEqual(page.errors, [])
         self.assertIn("../method/#baseline", page.links)
         self.assertIn(f"spring {year}", page.plain)
-        self.assertIn("Spring has not come yet", page.plain)
+        self.assertIn("Spring bloom has not come yet", page.plain)
         self.assertIn(f"Temperatures received up to 1 March {year}", page.plain)
-        self.assertIn(f"spring {year} has not started yet", page.plain)
+        self.assertIn(f"spring bloom {year} has not come yet", page.plain)
         self.assertNotIn("earlier than", page.plain.split("Every year since")[0])
         self.assertNotIn("Springs 1940", page.plain)
         # The city's latest result is still in the table.

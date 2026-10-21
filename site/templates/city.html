@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% block title %}{% if city.bloomed %}{{ city.name }}: spring {{ city.year }} was {{ city.phrase }} usual{% else %}{{ city.name }}: spring {{ city.year }} has not started yet{% endif %} – {{ site_name }}{% endblock %}
-{% block description %}{% if city.bloomed %}The modelled start of spring in {{ city.name }} in {{ city.year }} was {{ city.date }}, {{ city.phrase }} its {{ baseline }} average.{% else %}The modelled start of spring in {{ city.name }} has not arrived yet in {{ city.year }}. Its {{ baseline }} average is around {{ city.usual_date }}.{% endif %}{% endblock %}
+{% block title %}{% if city.bloomed %}{{ city.name }}: spring {{ city.year }} was {{ city.phrase }} usual{% else %}{{ city.name }}: spring bloom {{ city.year }} has not come yet{% endif %} – {{ site_name }}{% endblock %}
+{% block description %}{% if city.bloomed %}The modelled spring bloom in {{ city.name }} in {{ city.year }} was {{ city.date }}, {{ city.phrase }} its {{ baseline }} average.{% else %}The modelled spring bloom in {{ city.name }} has not come yet in {{ city.year }}. Its {{ baseline }} average is around {{ city.usual_date }}.{% endif %}{% endblock %}
 {% from "macros.html" import grade_bars %}
 {% block content %}
 <p class="eyebrow">{{ city.name }}, {{ city.country }} · spring {{ city.year }} · <a href="{{ root }}method/#model">model, not observation</a></p>
 {% if city.bloomed %}
 <h1>Spring came <em>{{ city.headline }}</em></h1>
 <dl class="facts">
-<dt>Start of spring {{ city.year }}</dt>
+<dt>Spring bloom {{ city.year }}</dt>
 <dd><time datetime="{{ city.iso_date }}">{{ city.date }}</time></dd>
 <dt><a href="{{ root }}method/#baseline">{{ baseline }} average</a></dt>
 <dd>around {{ city.usual_date }}</dd>
@@ -17,7 +17,7 @@
 <dd class="grade">{{ grade_bars(city.check.level) }}{{ city.check.label }}</dd>
 </dl>
 {% else %}
-<h1>Spring <em>has not come yet</em></h1>
+<h1>Spring bloom <em>has not come yet</em></h1>
 <dl class="facts">
 <dt><a href="{{ root }}method/#baseline">{{ baseline }} average</a></dt>
 <dd>around {{ city.usual_date }}</dd>
@@ -33,11 +33,11 @@
 </div>
 <div class="card">
 <table class="sortable">
-<caption>Modelled start of spring in {{ city.name }}</caption>
+<caption>Modelled spring bloom in {{ city.name }}</caption>
 <thead>
 <tr>
 <th scope="col" data-sort="number" aria-sort="descending">Year</th>
-<th scope="col" data-sort="number">Start of spring</th>
+<th scope="col" data-sort="number">Spring bloom</th>
 <th scope="col" data-sort="number">Days from average<small class="order"><span class="none">− earlier, + later</span><span class="asc">earliest first</span><span class="desc">latest first</span></small></th>
 </tr>
 </thead>
