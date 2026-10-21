@@ -23,6 +23,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 
 from pipeline import run
+from validation import bloom_stats
 from validation.config import DATA_DIR
 
 SITE_DIR = Path(__file__).parent.parent / "site"
@@ -201,7 +202,85 @@ def trend_chart(rows, scale, baseline_years):
 # The model against observed lilac bloom, from run_bloom_test.py: one small
 # chart per city on the method page, every city on one date scale.
 CHECK_FILE = DATA_DIR / "bloom_multiyear.csv"
+# Each city's grade and the numbers behind it, from run_bloom_test.py
+# (rule in PLAN.md §3), for the city pages.
+GRADES_FILE = DATA_DIR / "bloom_grades.csv"
+# Filled signal bars per grade, and why: where the low end of the skill's
+# range falls (rule in PLAN.md §3).
+GRADE_LEVELS = {"unconfirmed": 1, "fair": 2, "good": 3}
+# How each grade is written on the page.
+GRADE_LABELS = {"good": "good", "fair": "fair", "unconfirmed": "not yet confirmed"}
+GRADE_REASONS = {
+    "good": "the model is at least 50% better than simply guessing an average spring "
+            "every year",
+    "fair": "the model beats simply guessing an average spring every year, but not yet "
+            "by 50%",
+    "unconfirmed": "the checks here can't yet show that the model beats simply guessing "
+                   "an average spring every year"}
+# The range chart's scale: a skill of -50% to 100%, so the three zones
+# (not yet confirmed below 0, fair to 50%, good above) are equal thirds.
+SKILL_SCALE = (-0.5, 1.0)
+
+
+def scale_pct(value):
+    """A skill's place on the range chart, in % of its width."""
+    low, high = SKILL_SCALE
+    return f"{(min(max(value, low), high) - low) / (high - low) * 100:.1f}%"
+
+
+def percent(value):
+    """A skill as a whole percentage with a real minus sign: '84%', '−3%'."""
+    rounded = round(value * 100)
+    return f"{'−' if rounded < 0 else ''}{abs(rounded)}%"
+
+
+def cautious_percent(low, grade):
+    """The cautious end as shown beside its grade: a whole percentage, or one
+    decimal where rounding would put it on the other side of a line (49.6%
+    would read as 50% next to 'fair')."""
+    whole = round(low * 100)
+    crosses = {"good": whole < 50, "fair": whole <= 0 or whole >= 50,
+               "unconfirmed": whole > 0}[grade]
+    if not crosses:
+        return percent(low)
+    tenths = round(low * 100, 1)
+    return f"{'−' if tenths < 0 else ''}{abs(tenths):.1f}%"
+
+
 CHECK_HEIGHT = 120  # the same 120px is in style.css
+
+
+def plain_number(value):
+    """43.0 as '43', 4.5 as '4.5': for medians of whole counts."""
+    return f"{value:.0f}" if value == int(value) else f"{value:.1f}"
+
+
+def city_checks():
+    """Each city's test against observations, by slug, worded for its page."""
+    slugs = {location["key"]: location["slug"] for location in run.load_locations()}
+    checks = {}
+    with GRADES_FILE.open(newline="") as f:
+        for r in csv.DictReader(f):
+            if r["location"] not in slugs:
+                continue  # tested, but not on the site
+            checks[slugs[r["location"]]] = {
+                "grade": r["grade"], "label": GRADE_LABELS[r["grade"]],
+                "springs": int(r["springs"]),
+                "years": f"{r['first_year']}–{r['last_year']}",
+                "observations": plain_number(float(r["median_n_obs"])),
+                "skill": percent(float(r["skill"])),
+                "skill_range": (f"{cautious_percent(float(r['skill_low']), r['grade'])} to "
+                                f"{percent(float(r['skill_high']))}"),
+                "miss": f"{float(r['anomaly_rmse']):.1f}",
+                "normal_miss": f"{float(r['normal_year_rmse']):.1f}",
+                "level": GRADE_LEVELS[r["grade"]],
+                "low": cautious_percent(float(r["skill_low"]), r["grade"]),
+                "reason": GRADE_REASONS[r["grade"]],
+                "range_style": (f"left: {scale_pct(float(r['skill_low']))}; "
+                                f"right: calc(100% - {scale_pct(float(r['skill_high']))})"),
+                "dot_style": f"left: {scale_pct(float(r['skill']))}",
+                "low_style": f"left: {scale_pct(float(r['skill_low']))}"}
+    return checks
 
 
 def check_rows():
@@ -268,6 +347,32 @@ def check_chart(rows, scale, years):
     }
 
 
+COUNTRY_ADJECTIVES = {"Germany": "German", "Sweden": "Swedish"}
+
+
+def joined(names):
+    """'A', 'A and B', 'A, B and C'."""
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def grade_summary(cities):
+    """Which cities have which grade, for the method page: a whole country
+    is named as 'all 14 German cities'."""
+    groups = []
+    for grade, label in GRADE_LABELS.items():
+        parts = []
+        for country in dict.fromkeys(c["country"] for c in cities):
+            in_country = [c for c in cities if c["country"] == country]
+            members = [c["name"] for c in in_country if c["check"]["grade"] == grade]
+            if members and len(members) == len(in_country):
+                parts.append(f"all {len(members)} {COUNTRY_ADJECTIVES[country]} cities")
+            else:
+                parts += members
+        if parts:
+            groups.append({"label": label, "level": GRADE_LEVELS[grade], "cities": joined(parts)})
+    return groups
+
+
 def check_charts(cities):
     """The check charts by country, in data order: cities that have any."""
     rows_by_city = check_rows()
@@ -283,6 +388,7 @@ def check_charts(cities):
         years = [r["year"] for c in country["cities"] for r in rows_by_city[c["slug"]]]
         country["first_year"], country["last_year"] = min(years), max(years)
         country["charts"] = [{"slug": c["slug"], "name": c["name"],
+                              "grade_label": c["check"]["label"], "grade_level": c["check"]["level"],
                               **check_chart(rows_by_city[c["slug"]], scale, (min(years), max(years)))}
                              for c in country["cities"]]
         del country["cities"]
@@ -366,6 +472,14 @@ def prepare(result):
         days = whole_days(city["sort_days"])
         city["meter"] = {"side": "early" if days < 0 else "late",
                          "width": f"{abs(days) / scale * 50:.1f}%"}
+    checks = city_checks()
+    untested = [city["name"] for city in cities if city["slug"] not in checks]
+    if untested:
+        # A city is shown only once it has been tested (PLAN.md §3).
+        raise SystemExit(f"No grade in {GRADES_FILE.name} for {', '.join(untested)}: "
+                         "run run_bloom_test.py, or take the city out of locations.json")
+    for city in cities:
+        city["check"] = checks[city["slug"]]
     first, last = result["baseline_years"]
     chart_days = chart_scale(result["rows"])
     for city in cities:
@@ -425,6 +539,8 @@ def build(result, output_dir=OUTPUT_DIR):
           controller=CONTROLLER, address=ADDRESS)
     write("method/index.html", "method.html", root="../", card="site", card_alt=SITE_CARD_ALT,
           cities=sorted(cities, key=lambda c: c["sort_usual"]), checks=check_charts(cities),
+          grade_summary=grade_summary(cities), min_springs=bloom_stats.MIN_SPRINGS,
+          confirmed=sum(c["check"]["grade"] != "unconfirmed" for c in cities),
           check_file_url=f"{REPO_URL}/blob/main/data/{CHECK_FILE.name}",
           earlier="{}–{}".format(*EARLIER_YEARS),
           earlier_gap_least=whole_days(min(gaps)), earlier_gap_most=whole_days(max(gaps)))

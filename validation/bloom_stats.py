@@ -107,34 +107,49 @@ def by_country(df):
 
 
 # Grades for the site, from the low end of each city's 95% interval of the
-# anomaly correlation (resampling that city's years). Fixed 2026-10-20,
-# before the new cities were tested; see PLAN.md §3.
+# skill: 1 - MSE / MSE of guessing the city's average spring, on anomalies
+# (Murphy 1988, Monthly Weather Review 116, Case I, the sample mean as the
+# reference; the constant offset is removed, since the site compares each
+# city with the model's own average). Resampling that city's years. Revised
+# 2026-10-20 from the anomaly correlation with cut-offs 0.8 / 0.5; see
+# PLAN.md §3.
+#   good:        low end >= 0.5, at least 50% better than that guess
+#   fair:        low end > 0, better than that guess
+#   unconfirmed: not shown to be better than that guess
+# (Named strong / moderate / weak until 2026-10-20; "weak" read as a verdict
+# that the model fails, when the local check is only inconclusive.)
 MIN_SPRINGS = 10
-GRADES = [(0.8, "strong"), (0.5, "moderate")]
+GOOD_SKILL = 0.5
 
 
 def grade(low):
-    return next((name for threshold, name in GRADES if low >= threshold), "weak")
+    if low >= GOOD_SKILL:
+        return "good"
+    return "fair" if low > 0 else "unconfirmed"
 
 
 def city_grades(df):
-    """Per city: springs checked, median observers, anomaly correlation with
-    its interval, typical miss against calling every spring normal, and the
-    grade. Cities with fewer than MIN_SPRINGS springs are left out."""
+    """Per city: springs checked, median observers, skill and anomaly
+    correlation with their intervals, typical miss against calling every
+    spring normal, and the grade. Cities with fewer than MIN_SPRINGS springs
+    are left out."""
     rows = []
     for location, group in df.groupby("location"):
         if len(group) < MIN_SPRINGS:
             continue
         model, observed = to_matrices(group)
         estimate = summary(model, observed)
-        low, high = block_bootstrap(model, observed, "year")["anomaly_r"]
+        interval = block_bootstrap(model, observed, "year")
         rows.append({"location": location, "springs": len(group),
                      "first_year": int(group["year"].min()), "last_year": int(group["year"].max()),
                      "median_n_obs": float(group["n_obs"].median()),
-                     "anomaly_r": estimate["anomaly_r"], "anomaly_r_low": low, "anomaly_r_high": high,
+                     "skill": estimate["skill"],
+                     "skill_low": interval["skill"][0], "skill_high": interval["skill"][1],
+                     "anomaly_r": estimate["anomaly_r"],
+                     "anomaly_r_low": interval["anomaly_r"][0], "anomaly_r_high": interval["anomaly_r"][1],
                      "anomaly_rmse": estimate["anomaly_rmse"],
                      "normal_year_rmse": estimate["normal_year_rmse"],
-                     "grade": grade(low)})
+                     "grade": grade(interval["skill"][0])})
     return pd.DataFrame(rows)
 
 

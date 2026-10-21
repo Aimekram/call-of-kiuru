@@ -208,6 +208,11 @@ td:has(> time), td.date { white-space: nowrap; }
 .check { --gl: 2.75rem; }
 .check figcaption { margin-top: 0.75rem; font-weight: 600; }
 .check figcaption small { margin-left: 0.25rem; font-weight: 400; color: var(--muted); }
+.check figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.25rem; }
+.check-grade { margin-left: auto; font-size: 0.75rem; font-weight: 400; color: var(--muted); white-space: nowrap; }
+.check-grade .bars { width: 12px; height: 10px; margin-right: 0.3rem; }
+.grade-summary { list-style: none; padding: 0; }
+.grade-summary li { margin: 0.3rem 0; }
 .check .chart-area { height: 120px; margin: 0.5rem 0 1.75rem; } /* CHECK_HEIGHT in build_site.py */
 .check-line { fill: none; stroke-width: 1.75; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .check-line.observed { stroke: var(--ink); }
@@ -222,6 +227,43 @@ td:has(> time), td.date { white-space: nowrap; }
 .check .chart-tip i { width: 8px; height: 3px; border-radius: 1.5px; }
 .check .chart-tip span { color: var(--ink); }
 .check .chart-tip .when { color: var(--muted); }
+
+/* Grade: signal bars, and the skill's 95% range on a -50% to 100% scale with
+   the weak / moderate / strong zones. Ink only: colour already means early/late. */
+.bars { width: 14px; height: 12px; margin-right: 0.4rem; vertical-align: -1px; }
+.bars .on { fill: currentColor; }
+.bars .off { fill: color-mix(in oklch, currentColor 22%, transparent); }
+.grade-range {
+  margin: 1.25rem 0 0.75rem; max-width: 28rem;
+  --z1: light-dark(color-mix(in oklch, #221e18 6%, transparent), color-mix(in oklch, #f3ebcf 9%, transparent));
+  --z2: light-dark(color-mix(in oklch, #221e18 12%, transparent), color-mix(in oklch, #f3ebcf 18%, transparent));
+  --z3: light-dark(color-mix(in oklch, #221e18 20%, transparent), color-mix(in oklch, #f3ebcf 30%, transparent));
+}
+.grade-range .zones { display: grid; grid-template-columns: 1fr 1fr 1fr; margin-bottom: 0.25rem; font-size: 0.75rem; color: var(--muted); text-align: center; }
+.grade-range .zones .active { color: var(--ink); font-weight: 700; }
+.grade-range .track {
+  position: relative; height: 14px; border-radius: 7px;
+  background: linear-gradient(to right,
+    var(--z1) 0 calc(33.33% - 1px), var(--paper) calc(33.33% - 1px) calc(33.33% + 1px),
+    var(--z2) calc(33.33% + 1px) calc(66.67% - 1px), var(--paper) calc(66.67% - 1px) calc(66.67% + 1px),
+    var(--z3) calc(66.67% + 1px));
+}
+/* The low end sets the grade, so it gets the strong mark; the range and the
+   estimate are lighter. */
+.grade-range .track .range { position: absolute; top: 5px; bottom: 5px; border-radius: 2px; background: color-mix(in oklch, var(--ink) 45%, transparent); }
+.grade-range .track .dot { position: absolute; top: 50%; width: 8px; height: 8px; border-radius: 50%; background: var(--paper); border: 2px solid color-mix(in oklch, var(--ink) 60%, var(--paper)); transform: translate(-50%, -50%); }
+.grade-range .track .low { position: absolute; top: -4px; bottom: -4px; width: 4px; border-radius: 2px; background: var(--ink); box-shadow: 0 0 0 2px var(--paper); transform: translateX(-50%); }
+.grade-range .ticks { position: relative; height: 1.2rem; margin-top: 0.2rem; font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.grade-range .ticks span { position: absolute; top: 0; transform: translateX(-50%); }
+.grade-range .ticks span:first-child { transform: none; }
+.grade-range .ticks span:last-child { transform: translateX(-100%); }
+.grade-range .key { margin-top: 0.5rem; font-size: 0.75rem; }
+.grade-range .key span { display: inline-flex; align-items: center; }
+.grade-range .key i { flex: none; margin-right: 0.35rem; }
+.grade-range .key i.low { width: 4px; height: 12px; border-radius: 2px; background: var(--ink); }
+.grade-range .key i.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--paper); border: 2px solid color-mix(in oklch, var(--ink) 60%, var(--paper)); }
+.grade-range .key i.range { width: 16px; height: 4px; border-radius: 2px; background: color-mix(in oklch, var(--ink) 45%, transparent); }
+@media (max-width: 30rem) { .grade-range .key { display: flex; } }
 
 /* 404: a lilac sprig that grows, unfolds and blooms from the bottom up. */
 .not-found { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1rem 2rem; }

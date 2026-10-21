@@ -9,6 +9,7 @@ Needs no downloads. The table-sorting check runs if Node.js is installed.
 """
 
 import copy
+import csv
 import datetime
 import json
 import shutil
@@ -19,7 +20,10 @@ from html.parser import HTMLParser
 from pathlib import Path
 from xml.etree import ElementTree
 
+from markupsafe import escape
+
 from pipeline import build_site, run
+from validation import bloom_stats
 
 VOID = {"meta", "link", "br", "img", "hr", "input"}
 
@@ -325,6 +329,55 @@ class Built(unittest.TestCase):
         self.assertIn('data-year="1951" data-observed="13 May" data-model="17 May"', source)
         self.assertIn('data-n="median of 17 observations"', source)
         self.assertIn('static/chart.js', source)
+
+    def grades(self):
+        """data/bloom_grades.csv by city name."""
+        names = {c["key"]: c["name"] for c in run.load_locations()}
+        with build_site.GRADES_FILE.open(newline="") as f:
+            return {names[r["location"]]: r for r in csv.DictReader(f)}
+
+    def test_city_pages_show_how_well_the_model_does_there(self):
+        grades = self.grades()
+        # Every city on the site has been tested (PLAN.md §3).
+        self.assertEqual(set(grades), {c["name"] for c in self.result["cities"]})
+        for city in self.result["cities"]:
+            g = grades[city["name"]]
+            low = float(g["skill_low"])
+            self.assertEqual(g["grade"], bloom_stats.grade(low))
+            source = (self.directory / city["slug"] / "index.html").read_text()
+            label, shown = build_site.GRADE_LABELS[g["grade"]], build_site.cautious_percent(low, g["grade"])
+            self.assertIn(f"Track record {label}", Page(source).plain)
+            self.assertIn(f"every year: {build_site.percent(float(g['skill']))} (95% range {shown} to", source)
+            self.assertIn(f"<strong>{label}</strong>. Even at the cautious end of the range ({shown}), "
+                          f"{escape(build_site.GRADE_REASONS[g['grade']])}.", source)
+            # Signal bars, in the facts row and the section.
+            self.assertEqual(source.count('class="on"'), 2 * build_site.GRADE_LEVELS[g["grade"]])
+
+    def test_method_page_explains_the_grades(self):
+        grades = self.grades()
+        source = (self.directory / "method" / "index.html").read_text()
+        page = Page(source)
+        self.assertIn("grades", {a.get("id") for _, a in page.attributes})
+        self.assertIn("https://doi.org/10.1175/1520-0493(1988)116%3C2417:SSBOTM%3E2.0.CO;2", page.links)
+        for name, g in grades.items():
+            # Each chart's caption carries the city's grade.
+            caption = source[source.index(f">{name}</a> <small>"):]
+            caption = caption[:caption.index("</figcaption>")]
+            self.assertTrue(caption.endswith(f"{build_site.GRADE_LABELS[g['grade']]}</span>"), name)
+        unconfirmed = [g for g in grades.values() if g["grade"] == "unconfirmed"]
+        self.assertIn(f"confirmed in {len(grades) - len(unconfirmed)} of the {len(grades)} cities", page.plain)
+        # The page says those are so far only Swedish, with 16 or 17 springs:
+        # if that stops being true, the sentence in method.html has to change.
+        for g in unconfirmed:
+            self.assertTrue(g["location"].endswith(", Sweden") and g["springs"] in ("16", "17"), g["location"])
+
+    def test_percentages(self):
+        self.assertEqual(build_site.percent(0.836), "84%")
+        self.assertEqual(build_site.percent(-0.03), "−3%")
+        # Beside a grade, one decimal only where rounding would cross a line.
+        self.assertEqual(build_site.cautious_percent(0.496, "fair"), "49.6%")
+        self.assertEqual(build_site.cautious_percent(0.004, "fair"), "0.4%")
+        self.assertEqual(build_site.cautious_percent(-0.004, "unconfirmed"), "0%")
 
     def test_about_page_explains_the_name_and_links_out(self):
         page = self.page("about/index.html")

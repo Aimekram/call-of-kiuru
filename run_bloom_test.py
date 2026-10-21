@@ -301,16 +301,17 @@ def write_report(df, start, end):
         "## Grade per city",
         "",
         f"For the site (rule in PLAN.md §3): cities with at least {bloom_stats.MIN_SPRINGS} "
-        "springs, graded by the low end of the 95% interval of the anomaly "
-        "correlation, resampling that city's years: strong ≥ 0.8, moderate ≥ 0.5, "
-        "weak below. Typical miss is the anomaly RMSE; calling every spring "
-        "normal is the observed SD.",
+        "springs, graded by the low end of the 95% interval of the skill (MSSS on "
+        "anomalies), resampling that city's years: good ≥ 0.5, fair > 0, unconfirmed "
+        "otherwise. Typical miss is the anomaly RMSE; calling every spring normal is "
+        "the observed SD.",
         "",
-        "| City | Springs | Median obs/year | Anomaly correlation | Typical miss | Calling every spring normal | Grade |",
-        "|---|---|---|---|---|---|---|",
+        "| City | Springs | Median obs/year | Skill | Anomaly correlation | Typical miss | Calling every spring normal | Grade |",
+        "|---|---|---|---|---|---|---|---|",
     ]
     for _, g in grades.sort_values("location").iterrows():
         lines.append(f"| {g['location']} | {g['springs']} | {g['median_n_obs']:.0f} | "
+                     f"{g['skill']:.2f} ({g['skill_low']:.2f} to {g['skill_high']:.2f}) | "
                      f"{g['anomaly_r']:.2f} ({g['anomaly_r_low']:.2f} to {g['anomaly_r_high']:.2f}) | "
                      f"{g['anomaly_rmse']:.1f} | {g['normal_year_rmse']:.1f} | {g['grade']} |")
     countries = list(decades["mean"].columns)

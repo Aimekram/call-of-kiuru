@@ -1,5 +1,6 @@
+{% from "macros.html" import grade_bars %}
 <figure class="chart check" data-check tabindex="0" aria-label="Line chart: modelled and observed first lilac bloom in {{ chart.name }}, every year {{ chart.first_year }}–{{ chart.last_year }}. Use the arrow keys to read each year.">
-<figcaption><a href="{{ root }}{{ chart.slug }}/">{{ chart.name }}</a> <small>{{ chart.springs }} springs</small></figcaption>
+<figcaption><a href="{{ root }}{{ chart.slug }}/">{{ chart.name }}</a> <small>{{ chart.springs }} springs</small> <span class="check-grade">{{ grade_bars(chart.grade_level) }}{{ chart.grade_label }}</span></figcaption>
 <div class="chart-area">
 {% for tick in chart.ticks %}
 <span class="chart-tick" aria-hidden="true"{{ {'style': tick.top}|xmlattr }}>{{ tick.label }}</span>

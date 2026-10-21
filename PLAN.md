@@ -119,8 +119,9 @@ added, spread across regions, graded by the rule below:
 | Germany | 14 | 1036 | **0.92** (0.89 to 0.95) | 3.8 vs 8.9 days | 0.82 |
 | Sweden | 6 | 99 | **0.72** (0.54 to 0.87) | 3.9 vs 5.6 days | 0.52 |
 
-All 14 German cities and Gothenburg are strong; Jönköping, Växjö and
-Örebro moderate; Stockholm and Malmö weak. In Sweden the result tracks the
+Under the current grading rule (below): all 14 German cities and
+Gothenburg good; Örebro, Stockholm and Växjö fair; Jönköping and Malmö not
+yet confirmed. In Sweden the result tracks the
 observers: the new cities have about 8 a year, Stockholm and Malmö 3 to 4.
 Swedish misses in days are like Germany's; its springs vary less, so the
 correlation is lower. Bremen and Hannover run 5 to 6 days early, steadily
@@ -197,13 +198,53 @@ methodology page says "within about a week for a single lilac".
 tested).** No pass mark: every city is tested and shows its result.
 - A city is shown only if it can be tested: at least 10 springs with
   nearby lilac observations (same networks and search boxes as above).
-- Each city gets a grade from the low end of the 95% range of its anomaly
-  correlation, resampling whole years for that city alone:
-  **strong** at 0.8 or higher, **moderate** at 0.5 or higher, **weak**
-  below 0.5. The low end, not the estimate, so a city with few springs
-  can't be strong on a lucky handful of years.
-- The grade and the numbers behind it are on the city page, in the
-  ranking, and explained on the method page.
+- Each city gets a grade from the low end of the 95% range of its skill
+  (the MSSS on anomalies: the improvement over guessing an average spring
+  every year), resampling whole years for that city alone: **good** if the
+  low end is 0.5 or more (shown to be at least 50% better than guessing an
+  average spring), **fair** if it is above 0 (shown to beat that guess),
+  **not yet confirmed** otherwise. The low end, not the estimate, so a
+  city with few springs can't look good on a lucky handful of years. A
+  city that is not yet confirmed still shows its number: its check is
+  inconclusive, so far from short records (16 to 17 springs, in Sweden)
+  with springs that vary little, not from few observers (Jönköping has 8.5
+  a year, more than Stockholm or Gothenburg), while the same model is
+  confirmed in most cities; its page says so.
+- Revised 2026-10-20, after the results were seen. The first rule used
+  the anomaly correlation with cut-offs 0.8 and 0.5. Changed because the
+  site states sizes ("8 days early"), which the correlation doesn't test
+  and the skill does; because the skill (MSSS on anomalies) is a
+  standard forecast-verification score (Murphy 1988, Monthly Weather
+  Review 116, 2417-2424, read in full: eq. 3 defines SS = 1 − MSE(f) /
+  MSE(reference), "percentage improvement in accuracy" when multiplied by
+  100. Ours is his Case I, the sample mean as the reference (eq. 4),
+  applied to anomalies, so of the three terms of eq. 12, r² − (r −
+  s_f/s_x)² − ((f̄ − x̄)/s_x)², the last (a constant offset) is removed on
+  purpose: the site compares each city with the model's own average, so
+  the offset cancels there too. The amplitude term stays. He warns that
+  the correlation "may lead to substantial overestimation of forecasting
+  performance" (p. 2424) and shows the sample-mean reference gives the
+  lowest skill of the single-valued references (p. 2421). Also used with
+  climatology as the reference by the WMO Lead Centre for sub-seasonal
+  forecasts) and the one the method
+  page already reports per country; and because 0.8 and 0.5 had no
+  meaning of their own, while 0 does (no better than climatology). The
+  WMO's own long-range verification attachment (Manual on the GDPFS)
+  could not be read directly: its archived copies are gone and the
+  manual is sold. The cautious end and the lines at 0 and 0.5 are our
+  choice, and the method page says so. The change is recorded here, not
+  on the site. Grades before and after:
+  unchanged for all 14 German cities and Gothenburg (strong), Örebro and
+  Växjö (moderate) and Malmö (weak); Stockholm weak to moderate (low end
+  0.19); Jönköping moderate to weak (low end −0.03). The same day the
+  names changed to good / fair / not yet confirmed: "weak" read as a
+  verdict that the model fails there, when the check is only
+  inconclusive. Known limit: the
+  bootstrap intervals are somewhat narrow with 16 to 17 springs, so the
+  Swedish grades near a cut-off (Växjö 0.02, Jönköping −0.03) could tip
+  either way.
+- The grade and the numbers behind it are on the city page and
+  explained on the method page; in the ranking too once built (§5).
 - Fixed before the 12 new cities were run. The 8 existing cities' point
   estimates were already known, so for them the rule is not blind.
 
@@ -219,8 +260,8 @@ tested).** No pass mark: every city is tested and shows its result.
 - A lilac "first bloom" after 31 August is left out, in both networks
   (2026-10-20). It removes one record of 164,749: SLU 2008 near Örebro, day
   273, filed with the observer's autumn records after their own spring
-  bloom records. Without the rule Örebro would be weak (−0.18), with it
-  moderate (0.81).
+  bloom records. Under the first grading rule, without it Örebro was weak
+  (−0.18), with it moderate (0.81).
 - PEP725: licence per dataset since May 2026, no longer non-commercial
   only. The route to a third zone; request deferred until after the MVP.
 - No open lilac data: UK, Switzerland, Czechia, the Mediterranean.
@@ -377,9 +418,21 @@ Decided:
 
 Next round of site improvements (decided 2026-10-20, kept separate from
 adding the 12 cities):
-- A quality block on each city page from `data/bloom_grades.csv`: springs
-  checked, observers, correlation, typical miss, and the strong / moderate
-  / weak grade (rule in §3).
+- A quality block on each city page from `data/bloom_grades.csv`. Built
+  2026-10-20: a "Track record" row in the facts (signal bars and the
+  grade, linking down), and a section "How well the model does here":
+  springs checked, observations a year, the improvement over guessing
+  an average spring (the skill, Murphy's reading) with its 95% range, the typical miss
+  against calling every spring normal, a range chart of the skill on a
+  −50% to 100% scale with the not yet confirmed / fair / good zones (the low end
+  marked, since it sets the grade), and why the city got its grade. Ink
+  only, since colour already means early and late.
+  The method page explains the grades (`#grades`): the rule in plain
+  words, the 10-spring floor, which cities have which grade today
+  (generated from the data), and the source of the score; the lines are
+  stated as our choice. Each of its city charts carries the grade in its
+  caption. Its wording now
+  matches the city pages ("guessing an average spring every year").
 - The grade in the ranking.
 - Split the method page: validation (the by-country table, the grades and
   the 10-spring floor, the 20 city charts) on its own page. The method page

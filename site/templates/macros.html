@@ -1,0 +1,2 @@
+{# Signal bars for a track-record grade: level 1, 2 or 3 of three filled. #}
+{% macro grade_bars(level) %}<svg class="bars" viewBox="0 0 14 12" aria-hidden="true">{% for i in range(3) %}<rect{{ {'class': 'on' if i < level else 'off'}|xmlattr }} x="{{ i * 5 }}" y="{{ 8 - i * 4 }}" width="3.5" height="{{ 4 + i * 4 }}" rx="1"/>{% endfor %}</svg>{% endmacro %}
