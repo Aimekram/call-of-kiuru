@@ -199,17 +199,17 @@ tested).** No pass mark: every city is tested and shows its result.
 - A city is shown only if it can be tested: at least 10 springs with
   nearby lilac observations (same networks and search boxes as above).
 - Each city gets a grade from the low end of the 95% range of its skill
-  (the MSSS on anomalies: the improvement over guessing an average spring
-  every year), resampling whole years for that city alone: **good** if the
-  low end is 0.5 or more (shown to be at least 50% better than guessing an
-  average spring), **fair** if it is above 0 (shown to beat that guess),
-  **not yet confirmed** otherwise. The low end, not the estimate, so a
-  city with few springs can't look good on a lucky handful of years. A
-  city that is not yet confirmed still shows its number: its check is
-  inconclusive, so far from short records (16 to 17 springs, in Sweden)
-  with springs that vary little, not from few observers (Jönköping has 8.5
-  a year, more than Stockholm or Gothenburg), while the same model is
-  confirmed in most cities; its page says so.
+  (the MSSS on anomalies, shown on the site as the "skill score", a
+  decimal: how much better than guessing an average spring every year),
+  resampling whole years for that city alone: **good** if the low end is
+  0.5 or more (well ahead of that guess), **fair** if it is above 0 (shown
+  to beat that guess), **not yet confirmed** otherwise. The low end, not
+  the estimate, so a city with few springs can't look good on a lucky
+  handful of years. A city that is not yet confirmed still shows its
+  number: its check is inconclusive, so far from short records (16 to 17
+  springs, in Sweden) with springs that vary little, not from few
+  observers (Jönköping has 8.5 a year, more than Stockholm or Gothenburg),
+  while the same model is confirmed in most cities; its page says so.
 - Revised 2026-10-20, after the results were seen. The first rule used
   the anomaly correlation with cut-offs 0.8 and 0.5. Changed because the
   site states sizes ("8 days early"), which the correlation doesn't test
@@ -421,10 +421,12 @@ adding the 12 cities):
 - A quality block on each city page from `data/bloom_grades.csv`. Built
   2026-10-20: a "Track record" row in the facts (signal bars and the
   grade, linking down), and a section "How well the model does here":
-  springs checked, observations a year, the improvement over guessing
-  an average spring (the skill, Murphy's reading) with its 95% range, the typical miss
+  springs checked, observations a year, how many days off the model and
+  the average-spring guess typically were, the skill score (a decimal: 1
+  perfect, 0 no better than the guess; not a percentage, which read as a
+  share of days) with its 95% range, the typical miss
   against calling every spring normal, a range chart of the skill on a
-  −50% to 100% scale with the not yet confirmed / fair / good zones (the low end
+  −0.5 to 1 scale with the not yet confirmed / fair / good zones (the low end
   marked, since it sets the grade), and why the city got its grade. Ink
   only, since colour already means early and late.
   The method page explains the grades (`#grades`): the rule in plain

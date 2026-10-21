@@ -305,8 +305,8 @@ class Built(unittest.TestCase):
         ids = {a.get("id") for _, a in page.attributes}
         self.assertLessEqual({"model", "validation", "coverage", "baseline"}, ids)
         # The bloom test's by-country figures (run_bloom_test.py, 20 cities, 2026-10-20).
-        for figure in ("0.92 0.89–0.95", "0.72 0.54–0.87", "82% 73–88%",
-                       "52% 25–75%", "3.8 days 3.2–4.3", "3.9 days 2.6–4.8"):
+        for figure in ("0.92 0.89–0.95", "0.72 0.54–0.87", "0.82 0.73–0.88",
+                       "0.52 0.25–0.75", "3.8 days 3.2–4.3", "3.9 days 2.6–4.8"):
             self.assertIn(figure, page.plain)
         self.assertTrue(any("usanpn.org" in link for link in page.links))
         # The model's paper and the European benchmark are linked.
@@ -345,9 +345,10 @@ class Built(unittest.TestCase):
             low = float(g["skill_low"])
             self.assertEqual(g["grade"], bloom_stats.grade(low))
             source = (self.directory / city["slug"] / "index.html").read_text()
-            label, shown = build_site.GRADE_LABELS[g["grade"]], build_site.cautious_percent(low, g["grade"])
+            label, shown = build_site.GRADE_LABELS[g["grade"]], build_site.cautious_score(low, g["grade"])
             self.assertIn(f"Track record {label}", Page(source).plain)
-            self.assertIn(f"every year: {build_site.percent(float(g['skill']))} (95% range {shown} to", source)
+            self.assertIn(f"Skill score {build_site.score(float(g['skill']))} "
+                          f'(<a href="../method/#range">95% range</a> {shown} to', source)
             self.assertIn(f"<strong>{label}</strong>. Even at the cautious end of the range ({shown}), "
                           f"{escape(build_site.GRADE_REASONS[g['grade']])}.", source)
             # Signal bars, in the facts row and the section.
@@ -371,13 +372,15 @@ class Built(unittest.TestCase):
         for g in unconfirmed:
             self.assertTrue(g["location"].endswith(", Sweden") and g["springs"] in ("16", "17"), g["location"])
 
-    def test_percentages(self):
-        self.assertEqual(build_site.percent(0.836), "84%")
-        self.assertEqual(build_site.percent(-0.03), "−3%")
-        # Beside a grade, one decimal only where rounding would cross a line.
-        self.assertEqual(build_site.cautious_percent(0.496, "fair"), "49.6%")
-        self.assertEqual(build_site.cautious_percent(0.004, "fair"), "0.4%")
-        self.assertEqual(build_site.cautious_percent(-0.004, "unconfirmed"), "0%")
+    def test_scores(self):
+        self.assertEqual(build_site.score(0.836), "0.84")
+        self.assertEqual(build_site.score(-0.03), "−0.03")
+        self.assertEqual(build_site.score(-0.001), "0.00")
+        # Beside a grade, a third decimal only where rounding would cross a line.
+        self.assertEqual(build_site.cautious_score(0.496, "fair"), "0.496")
+        self.assertEqual(build_site.cautious_score(0.4996, "fair"), "0.4996")
+        self.assertEqual(build_site.cautious_score(0.004, "fair"), "0.004")
+        self.assertEqual(build_site.cautious_score(-0.004, "unconfirmed"), "0.00")
 
     def test_about_page_explains_the_name_and_links_out(self):
         page = self.page("about/index.html")

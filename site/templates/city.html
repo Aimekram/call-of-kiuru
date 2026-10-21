@@ -57,14 +57,14 @@
 <h2 id="check">How well the model does here</h2>
 <p>Checked against observed first lilac bloom near {{ city.name }}: {{ check.springs }} springs, {{ check.years }}, a median of {{ check.observations }} observations a year.</p>
 <ul>
-<li>Improvement over guessing an average spring every year: {{ check.skill }} (95% range {{ check.skill_range }}; 0% is no better than the guess).</li>
 <li>How early or late spring was: the model was typically {{ check.miss }} days off; guessing an average spring every year would have been {{ check.normal_miss }} days off.</li>
+<li>Skill score {{ check.skill }} (<a href="{{ root }}method/#range">95% range</a> {{ check.skill_range }}; 1 is perfect, 0 is no better than that guess).</li>
 </ul>
-<figure class="grade-range" aria-label="The improvement over guessing an average spring, {{ check.skill }}, with its 95% range, {{ check.skill_range }}, on a scale from −50% to 100%: not yet confirmed up to 0%, fair from 0%, good from 50%. The cautious end, {{ check.low }}, sets the grade: {{ check.label }}.">
+<figure class="grade-range" aria-label="The skill score, {{ check.skill }}, with its 95% range, {{ check.skill_range }}, on a scale from −0.5 to 1: not yet confirmed up to 0, fair from 0, good from 0.5. The cautious end, {{ check.low }}, sets the grade: {{ check.label }}.">
 <div class="zones" aria-hidden="true">{% for zone, name in (("unconfirmed", "not yet confirmed"), ("fair", "fair"), ("good", "good")) %}<span{{ {'class': 'active' if zone == check.grade else None}|xmlattr }}>{{ name }}</span>{% endfor %}</div>
 <div class="track" aria-hidden="true"><span class="range"{{ {'style': check.range_style}|xmlattr }}></span><span class="dot"{{ {'style': check.dot_style}|xmlattr }}></span><span class="low"{{ {'style': check.low_style}|xmlattr }}></span></div>
-<div class="ticks" aria-hidden="true"><span style="left: 0%">−50%</span><span style="left: 33.33%">0%</span><span style="left: 66.67%">50%</span><span style="left: 100%">100%</span></div>
-<figcaption class="key" aria-hidden="true"><span><i class="low"></i>Cautious end, sets the grade</span><span><i class="dot"></i>Estimate</span><span><i class="range"></i>95% range</span></figcaption>
+<div class="ticks" aria-hidden="true"><span style="left: 0%">−0.5</span><span style="left: 33.33%">0</span><span style="left: 66.67%">0.5</span><span style="left: 100%">1</span></div>
+<figcaption class="key" aria-hidden="true"><span><i class="low"></i>Cautious end, sets the grade</span><span><i class="dot"></i>Skill score</span><span><i class="range"></i>95% range</span></figcaption>
 </figure>
 <p class="grade">Grade: {{ grade_bars(check.level) }}<strong>{{ check.label }}</strong>. Even at the cautious end of the range ({{ check.low }}), {{ check.reason }}. <a href="{{ root }}method/#grades">How the grades work</a></p>
 <p><a href="{{ root }}">All cities</a></p>

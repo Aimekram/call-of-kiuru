@@ -211,14 +211,14 @@ GRADE_LEVELS = {"unconfirmed": 1, "fair": 2, "good": 3}
 # How each grade is written on the page.
 GRADE_LABELS = {"good": "good", "fair": "fair", "unconfirmed": "not yet confirmed"}
 GRADE_REASONS = {
-    "good": "the model is at least 50% better than simply guessing an average spring "
-            "every year",
-    "fair": "the model beats simply guessing an average spring every year, but not yet "
-            "by 50%",
+    "good": "the model is well ahead of simply guessing an average spring every year "
+            "(0.5 or more)",
+    "fair": "the model beats simply guessing an average spring every year, but stays "
+            "below 0.5",
     "unconfirmed": "the checks here can't yet show that the model beats simply guessing "
                    "an average spring every year"}
-# The range chart's scale: a skill of -50% to 100%, so the three zones
-# (not yet confirmed below 0, fair to 50%, good above) are equal thirds.
+# The range chart's scale: a skill score of -0.5 to 1, so the three zones
+# (not yet confirmed below 0, fair to 0.5, good above) are equal thirds.
 SKILL_SCALE = (-0.5, 1.0)
 
 
@@ -228,23 +228,23 @@ def scale_pct(value):
     return f"{(min(max(value, low), high) - low) / (high - low) * 100:.1f}%"
 
 
-def percent(value):
-    """A skill as a whole percentage with a real minus sign: '84%', '−3%'."""
-    rounded = round(value * 100)
-    return f"{'−' if rounded < 0 else ''}{abs(rounded)}%"
+def score(value, places=2):
+    """A skill score with two decimals and a real minus sign: '0.83', '−0.03'."""
+    text = f"{abs(value):.{places}f}"
+    return ("−" if value < 0 and float(text) else "") + text
 
 
-def cautious_percent(low, grade):
-    """The cautious end as shown beside its grade: a whole percentage, or one
-    decimal where rounding would put it on the other side of a line (49.6%
-    would read as 50% next to 'fair')."""
-    whole = round(low * 100)
-    crosses = {"good": whole < 50, "fair": whole <= 0 or whole >= 50,
-               "unconfirmed": whole > 0}[grade]
-    if not crosses:
-        return percent(low)
-    tenths = round(low * 100, 1)
-    return f"{'−' if tenths < 0 else ''}{abs(tenths):.1f}%"
+def cautious_score(low, grade):
+    """The cautious end as shown beside its grade: two decimals, or more
+    where rounding would put it on the other side of a line (0.496 would
+    read as 0.50 next to 'fair')."""
+    for places in range(2, 7):
+        shown = round(low, places)
+        crosses = {"good": shown < 0.5, "fair": shown <= 0 or shown >= 0.5,
+                   "unconfirmed": shown > 0}[grade]
+        if not crosses:
+            break
+    return score(low, places)
 
 
 CHECK_HEIGHT = 120  # the same 120px is in style.css
@@ -268,13 +268,13 @@ def city_checks():
                 "springs": int(r["springs"]),
                 "years": f"{r['first_year']}–{r['last_year']}",
                 "observations": plain_number(float(r["median_n_obs"])),
-                "skill": percent(float(r["skill"])),
-                "skill_range": (f"{cautious_percent(float(r['skill_low']), r['grade'])} to "
-                                f"{percent(float(r['skill_high']))}"),
+                "skill": score(float(r["skill"])),
+                "skill_range": (f"{cautious_score(float(r['skill_low']), r['grade'])} to "
+                                f"{score(float(r['skill_high']))}"),
                 "miss": f"{float(r['anomaly_rmse']):.1f}",
                 "normal_miss": f"{float(r['normal_year_rmse']):.1f}",
                 "level": GRADE_LEVELS[r["grade"]],
-                "low": cautious_percent(float(r["skill_low"]), r["grade"]),
+                "low": cautious_score(float(r["skill_low"]), r["grade"]),
                 "reason": GRADE_REASONS[r["grade"]],
                 "range_style": (f"left: {scale_pct(float(r['skill_low']))}; "
                                 f"right: calc(100% - {scale_pct(float(r['skill_high']))})"),

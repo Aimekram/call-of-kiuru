@@ -113,7 +113,7 @@ def by_country(df):
 # city with the model's own average). Resampling that city's years. Revised
 # 2026-10-20 from the anomaly correlation with cut-offs 0.8 / 0.5; see
 # PLAN.md §3.
-#   good:        low end >= 0.5, at least 50% better than that guess
+#   good:        low end >= 0.5, well ahead of that guess (half its squared error or less)
 #   fair:        low end > 0, better than that guess
 #   unconfirmed: not shown to be better than that guess
 # (Named strong / moderate / weak until 2026-10-20; "weak" read as a verdict
