@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
-          python-version: "3.9"   # same as the local venv
+          python-version: "3.12"  # same as the local venv
           cache: pip
       - run: pip install -r requirements.txt
       - run: python -m pipeline.build_site
