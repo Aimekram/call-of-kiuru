@@ -80,7 +80,10 @@ def photograph(chrome, url, target, size):
     width, height = size
     options = ["--headless=new", "--disable-gpu", "--hide-scrollbars",
                "--force-device-scale-factor=1", f"--window-size={width},{height}",
-               "--virtual-time-budget=5000", f"--screenshot={target}"]
+               "--virtual-time-budget=5000", f"--screenshot={target}",
+               # Without it the screenshot sometimes comes before the bottom of
+               # the card is painted, leaving it blank.
+               "--run-all-compositor-stages-before-draw"]
     if os.environ.get("CI"):
         # CI runners on recent Ubuntu block Chrome's sandbox; the pages are our own.
         options.append("--no-sandbox")
