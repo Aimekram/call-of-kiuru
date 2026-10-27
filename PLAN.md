@@ -362,14 +362,19 @@ day 0. HTTPS works, and plain HTTP redirects to it (checked 2026-10-20).
 
 **Design (2026-10-18): "Meadow"**, chosen from three directions in
 `design/directions.html`. Cream paper, near-black ink, cards with a hard
-offset shadow, after query.gg. Fraunces for headings, Outfit for text, both
-under the SIL Open Font License and served from the site, not Google.
+offset shadow, after query.gg. Fraunces for headings, Outfit for text,
+Bricolage Grotesque Bold for the name next to the logo (cut down to its
+letters, `design/wordmark.html`), all under the SIL Open Font License and
+served from the site, not Google.
 Colours in `site/static/style.css`, with light and dark mode from
 `light-dark()`. Early is ochre and late is blue, a warm spring against a
 cold one, so neither reads as good or bad. Pink against blue was dropped
 because it read as an alarm. Lilac against blue fails for red-green
-colourblind readers. The ripple logo from `design/logo-sketches.html` is
-the header logo and the favicon (a simplified version at tab size).
+colourblind readers. The logo (`design/logo-bold.html`, X2) is a small
+Meadow card with waves spreading from a lilac sprig in its corner; it is
+the header logo, the share cards' brand and the avatar
+(`design/avatar.svg`). At tab size the sprig becomes a dot (Y): the
+favicon.
 
 Still to build, in order (reordered 2026-10-18: until spring the history is
 what people see, so the interface comes before the daily job):

@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bolder logo sketches</title>
+<style>
+  @font-face { font-family: "Fraunces"; src: url(../site/static/fonts/fraunces.woff2) format("woff2-variations"); font-weight: 100 900; }
+  @font-face { font-family: "Outfit"; src: url(../site/static/fonts/outfit.woff2) format("woff2-variations"); font-weight: 100 900; }
+  :root {
+    color-scheme: light;
+    --paper: #f8f1d5; --card: #fffae6; --ink: #221e18; --muted: #5e5847; --line: #221e1826; --brand: #409d48;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { color-scheme: dark; --paper: #1d1a14; --card: #262217; --ink: #f3ebcf; --muted: #b9b093; --line: #f3ebcf2e; --brand: #6ed274; }
+  }
+  :root[data-theme="dark"] { color-scheme: dark; --paper: #1d1a14; --card: #262217; --ink: #f3ebcf; --muted: #b9b093; --line: #f3ebcf2e; --brand: #6ed274; }
+  body { margin: 0; padding: 32px 16px; background: var(--paper); color: var(--ink); font: 16px/1.5 "Outfit", system-ui, sans-serif; }
+  main { max-width: 1040px; margin: 0 auto; }
+  h1 { font: 700 1.75rem/1.2 "Fraunces", Georgia, serif; margin: 0 0 4px; }
+  p.lead { color: var(--muted); margin: 0 0 28px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; }
+  .card { background: var(--card); border: 2px solid var(--ink); border-radius: 14px; box-shadow: 6px 6px 0 var(--ink); padding: 20px; }
+  .card h2 { font: 700 1.15rem/1.2 "Fraunces", Georgia, serif; margin: 0; }
+  .card p { color: var(--muted); margin: 4px 0 16px; font-size: 0.9rem; }
+  .big { display: block; width: 150px; height: 150px; margin: 0 auto 16px; color: var(--brand); }
+  .sizes { display: flex; align-items: center; justify-content: center; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .chip { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px; }
+  .chip.light { background: #f8f1d5; border: 1px solid #221e1826; color: #409d48; --ink: #221e18; --card: #fffae6; }
+  .chip.dark { background: #1d1a14; color: #6ed274; --ink: #f3ebcf; --card: #262217; }
+  /* Bluesky avatar: a circle, cream like the current one. */
+  .avatar { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #fffae6; color: #409d48; --ink: #221e18; --card: #fffae6; overflow: hidden; box-shadow: 0 0 0 5px #161e27; margin-left: 4px; }
+  .avatar svg { width: 34px; height: 34px; }
+  .avatar.full svg { width: 48px; height: 48px; }
+  .lockup { display: flex; align-items: center; gap: 0.5rem; justify-content: center; margin-top: 16px; font: 700 1.05rem/1 "Fraunces", Georgia, serif; }
+  .lockup svg { width: 1.75rem; height: 1.75rem; color: var(--brand); }
+  .now { opacity: 0.85; }
+  h2.group { font: 700 1.3rem/1.2 "Fraunces", Georgia, serif; margin: 40px 0 16px; }
+  h2.group:first-of-type { margin-top: 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Call of Kiuru: bolder sound waves</h1>
+  <p class="lead">Same idea, heavier strokes, no thin faded rings. Under each: 32 and 16 px on light and dark, as a Bluesky avatar on its dark timeline, and next to the name as in the header.</p>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- Now: the header mark today -->
+      <symbol id="now" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="11" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="5">
+          <circle cx="50" cy="50" r="23"/>
+          <circle cx="50" cy="50" r="34" opacity=".6"/>
+          <circle cx="50" cy="50" r="45" opacity=".3"/>
+        </g>
+      </symbol>
+      <!-- A: two rings, the outer one thinner instead of fainter -->
+      <symbol id="ripple" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="13" fill="currentColor"/>
+        <g fill="none" stroke="currentColor">
+          <circle cx="50" cy="50" r="28" stroke-width="10"/>
+          <circle cx="50" cy="50" r="43.5" stroke-width="6"/>
+        </g>
+      </symbol>
+      <!-- B: thick arcs to both sides -->
+      <symbol id="call" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="13" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="9.5" stroke-linecap="round">
+          <path d="M69.1 30.9A27 27 0 0 1 69.1 69.1M30.9 30.9A27 27 0 0 0 30.9 69.1"/>
+          <path d="M79.7 20.3A42 42 0 0 1 79.7 79.7M20.3 20.3A42 42 0 0 0 20.3 79.7"/>
+        </g>
+      </symbol>
+      <!-- C: a call carrying one way, like a bird singing -->
+      <symbol id="song" viewBox="0 0 100 100">
+        <circle cx="30" cy="50" r="13" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+          <path d="M49.4 28.4A29 29 0 0 1 49.4 71.6"/>
+          <path d="M62.1 14.3A48 48 0 0 1 62.1 85.7"/>
+        </g>
+      </symbol>
+      <!-- D: solid disc with B cut out of it -->
+      <mask id="badge-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+        <rect width="100" height="100" fill="#fff"/>
+        <g transform="translate(50 50) scale(.66) translate(-50 -50)">
+          <circle cx="50" cy="50" r="13" fill="#000"/>
+          <g fill="none" stroke="#000" stroke-width="10" stroke-linecap="round">
+            <path d="M69.1 30.9A27 27 0 0 1 69.1 69.1M30.9 30.9A27 27 0 0 0 30.9 69.1"/>
+            <path d="M79.7 20.3A42 42 0 0 1 79.7 79.7M20.3 20.3A42 42 0 0 0 20.3 79.7"/>
+          </g>
+        </g>
+      </mask>
+      <symbol id="badge" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="currentColor" mask="url(#badge-cut)"/>
+      </symbol>
+      <!-- E: B with the cards' hard ink shadow -->
+      <symbol id="stamp" viewBox="0 0 100 100">
+        <g transform="translate(3.5 3.5)" fill="var(--ink)" stroke="var(--ink)">
+          <circle cx="46" cy="46" r="12" stroke="none"/>
+          <g fill="none" stroke-width="9" stroke-linecap="round">
+            <path d="M63.7 28.3A25 25 0 0 1 63.7 63.7M28.3 28.3A25 25 0 0 0 28.3 63.7"/>
+            <path d="M73.6 18.4A39 39 0 0 1 73.6 73.6M18.4 18.4A39 39 0 0 0 18.4 73.6"/>
+          </g>
+        </g>
+        <circle cx="46" cy="46" r="12" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round">
+          <path d="M63.7 28.3A25 25 0 0 1 63.7 63.7M28.3 28.3A25 25 0 0 0 28.3 63.7"/>
+          <path d="M73.6 18.4A39 39 0 0 1 73.6 73.6M18.4 18.4A39 39 0 0 0 18.4 73.6"/>
+        </g>
+      </symbol>
+      <!-- F: three arcs each side, getting thinner outwards -->
+      <symbol id="echo" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="10" fill="currentColor"/>
+        <g fill="none" stroke="currentColor" stroke-linecap="round">
+          <path d="M65.6 34.4A22 22 0 0 1 65.6 65.6M34.4 34.4A22 22 0 0 0 34.4 65.6" stroke-width="9"/>
+          <path d="M74.7 25.3A35 35 0 0 1 74.7 74.7M25.3 25.3A35 35 0 0 0 25.3 74.7" stroke-width="7"/>
+          <path d="M83.9 16.1A48 48 0 0 1 83.9 83.9M16.1 16.1A48 48 0 0 0 16.1 83.9" stroke-width="5"/>
+        </g>
+      </symbol>
+      <!-- Quarter: the waves leave from a corner -->
+      <symbol id="quarter" viewBox="0 0 100 100">
+        <g fill="none" stroke="currentColor" stroke-width="12">
+          <path d="M6 54A40 40 0 0 1 46 94" opacity=".8"/>
+          <path d="M6 32A62 62 0 0 1 68 94" opacity=".62"/>
+          <path d="M6 10A84 84 0 0 1 90 94" opacity=".45"/>
+        </g>
+        <path d="M6 94V70A24 24 0 0 1 30 94Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="quarter-solid" viewBox="0 0 100 100">
+        <g fill="none" stroke="currentColor" stroke-width="12">
+          <path d="M6 54A40 40 0 0 1 46 94"/>
+          <path d="M6 32A62 62 0 0 1 68 94"/>
+          <path d="M6 10A84 84 0 0 1 90 94"/>
+        </g>
+        <path d="M6 94V70A24 24 0 0 1 30 94Z" fill="currentColor"/>
+      </symbol>
+      <!-- Sector: the quarter closed by a border -->
+      <symbol id="sector" viewBox="0 0 100 100">
+        <path d="M8 92V8A84 84 0 0 1 92 92Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
+        <g fill="none" stroke="currentColor" stroke-width="10">
+          <path d="M8 59A33 33 0 0 1 41 92"/>
+          <path d="M8 42A50 50 0 0 1 58 92"/>
+          <path d="M8 25A67 67 0 0 1 75 92"/>
+        </g>
+        <path d="M8 92V72A20 20 0 0 1 28 92Z" fill="currentColor"/>
+      </symbol>
+      <!-- Tile: the sketch as it is, dark square, waves running off its edge -->
+      <clipPath id="tile-clip"><rect x="4" y="4" width="92" height="92" rx="20"/></clipPath>
+      <symbol id="tile" viewBox="0 0 100 100">
+        <g clip-path="url(#tile-clip)">
+          <rect width="100" height="100" fill="#221e18"/>
+          <g fill="none" stroke="#6ed274" stroke-width="12">
+            <circle cx="10" cy="90" r="42" opacity=".82"/>
+            <circle cx="10" cy="90" r="62" opacity=".66"/>
+            <circle cx="10" cy="90" r="82" opacity=".5"/>
+            <circle cx="10" cy="90" r="102" opacity=".36"/>
+          </g>
+          <circle cx="10" cy="90" r="24" fill="#6ed274"/>
+        </g>
+      </symbol>
+      <!-- Framed: a green border, the waves cut off inside it -->
+      <clipPath id="frame-clip"><rect x="14" y="14" width="72" height="72" rx="10"/></clipPath>
+      <symbol id="framed" viewBox="0 0 100 100">
+        <rect x="5" y="5" width="90" height="90" rx="19" fill="none" stroke="currentColor" stroke-width="6"/>
+        <g clip-path="url(#frame-clip)">
+          <g fill="none" stroke="currentColor" stroke-width="10">
+            <circle cx="14" cy="86" r="35"/>
+            <circle cx="14" cy="86" r="52"/>
+            <circle cx="14" cy="86" r="69"/>
+            <circle cx="14" cy="86" r="86"/>
+          </g>
+          <circle cx="14" cy="86" r="20" fill="currentColor"/>
+        </g>
+      </symbol>
+      <!-- Meadow: the site's cards, cream with an ink border and a hard ink shadow -->
+      <clipPath id="card-clip"><rect x="6" y="6" width="80" height="80" rx="15"/></clipPath>
+      <symbol id="card" viewBox="0 0 100 100">
+        <rect x="14" y="14" width="80" height="80" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="5"/>
+        <rect x="6" y="6" width="80" height="80" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#card-clip)">
+          <g fill="none" stroke="currentColor" stroke-width="11">
+            <circle cx="6" cy="86" r="40" opacity=".82"/>
+            <circle cx="6" cy="86" r="58" opacity=".66"/>
+            <circle cx="6" cy="86" r="76" opacity=".5"/>
+            <circle cx="6" cy="86" r="94" opacity=".36"/>
+          </g>
+          <circle cx="6" cy="86" r="24" fill="currentColor"/>
+        </g>
+        <rect x="6" y="6" width="80" height="80" rx="15" fill="none" stroke="var(--ink)" stroke-width="5"/>
+      </symbol>
+      <!-- L with a slimmer border and shadow -->
+      <symbol id="card-slim" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#slim-clip)">
+          <g fill="none" stroke="currentColor" stroke-width="11">
+            <circle cx="6" cy="88" r="40" opacity=".82"/>
+            <circle cx="6" cy="88" r="58" opacity=".66"/>
+            <circle cx="6" cy="88" r="76" opacity=".5"/>
+            <circle cx="6" cy="88" r="94" opacity=".36"/>
+          </g>
+          <circle cx="6" cy="88" r="24" fill="currentColor"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <clipPath id="slim-clip"><rect x="6" y="6" width="82" height="82" rx="15"/></clipPath>
+      <!-- Uneven: waves of different widths and gaps -->
+      <symbol id="card-uneven" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#slim-clip)">
+          <g fill="none" stroke="currentColor">
+            <circle cx="6" cy="88" r="39" stroke-width="14" opacity=".82"/>
+            <circle cx="6" cy="88" r="58" stroke-width="6" opacity=".7"/>
+            <circle cx="6" cy="88" r="72" stroke-width="12" opacity=".58"/>
+            <circle cx="6" cy="88" r="90.5" stroke-width="5" opacity=".46"/>
+            <circle cx="6" cy="88" r="103.5" stroke-width="9" opacity=".36"/>
+          </g>
+          <circle cx="6" cy="88" r="26" fill="currentColor"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <symbol id="card-uneven-2" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#slim-clip)">
+          <g fill="none" stroke="currentColor">
+            <circle cx="6" cy="88" r="30" stroke-width="6" opacity=".85"/>
+            <circle cx="6" cy="88" r="45" stroke-width="14" opacity=".74"/>
+            <circle cx="6" cy="88" r="62" stroke-width="4" opacity=".62"/>
+            <circle cx="6" cy="88" r="76" stroke-width="12" opacity=".5"/>
+            <circle cx="6" cy="88" r="93" stroke-width="6" opacity=".4"/>
+            <circle cx="6" cy="88" r="105.5" stroke-width="9" opacity=".32"/>
+          </g>
+          <circle cx="6" cy="88" r="20" fill="currentColor"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <!-- Rings in a card: the centre inside the card, so more than a quarter shows -->
+      <symbol id="rings-low" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#slim-clip)">
+          <g fill="none" stroke="currentColor">
+            <circle cx="28" cy="68" r="27" stroke-width="9" opacity=".82"/>
+            <circle cx="28" cy="68" r="43" stroke-width="7" opacity=".64"/>
+            <circle cx="28" cy="68" r="60" stroke-width="9" opacity=".48"/>
+            <circle cx="28" cy="68" r="78" stroke-width="5" opacity=".36"/>
+          </g>
+          <circle cx="28" cy="68" r="13" fill="currentColor"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <symbol id="rings-off" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#slim-clip)">
+          <g fill="none" stroke="currentColor">
+            <circle cx="36" cy="60" r="24" stroke-width="8" opacity=".85"/>
+            <circle cx="36" cy="60" r="38" stroke-width="5" opacity=".7"/>
+            <circle cx="36" cy="60" r="51" stroke-width="9" opacity=".55"/>
+            <circle cx="36" cy="60" r="66" stroke-width="4" opacity=".42"/>
+          </g>
+          <circle cx="36" cy="60" r="12" fill="currentColor"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <symbol id="rings-centre" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#slim-clip)">
+          <g fill="none" stroke="currentColor">
+            <circle cx="47" cy="47" r="24" stroke-width="8" opacity=".85"/>
+            <circle cx="47" cy="47" r="37" stroke-width="6" opacity=".66"/>
+            <circle cx="47" cy="47" r="51" stroke-width="7" opacity=".48"/>
+          </g>
+          <circle cx="47" cy="47" r="12" fill="currentColor"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <!-- R without its dot, for the leaves -->
+      <symbol id="r-base" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#slim-clip)" fill="none" stroke="currentColor">
+          <circle cx="28" cy="68" r="27" stroke-width="9" opacity=".82"/>
+          <circle cx="28" cy="68" r="43" stroke-width="7" opacity=".64"/>
+          <circle cx="28" cy="68" r="60" stroke-width="9" opacity=".48"/>
+          <circle cx="28" cy="68" r="78" stroke-width="5" opacity=".36"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <!-- The 404 page's lilac leaf, 50 long, base at 0,0 -->
+      <path id="leaf" d="M0,0 C8,-15 34,-17 50,-2 C34,10 10,12 0,0Z"/>
+      <symbol id="leaf-plain" viewBox="0 0 100 100">
+        <use href="#r-base" width="100" height="100"/>
+        <use href="#leaf" fill="currentColor" transform="translate(28 68) rotate(-40) scale(.62) translate(-25 2)"/>
+      </symbol>
+      <symbol id="leaf-vein" viewBox="0 0 100 100">
+        <use href="#r-base" width="100" height="100"/>
+        <g transform="translate(28 68) rotate(-40) scale(.62) translate(-25 2)">
+          <use href="#leaf" fill="currentColor"/>
+          <path d="M3 -0.5 Q24 -6 44 -2.5" fill="none" stroke="var(--card)" stroke-width="3.5" stroke-linecap="round"/>
+        </g>
+      </symbol>
+      <symbol id="leaf-sprout" viewBox="0 0 100 100">
+        <use href="#r-base" width="100" height="100"/>
+        <g fill="currentColor">
+          <use href="#leaf" transform="translate(29 74) rotate(-32) scale(.42)"/>
+          <use href="#leaf" transform="translate(27 74) scale(-1 1) rotate(-26) scale(.36)"/>
+        </g>
+        <path d="M28 76V70" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      </symbol>
+      <!-- Three waves: R without its fourth ring -->
+      <symbol id="three-base" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#slim-clip)" fill="none" stroke="currentColor">
+          <circle cx="28" cy="68" r="27" stroke-width="9" opacity=".82"/>
+          <circle cx="28" cy="68" r="43" stroke-width="7" opacity=".64"/>
+          <circle cx="28" cy="68" r="60" stroke-width="9" opacity=".48"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <!-- Large: two leaves from one point, opening towards the waves -->
+      <symbol id="two-leaves" viewBox="0 0 100 100">
+        <use href="#three-base" width="100" height="100"/>
+        <g fill="currentColor">
+          <use href="#leaf" transform="translate(21 76) rotate(-20) scale(.56 -.56)"/>
+          <use href="#leaf" transform="translate(21 76) rotate(-60) scale(.42)" stroke="var(--card)" stroke-width="5.7" stroke-linejoin="round" paint-order="stroke"/>
+        </g>
+      </symbol>
+      <!-- The pair on a short stem, like a sprig -->
+      <symbol id="two-leaves-stem" viewBox="0 0 100 100">
+        <use href="#three-base" width="100" height="100"/>
+        <!-- Low in the corner, the stem running off the card's edge -->
+        <g clip-path="url(#slim-clip)">
+          <g fill="currentColor">
+            <use href="#leaf" transform="translate(17 75) rotate(-16) scale(.5 -.5)"/>
+            <use href="#leaf" transform="translate(17 75) rotate(-58) scale(.42)" stroke="var(--card)" stroke-width="5.7" stroke-linejoin="round" paint-order="stroke"/>
+          </g>
+          <path d="M3 91L17.5 74.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+      <!-- Small: the same with the dot, for 16 px and the header -->
+      <symbol id="three-dot" viewBox="0 0 100 100">
+        <use href="#three-base" width="100" height="100"/>
+        <circle cx="28" cy="68" r="14" fill="currentColor"/>
+      </symbol>
+      <!-- Padded: two waves and the quarter dot, sitting inside the card -->
+      <symbol id="waves-in-card" viewBox="0 0 100 100">
+        <path d="M17 75V58A17 17 0 0 1 34 75Z"/>
+        <path d="M17 38A37 37 0 0 1 54 75H42A25 25 0 0 0 17 50Z"/>
+        <path d="M17 18A57 57 0 0 1 74 75H62A45 45 0 0 0 17 30Z"/>
+      </symbol>
+      <symbol id="padded-card" viewBox="0 0 100 100">
+        <rect x="14" y="14" width="80" height="80" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="5"/>
+        <rect x="6" y="6" width="80" height="80" rx="15" fill="var(--card)" stroke="var(--ink)" stroke-width="5"/>
+        <use href="#waves-in-card" width="100" height="100" fill="currentColor"/>
+      </symbol>
+      <symbol id="green-card" viewBox="0 0 100 100">
+        <rect x="14" y="14" width="80" height="80" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="5"/>
+        <rect x="6" y="6" width="80" height="80" rx="15" fill="currentColor" stroke="var(--ink)" stroke-width="5"/>
+        <use href="#waves-in-card" width="100" height="100" fill="var(--card)"/>
+      </symbol>
+      <!-- Sticker: no card, each piece outlined in ink with the hard shadow -->
+      <symbol id="sticker" viewBox="0 0 100 100">
+        <g fill="var(--ink)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round" transform="translate(6 6)">
+          <path d="M10 86V66A20 20 0 0 1 30 86Z"/>
+          <path d="M10 46A40 40 0 0 1 50 86H38A28 28 0 0 0 10 58Z"/>
+          <path d="M10 26A60 60 0 0 1 70 86H58A48 48 0 0 0 10 38Z"/>
+          <path d="M10 6A80 80 0 0 1 90 86H78A68 68 0 0 0 10 18Z"/>
+        </g>
+        <g fill="currentColor" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round">
+          <path d="M10 86V66A20 20 0 0 1 30 86Z"/>
+          <path d="M10 46A40 40 0 0 1 50 86H38A28 28 0 0 0 10 58Z"/>
+          <path d="M10 26A60 60 0 0 1 70 86H58A48 48 0 0 0 10 38Z"/>
+          <path d="M10 6A80 80 0 0 1 90 86H78A68 68 0 0 0 10 18Z"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <h2 class="group">Leaves large, dot small</h2>
+  <div class="grid" id="pair"></div>
+  <h2 class="group">A leaf for the dot</h2>
+  <div class="grid" id="leaves"></div>
+  <h2 class="group">Rings in a card</h2>
+  <div class="grid" id="rings"></div>
+  <h2 class="group">Meadow</h2>
+  <div class="grid" id="meadow"></div>
+  <h2 class="group">Quarter</h2>
+  <div class="grid" id="quarters"></div>
+  <h2 class="group">Earlier round</h2>
+  <div class="grid" id="grid"></div>
+</main>
+<script>
+  const marks = [
+    ["now", "Now", "The header mark today, for comparison. The outer rings fade to 30% and blur away at 16 px."],
+    ["ripple", "A · Ripple", "Two full rings, no fading. The outer ring is thinner instead of fainter, so it still reads as spreading out."],
+    ["call", "B · Call", "Thick arcs to both sides: sound carrying. The most 'call' of the set, and it stays clear at 16 px."],
+    ["song", "C · Song", "Arcs to one side only, like a bird singing. Directional, a bit like a speaker icon."],
+    ["badge", "D · Badge", "B cut out of a solid disc. The heaviest, made for the avatar and favicon; fills the whole Bluesky circle."],
+    ["stamp", "E · Stamp", "B with the hard ink shadow of the site's cards. Best large, too busy at 16 px."],
+    ["echo", "F · Echo", "Three arcs each side, getting thinner outwards: a fading call without fading colour."],
+  ];
+  const quarters = [
+    ["quarter", "G · Quarter", "Your sketch: a quarter dot in the corner, three waves leaving it, each a little fainter but never below 45%."],
+    ["quarter-solid", "H · Quarter, solid", "The same without fading. Heaviest of the open ones, and the clearest at 16 px."],
+    ["sector", "I · Sector", "The quarter closed by a border, like a slice or a fan. The border makes it one shape."],
+    ["tile", "J · Tile", "The sketch as a dark tile, waves running off its edge. Fixed colours, so it's the same on light and dark."],
+    ["framed", "K · Framed", "A green rounded square, the waves cut off inside it. Closed, but the waves still look like they carry on."],
+  ];
+  const use = (id, size) => `<svg${size ? ` width="${size}" height="${size}"` : ""} viewBox="0 0 100 100"><use href="#${id}"/></svg>`;
+  const cards = list => list.map(([id, name, note]) => `
+    <section class="card${id === "now" ? " now" : ""}">
+      <h2>${name}</h2>
+      <p>${note}</p>
+      <svg class="big" viewBox="0 0 100 100"><use href="#${id}"/></svg>
+      <div class="sizes">
+        <div class="chip light">${use(id, 32)}</div>
+        <div class="chip light">${use(id, 16)}</div>
+        <div class="chip dark">${use(id, 32)}</div>
+        <div class="chip dark">${use(id, 16)}</div>
+        <div class="avatar${["badge", "tile"].includes(id) ? " full" : ""}">${use(id)}</div>
+      </div>
+      <div class="lockup">${use(id)}Call of Kiuru</div>
+    </section>`).join("");
+  const meadow = [
+    ["card", "L · Card", "A small Meadow card: cream, ink border, hard ink shadow, G's fading waves leaving its corner and running off the edge."],
+    ["card-slim", "L2 · Card, slimmer", "L with a slimmer border (3.5 instead of 5) and a shorter shadow."],
+    ["card-uneven", "P · Uneven waves", "L2 with waves of different widths and gaps: thick, thin, thick, thin. Less like a signal, more like a call."],
+    ["card-uneven-2", "Q · Uneven, another rhythm", "Another uneven rhythm: a thin wave first, then the heaviest one, and a smaller dot."],
+    ["padded-card", "M · Card, padded", "Two waves and the quarter dot sitting inside the card, with room around them. Calmer, and it holds at 16 px."],
+    ["green-card", "N · Green card", "M in green with cream waves. The boldest, and the one that stands out most in a feed."],
+    ["sticker", "O · Sticker", "No card: H's quarter with every piece outlined in ink and the hard shadow behind it."],
+  ];
+  const rings = [
+    ["rings-low", "R · Low corner", "Centre low and left: the first ring shows almost whole, the outer ones run off the top and right."],
+    ["rings-off", "S · Off-centre", "Centre a little further in, smaller rings, uneven widths. About two thirds of each ring shows."],
+    ["rings-centre", "T · Centred", "Today's mark, bolder, in the card. Only the outer ring is cut, at the corners."],
+  ];
+  const leaves = [
+    ["leaf-plain", "U · Leaf", "R with the 404 page's lilac leaf for the dot, pointing the way the rings spread."],
+    ["leaf-vein", "V · Leaf, veined", "U with a cream midrib. More leaf-like large; the vein disappears below 32 px."],
+    ["leaf-sprout", "W · Sprout", "Two leaves on a short stem, like the 404 sprig's first pair. Spring starting at the centre of the call."],
+  ];
+  // The pair: leaves wherever the mark is 32 px or more, the dot below that.
+  document.getElementById("pair").innerHTML = `
+    <section class="card">
+      <h2>X · Two leaves, three waves</h2>
+      <p>The large mark: two lilac leaves of different sizes, overlapping, opening towards the waves. A cream edge keeps them apart. Big, at 32 px and as the avatar.</p>
+      <svg class="big" viewBox="0 0 100 100"><use href="#two-leaves"/></svg>
+      <div class="sizes">
+        <div class="chip light">${use("two-leaves", 32)}</div>
+        <div class="chip light">${use("three-dot", 16)}</div>
+        <div class="chip dark">${use("two-leaves", 32)}</div>
+        <div class="chip dark">${use("three-dot", 16)}</div>
+        <div class="avatar">${use("two-leaves")}</div>
+      </div>
+      <div class="lockup">${use("three-dot")}Call of Kiuru</div>
+    </section>
+    <section class="card">
+      <h2>X2 · Two leaves on a stem</h2>
+      <p>The pair on a stem, like a sprig, low in the corner: the stem runs off the card's edge, as if the sprig grows in from outside.</p>
+      <svg class="big" viewBox="0 0 100 100"><use href="#two-leaves-stem"/></svg>
+      <div class="sizes">
+        <div class="chip light">${use("two-leaves-stem", 32)}</div>
+        <div class="chip light">${use("three-dot", 16)}</div>
+        <div class="chip dark">${use("two-leaves-stem", 32)}</div>
+        <div class="chip dark">${use("three-dot", 16)}</div>
+        <div class="avatar">${use("two-leaves-stem")}</div>
+      </div>
+      <div class="lockup">${use("three-dot")}Call of Kiuru</div>
+    </section>
+    <section class="card">
+      <h2>Y · Dot, three waves</h2>
+      <p>The small mark: the same card and waves with the dot. For the favicon (16 px) and the header next to the name.</p>
+      <svg class="big" viewBox="0 0 100 100"><use href="#three-dot"/></svg>
+      <div class="sizes">
+        <div class="chip light">${use("three-dot", 32)}</div>
+        <div class="chip light">${use("three-dot", 16)}</div>
+        <div class="chip dark">${use("three-dot", 32)}</div>
+        <div class="chip dark">${use("three-dot", 16)}</div>
+        <div class="avatar">${use("three-dot")}</div>
+      </div>
+      <div class="lockup">${use("three-dot")}Call of Kiuru</div>
+    </section>
+    <section class="card">
+      <h2>X in the header, for comparison</h2>
+      <p>The leaves at the header's 28 px. If they still read here, X could be used everywhere but the favicon.</p>
+      <svg class="big" viewBox="0 0 100 100"><use href="#two-leaves"/></svg>
+      <div class="sizes">
+        <div class="chip light">${use("two-leaves", 28)}</div>
+        <div class="chip light">${use("two-leaves", 16)}</div>
+        <div class="chip dark">${use("two-leaves", 28)}</div>
+        <div class="chip dark">${use("two-leaves", 16)}</div>
+      </div>
+      <div class="lockup">${use("two-leaves")}Call of Kiuru</div>
+    </section>`;
+  document.getElementById("leaves").innerHTML = cards([rings[0], ...leaves]);
+  document.getElementById("rings").innerHTML = cards([meadow[0], ...rings]);
+  document.getElementById("meadow").innerHTML = cards([marks[0], ...meadow]);
+  document.getElementById("quarters").innerHTML = cards(quarters);
+  document.getElementById("grid").innerHTML = cards(marks.slice(1));
+</script>
+</body>
+</html>

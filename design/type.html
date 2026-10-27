@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Type pairings</title>
+<!-- Bricolage in full, for comparison only: the site serves its own files. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
+<style>
+  @font-face { font-family: "Fraunces"; src: url(../site/static/fonts/fraunces.woff2) format("woff2-variations"); font-weight: 100 900; }
+  @font-face { font-family: "Outfit"; src: url(../site/static/fonts/outfit.woff2) format("woff2-variations"); font-weight: 100 900; }
+  :root { color-scheme: light dark; }
+  body { margin: 0; padding: 32px 16px; background: #ece4c4; color: #221e18; font: 16px/1.5 "Outfit", system-ui, sans-serif; }
+  @media (prefers-color-scheme: dark) { body { background: #141210; color: #f3ebcf; } }
+  main { max-width: 1180px; margin: 0 auto; }
+  .page-title { font: 700 1.75rem/1.2 "Fraunces", Georgia, serif; margin: 0 0 4px; }
+  .lead { color: #6b6450; margin: 0 0 32px; max-width: 70ch; }
+  .option { margin: 0 0 48px; }
+  .option > h2 { font: 700 1.3rem/1.2 "Fraunces", Georgia, serif; margin: 0 0 4px; }
+  .option > p { margin: 0 0 14px; max-width: 75ch; color: #6b6450; font-size: 0.95rem; }
+  @media (prefers-color-scheme: dark) { .lead, .option > p { color: #b9b093; } }
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+
+  /* One mock page. Themes and type come from the classes on it. */
+  .mock { --paper: #f8f1d5; --card: #fffae6; --ink: #221e18; --muted: #5e5847; --line: #221e1826; --brand: #409d48; --early: #b67c0d;
+          background: var(--paper); color: var(--ink); border-radius: 12px; padding: 22px 24px 26px; overflow: hidden;
+          font: 1rem/1.55 var(--t-font); font-variation-settings: var(--t-set, normal); }
+  .mock.dark { --paper: #1d1a14; --card: #262217; --ink: #f3ebcf; --muted: #b9b093; --line: #f3ebcf2e; --brand: #6ed274; --early: #c38824; }
+  .mock .site { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 2.25rem; font: 700 1.4rem/1 var(--w-font); font-variation-settings: var(--w-set, normal); }
+  .mock .site svg { width: 2.25rem; height: 2.25rem; color: var(--brand); }
+  .mock h1 { font: var(--h-weight) 3.1rem/1.05 var(--h-font); font-variation-settings: var(--h-set, normal); letter-spacing: var(--h-track, -0.01em); margin: 0 0 1rem; }
+  .mock .lede { margin: 0 0 1.25rem; color: var(--muted); }
+  .mock .lede a { color: inherit; text-decoration: underline 2px var(--brand); text-underline-offset: 3px; }
+  .mock .card { background: var(--card); border: 2px solid var(--ink); border-radius: 12px; box-shadow: 5px 5px 0 var(--ink); padding: 14px 16px; }
+  .mock .card h3 { margin: 0 0 8px; font: 700 1rem/1.3 var(--t-font); font-variation-settings: var(--t-set, normal); }
+  .mock table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .mock th { text-align: left; font-size: 0.8rem; font-weight: 600; color: var(--muted); padding: 4px 6px; border-bottom: 1px solid var(--line); }
+  .mock td { padding: 7px 6px; border-bottom: 1px solid var(--line); }
+  .mock td:first-child { font-weight: 600; text-decoration: underline 2px var(--brand); text-underline-offset: 3px; }
+  .mock .bar { display: inline-block; width: 3.5rem; height: 6px; border-radius: 3px; background: color-mix(in oklch, var(--muted) 25%, transparent); position: relative; vertical-align: middle; margin-left: 6px; }
+  .mock .bar i { position: absolute; right: 50%; top: 0; bottom: 0; background: var(--early); border-radius: 3px; }
+
+  /* The type setups */
+  .fraunces-outfit { --h-font: "Fraunces", Georgia, serif; --h-weight: 900; --t-font: "Outfit", sans-serif; --w-font: "Bricolage Grotesque", sans-serif; --w-set: "opsz" 96; }
+  .fraunces-bricolage { --h-font: "Fraunces", Georgia, serif; --h-weight: 900; --t-font: "Bricolage Grotesque", sans-serif; --w-font: "Bricolage Grotesque", sans-serif; --w-set: "opsz" 96; }
+  .bricolage-only { --h-font: "Bricolage Grotesque", sans-serif; --h-weight: 800; --h-set: "opsz" 96, "wdth" 87.5; --h-track: -0.02em; --t-font: "Bricolage Grotesque", sans-serif; --w-font: "Bricolage Grotesque", sans-serif; --w-set: "opsz" 96; }
+  .bricolage-outfit { --h-font: "Bricolage Grotesque", sans-serif; --h-weight: 800; --h-set: "opsz" 96, "wdth" 87.5; --h-track: -0.02em; --t-font: "Outfit", sans-serif; --w-font: "Bricolage Grotesque", sans-serif; --w-set: "opsz" 96; }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="page-title">Type pairings</h1>
+  <p class="lead">The top of the ranking page in four type setups, each light and dark. All four use the rebalanced header: logo 2.25rem (was 1.75), name 1.4rem (was 1.05), more space under it, and a bigger title (3.1rem, was 2.75 at most).</p>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <clipPath id="logo-card"><rect x="6" y="6" width="82" height="82" rx="15"/></clipPath>
+      <path id="logo-leaf" d="M0,0 C8,-15 34,-17 50,-2 C34,10 10,12 0,0Z"/>
+      <symbol id="logo" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#logo-card)">
+          <g fill="none" stroke="currentColor">
+            <circle cx="28" cy="68" r="27" stroke-width="9" opacity=".82"/>
+            <circle cx="28" cy="68" r="43" stroke-width="7" opacity=".64"/>
+            <circle cx="28" cy="68" r="60" stroke-width="9" opacity=".48"/>
+          </g>
+          <g fill="currentColor">
+            <use href="#logo-leaf" transform="translate(17 75) rotate(-16) scale(.5 -.5)"/>
+            <use href="#logo-leaf" transform="translate(17 75) rotate(-58) scale(.42)" stroke="var(--card)" stroke-width="5.7" stroke-linejoin="round" paint-order="stroke"/>
+          </g>
+          <path d="M3 91L17.5 74.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div id="options"></div>
+</main>
+<script>
+  // [class, title, note]
+  const options = [
+    ["fraunces-outfit", "A · Now, rebalanced: Fraunces + Outfit + Bricolage name", "Three families. The serif headline contrasts clearly with both sans; the catch is two different sans in the header area, Bricolage for the name and Outfit right under it."],
+    ["fraunces-bricolage", "B · Fraunces + Bricolage (Bricolage replaces Outfit)", "Two families: the name and the text are one sans, the headlines stay serif. Bricolage at text size is rounder and more open than at display size."],
+    ["bricolage-only", "C · Bricolage only (replaces Fraunces and Outfit)", "One family, used at both ends of its optical size: display size, slightly condensed for the headline, text size for everything else. Modern and poster-like; loses the serif warmth."],
+    ["bricolage-outfit", "D · Bricolage headlines + Outfit (replaces Fraunces)", "What you asked about directly: Fraunces out, Bricolage for headlines and the name, Outfit for text. Two sans that are close but not the same."],
+  ];
+  const mock = theme => `
+    <div class="mock ${theme}">
+      <div class="site"><svg viewBox="0 0 100 100"><use href="#logo"/></svg>Call of Kiuru</div>
+      <h1>Spring bloom 2026</h1>
+      <p class="lede">Did spring come early this year?<br>Each city's modelled spring bloom, against its own <a>1991–2020 average</a></p>
+      <div class="card">
+        <h3>Modelled spring bloom in 2026</h3>
+        <table>
+          <tr><th>City</th><th>Spring bloom</th><th>Days from average</th></tr>
+          <tr><td>Cologne</td><td>14 April</td><td>−8<span class="bar"><i style="width:22%"></i></span></td></tr>
+          <tr><td>Freiburg</td><td>20 April</td><td>−6<span class="bar"><i style="width:17%"></i></span></td></tr>
+          <tr><td>Stockholm</td><td>22 May</td><td>−6<span class="bar"><i style="width:17%"></i></span></td></tr>
+        </table>
+      </div>
+    </div>`;
+  document.getElementById("options").innerHTML = options.map(([cls, title, note]) => `
+    <section class="option ${cls}">
+      <h2>${title}</h2>
+      <p>${note}</p>
+      <div class="pair">${mock("light")}${mock("dark")}</div>
+    </section>`).join("");
+  // The type classes sit on the section; the mocks inherit their variables.
+</script>
+</body>
+</html>

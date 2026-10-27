@@ -1,3 +1,4 @@
+{% from "macros.html" import logo %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,11 +26,12 @@
 <link rel="apple-touch-icon" href="{{ root }}static/apple-touch-icon.png">
 <link rel="preload" href="{{ root }}static/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ root }}static/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ root }}static/fonts/bricolage-wordmark.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ root }}static/style.css">
 </head>
 <body>
 <header class="site">
-<a href="{{ root }}"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="11" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="5"><circle class="ring" cx="50" cy="50" r="23"/><circle class="ring" cx="50" cy="50" r="34" opacity=".6"/><circle class="ring" cx="50" cy="50" r="45" opacity=".3"/></g></svg><span class="name">{{ site_name }}</span></a>
+<a href="{{ root }}">{{ logo() }}<span class="name">{{ site_name }}</span></a>
 </header>
 <main>
 {% block content %}{% endblock %}

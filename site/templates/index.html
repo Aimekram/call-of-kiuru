@@ -2,8 +2,8 @@
 {% block title %}Spring bloom {{ year }} in {{ cities|length }} cities – {{ site_name }}{% endblock %}
 {% block description %}How much earlier or later the modelled spring bloom was in {{ year }} than the {{ baseline }} average, city by city.{% endblock %}
 {% block content %}
-<h1>Spring bloom {{ year }}</h1>
-<p class="lede">Did spring come early this year?<br>Each city's modelled spring bloom, against its own <a href="method/#baseline">{{ baseline }} average</a>.</p>
+<h1 class="front">Spring bloom {{ year }}</h1>
+<p class="lede">Did spring come early this year?<br>Each city's modelled spring bloom, against its own <a href="method/#baseline">{{ baseline }} average</a></p>
 <div class="card">
 <table class="sortable rows-link">
 <caption>Modelled spring bloom{% if not mixed_years %} in {{ year }}{% endif %}</caption>

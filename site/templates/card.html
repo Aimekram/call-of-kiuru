@@ -1,3 +1,4 @@
+{% from "macros.html" import logo %}
 <!doctype html>
 <html lang="en"{{ {'style': '--card-width: %dpx; --card-height: %dpx' % (card_width, card_height)}|xmlattr }}>
 <head>
@@ -13,16 +14,18 @@
      corners, hard offset shadow, all scaled up for a feed. --m is the
      paper margin, --s the shadow offset. */
   body { --m: 26px; --s: 10px; max-width: none; box-sizing: border-box; padding: var(--m) calc(var(--m) + var(--s)) calc(var(--m) + var(--s)) var(--m); display: flex; background: var(--paper); }
-  .card-frame { flex: 1; min-width: 0; display: flex; flex-direction: column; box-sizing: border-box; padding: 30px 44px 34px; background: var(--card); border: 4px solid var(--ink); border-radius: 24px; box-shadow: var(--s) var(--s) 0 var(--ink); }
+  .card-frame { flex: 1; min-width: 0; display: flex; flex-direction: column; box-sizing: border-box; padding: 25px 44px 34px; background: var(--card); border: 4px solid var(--ink); border-radius: 24px; box-shadow: var(--s) var(--s) 0 var(--ink); }
   .card-top { display: flex; justify-content: space-between; align-items: center; }
-  .card-brand { display: flex; align-items: center; gap: 12px; font: 700 28px/1 var(--display); }
-  .card-brand svg { width: 42px; height: 42px; color: var(--brand); }
+  /* The header's proportions: the logo 1.73 times the name, a gap of 0.46. */
+  .card-brand { display: flex; align-items: center; gap: 13px; font: 700 28px/1 var(--wordmark); }
+  .card-brand svg { width: 48px; height: 48px; color: var(--brand); }
   .card-url { font: 500 22px/1 var(--text); color: var(--muted); }
-  .card-eyebrow { margin: 20px 0 8px; font-size: 24px; color: var(--muted); }
+  .card-eyebrow { margin: 16px 0 6px; font-size: 24px; color: var(--muted); }
   h1 { font-size: 66px; margin: 0; }
   .card-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
-  /* The chart at 1.2x, without its interactive box. */
-  .card-body .chart { zoom: 1.2; --gr: 1.5rem; }
+  /* The chart at 1.15x, without its interactive box: small enough that the
+     average's label clears the headline. */
+  .card-body .chart { zoom: 1.15; --gr: 1.5rem; }
   .card-body .chart-area { margin: 1.6rem 0 1.5rem; }
   .card-body .chart-tip { display: none; }
   .card-body .key { margin-top: 0.25rem; }
@@ -40,14 +43,13 @@
   /* Instagram, 4:5 portrait: bigger type, a taller chart, one column. */
   .instagram { --m: 36px; --s: 12px; }
   .instagram .card-frame { padding: 48px 52px; border-width: 5px; border-radius: 30px; }
-  .instagram .card-brand { font-size: 34px; }
-  .instagram .card-brand svg { width: 52px; height: 52px; }
+  .instagram .card-brand { gap: 16px; font-size: 34px; }
+  .instagram .card-brand svg { width: 59px; height: 59px; }
   .instagram .card-url { font-size: 26px; }
   .instagram .card-eyebrow { margin: 72px 0 14px; font-size: 32px; }
   .instagram h1 { font-size: 96px; line-height: 1.05; }
-  .instagram .card-body .chart { zoom: 2.3; }
-  .card-chart-title { display: none; }
-  .instagram .card-chart-title { display: block; margin: 0 0 4px; font: 700 34px/1.2 var(--display); }
+  .instagram .card-body .chart { zoom: 2.55; }
+  .instagram .card-body .key { margin-top: 0.8rem; }
   .instagram .card-ranking { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(var(--ig-rows), auto); gap: 0 40px; font-size: 27px; }
   .instagram .card-ranking div { grid-template-columns: 1fr 2.5ch 110px; gap: 14px; padding: 9px 0; }
   .instagram .card-ranking .meter { height: 14px; }
@@ -59,7 +61,7 @@
 <body class="{{ kind }}-card {{ card_format }}">
 <div class="card-frame">
 <div class="card-top">
-<span class="card-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="11" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="5"><circle cx="50" cy="50" r="23"/><circle cx="50" cy="50" r="34" opacity=".6"/><circle cx="50" cy="50" r="45" opacity=".3"/></g></svg>{{ site_name }}</span>
+<span class="card-brand">{{ logo() }}{{ site_name }}</span>
 <span class="card-url">callofkiuru.eu</span>
 </div>
 {% if kind == "city" %}
@@ -70,7 +72,6 @@
 <h1>Spring bloom <em>has not come yet</em></h1>
 {% endif %}
 <div class="card-body">
-<p class="card-chart-title">Every spring since {{ city.chart.first_year }}</p>
 {% include "chart.html" %}
 </div>
 {% elif kind == "ranking" %}

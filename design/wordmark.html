@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wordmark sketches</title>
+<!-- Other fonts, for comparison only: the chosen one gets served from the site like Fraunces. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Corben:wght@700&family=DM+Serif+Display&family=Instrument+Serif&family=Alegreya:wght@800&family=Gloock&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Newsreader:opsz,wght@6..72,700&display=swap">
+<style>
+  @font-face { font-family: "Fraunces"; src: url(../site/static/fonts/fraunces.woff2) format("woff2-variations"); font-weight: 100 900; }
+  @font-face { font-family: "Outfit"; src: url(../site/static/fonts/outfit.woff2) format("woff2-variations"); font-weight: 100 900; }
+  :root {
+    color-scheme: light;
+    --paper: #f8f1d5; --card: #fffae6; --ink: #221e18; --muted: #5e5847; --line: #221e1826; --brand: #409d48;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { color-scheme: dark; --paper: #1d1a14; --card: #262217; --ink: #f3ebcf; --muted: #b9b093; --line: #f3ebcf2e; --brand: #6ed274; }
+  }
+  :root[data-theme="dark"] { color-scheme: dark; --paper: #1d1a14; --card: #262217; --ink: #f3ebcf; --muted: #b9b093; --line: #f3ebcf2e; --brand: #6ed274; }
+  body { margin: 0; padding: 32px 16px; background: var(--paper); color: var(--ink); font: 16px/1.5 "Outfit", system-ui, sans-serif; }
+  main { max-width: 1040px; margin: 0 auto; }
+  h1 { font: 700 1.75rem/1.2 "Fraunces", Georgia, serif; margin: 0 0 4px; }
+  p.lead { color: var(--muted); margin: 0 0 28px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 24px; }
+  .card { background: var(--card); border: 2px solid var(--ink); border-radius: 14px; box-shadow: 6px 6px 0 var(--ink); padding: 20px; min-width: 0; }
+  .card > h2 { font: 700 1.15rem/1.2 "Fraunces", Georgia, serif; margin: 0; }
+  .card > p { color: var(--muted); margin: 4px 0 18px; font-size: 0.9rem; }
+  /* A wordmark: the logo and the name, as in the site header. */
+  .mark { display: inline-flex; align-items: center; gap: 0.5rem; font: 700 1.05rem/1 "Fraunces", Georgia, serif; color: var(--ink); white-space: nowrap; }
+  /* Logo to name as in the header: 1.75rem against 1.05rem. */
+  .mark svg { width: 1.67em; height: 1.67em; flex: none; color: var(--brand); }
+  .big { font-size: 1.9rem; }
+  .row { display: flex; flex-direction: column; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .row > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .row small { color: var(--muted); font-size: 0.75rem; white-space: nowrap; }
+  /* Header on a fixed light and a fixed dark page, whatever this page's theme. */
+  .on { padding: 10px 12px; border-radius: 8px; }
+  .on.light { background: #f8f1d5; --ink: #221e18; --card: #fffae6; --brand: #409d48; }
+  .on.dark { background: #1d1a14; --ink: #f3ebcf; --card: #262217; --brand: #6ed274; }
+  /* The share card's brand, at its size there. */
+  .share { gap: 12px; font-size: 22px; }
+  .share svg { width: 1.5em; height: 1.5em; }
+  .on.share-bg { background: #fffae6; --ink: #221e18; --card: #fffae6; --brand: #409d48; }
+
+  /* The variants */
+  .display { font-variation-settings: "opsz" 144; }
+  .w600 { font-weight: 600; } .w800 { font-weight: 800; } .w900 { font-weight: 900; }
+  .tight { letter-spacing: -0.015em; }
+  .quiet { font-weight: 400; }
+  .lower { text-transform: lowercase; }
+  h2.group { font: 700 1.3rem/1.2 "Fraunces", Georgia, serif; margin: 40px 0 16px; }
+  h2.group:first-of-type { margin-top: 0; }
+  .stack { display: inline-flex; flex-direction: column; line-height: 0.92; }
+  .mark.stack-mark svg { width: 2.1em; height: 2.1em; }
+  .kiuru-first .small { font-size: 0.62em; font-weight: 500; font-variation-settings: normal; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Call of Kiuru: the name next to the logo</h1>
+  <p class="lead">Fraunces as served has two axes, weight and optical size ("display cut" = opsz 144, the cut the big headlines use). Each option: large, in the header on light and dark, and as the share card's brand (shown at 22 px here, 28 px on the card).</p>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <clipPath id="logo-card"><rect x="6" y="6" width="82" height="82" rx="15"/></clipPath>
+      <path id="logo-leaf" d="M0,0 C8,-15 34,-17 50,-2 C34,10 10,12 0,0Z"/>
+      <symbol id="logo" viewBox="0 0 100 100">
+        <rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/>
+        <g clip-path="url(#logo-card)">
+          <g fill="none" stroke="currentColor">
+            <circle cx="28" cy="68" r="27" stroke-width="9" opacity=".82"/>
+            <circle cx="28" cy="68" r="43" stroke-width="7" opacity=".64"/>
+            <circle cx="28" cy="68" r="60" stroke-width="9" opacity=".48"/>
+          </g>
+          <g fill="currentColor">
+            <use href="#logo-leaf" transform="translate(17 75) rotate(-16) scale(.5 -.5)"/>
+            <use href="#logo-leaf" transform="translate(17 75) rotate(-58) scale(.42)" stroke="var(--card)" stroke-width="5.7" stroke-linejoin="round" paint-order="stroke"/>
+          </g>
+          <path d="M3 91L17.5 74.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        </g>
+        <rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <h2 class="group">Bricolage Grotesque</h2>
+  <p class="lead">Three axes: weight (200–800), width (75–100) and optical size (12–96; small sizes get rounder, more open letters).</p>
+  <div class="grid" id="bricolage"></div>
+  <h2 class="group">Other fonts</h2>
+  <div class="grid" id="others"></div>
+  <h2 class="group">Fraunces</h2>
+  <div class="grid" id="grid"></div>
+</main>
+<script>
+  const logo = '<svg viewBox="0 0 100 100"><use href="#logo"/></svg>';
+  // [title, note, classes on the wordmark, the name's HTML]
+  const variants = [
+    ["Now", "Fraunces 700 at text size: the text cut, wide and even.", "", "Call of Kiuru"],
+    ["A · Display 800", "The headlines' display cut, one step heavier. Tighter, more contrast between thick and thin.", "display w800", "Call of Kiuru"],
+    ["B · Display 900, tight", "The heaviest, letters a touch closer. Most like a logotype, matches the heavy card.", "display w900 tight", "Call of Kiuru"],
+    ["C · Display 600", "The display cut, lighter. Elegant, lets the logo carry the weight.", "display w600", "Call of Kiuru"],
+    ["D · Quiet “of”", "Display 800 with “of” in regular weight, so the two names lead.", "display w800", 'Call <span class="quiet">of</span> Kiuru'],
+    ["E · Kiuru first", "“Kiuru” big in the display cut, “Call of” small above it. The skylark is the name.", "display w800 kiuru-first", '<span class="stack"><span class="small">Call of</span><span>Kiuru</span></span>'],
+    ["F · Stacked", "Two lines, display 800, the logo as tall as both. Compact on a phone.", "display w800 stack-mark", '<span class="stack"><span>Call of</span><span>Kiuru</span></span>'],
+    ["G · Lowercase", "Display 800, all lowercase. Softer and friendlier, a bit less formal.", "display w800 lower", "Call of Kiuru"],
+  ];
+  // [title, note, font CSS]
+  const others = [
+    ["I · Young Serif", "Soft, heavy, rounded serifs. Warm and a bit old-fashioned, like a seed packet.", "font-family:'Young Serif';font-weight:400"],
+    ["J · Corben", "Round and chunky, close to Cooper. Friendly, a 70s nature-guide feel.", "font-family:'Corben';font-weight:700;font-size:.88em"],
+    ["K · DM Serif Display", "High contrast, sharp. Editorial and calm, like a magazine masthead.", "font-family:'DM Serif Display';font-weight:400"],
+    ["L · Instrument Serif", "Narrow and light, elegant. Only one weight, so the logo does the heavy lifting.", "font-family:'Instrument Serif';font-weight:400;font-size:1.2em"],
+    ["M · Alegreya ExtraBold", "Calligraphic, a pen-drawn rhythm. Bookish, like a field notebook.", "font-family:'Alegreya';font-weight:800"],
+    ["N · Gloock", "Very high contrast, crisp thin strokes. Striking large, the thins get fragile in the header.", "font-family:'Gloock';font-weight:400"],
+    ["O · Bricolage Grotesque", "A sans with quirks: inktraps, odd curves. Modern but not cold, the one sans that fits Meadow.", "font-family:'Bricolage Grotesque';font-weight:800;font-variation-settings:'opsz' 96"],
+    ["P · Newsreader Bold", "A newspaper serif with optical sizes. Fits 'the data about spring', more serious.", "font-family:'Newsreader';font-weight:700;font-variation-settings:'opsz' 72"],
+  ];
+  const mark = (cls, name, extra = "", style = "") => `<span class="mark ${cls} ${extra}">${logo}<span style="${style}">${name}</span></span>`;
+  const reference = ["A · Fraunces display 800, for comparison", "The current favourite.", "font-variation-settings:'opsz' 144;font-weight:800"];
+  // [title, note, font CSS, the name's HTML if not plain]
+  const fontCard = ([title, note, style, name = "Call of Kiuru"]) => `
+    <section class="card">
+      <h2>${title}</h2>
+      <p>${note}</p>
+      <div style="margin-bottom:18px">${mark("", name, "big", style)}</div>
+      <div class="row">
+        <div class="on light">${mark("", name, "", style)}<small>header, light</small></div>
+        <div class="on dark">${mark("", name, "", style)}<small style="color:#b9b093">header, dark</small></div>
+        <div class="on share-bg">${mark("", name, "share", style)}<small>share card</small></div>
+      </div>
+    </section>`;
+  const bg = "font-family:'Bricolage Grotesque';";
+  const bricolage = [
+    ["O · 800, display size", "The one you liked: heaviest weight, full width, optical size 96.", bg + "font-weight:800;font-variation-settings:'opsz' 96"],
+    ["O1 · 700", "A step lighter. Calmer next to the heavy card, still bold in the header.", bg + "font-weight:700;font-variation-settings:'opsz' 96"],
+    ["O2 · 800, condensed", "Narrowest width (75). Tall and compact, like a poster headline; the quirks show more.", bg + "font-weight:800;font-variation-settings:'opsz' 96,'wdth' 75"],
+    ["O3 · 800, semi-condensed", "Width 87.5: a little narrower, a little taller. Between O and O2.", bg + "font-weight:800;font-variation-settings:'opsz' 96,'wdth' 87.5"],
+    ["O4 · 800, text size", "Optical size 12: rounder, wider, more open letters with bigger inktraps. Friendlier.", bg + "font-weight:800;font-variation-settings:'opsz' 12"],
+    ["O5 · 600, tight", "Semibold, letters pulled together. Lighter and more refined.", bg + "font-weight:600;letter-spacing:-0.02em;font-variation-settings:'opsz' 96"],
+    ["O6 · Quiet “of”", "800 with “of” at 400, so Call and Kiuru lead.", bg + "font-weight:800;font-variation-settings:'opsz' 96", 'Call <span style="font-weight:400">of</span> Kiuru'],
+    ["O7 · Kiuru heavier", "“Call of” at 500, “Kiuru” at 800: the skylark carries the name.", bg + "font-weight:500;font-variation-settings:'opsz' 96", 'Call of <span style="font-weight:800">Kiuru</span>'],
+    ["O8 · Lowercase, condensed", "800, width 80, all lowercase. Softest of the set, a bit of a sticker feel.", bg + "font-weight:800;text-transform:lowercase;font-variation-settings:'opsz' 96,'wdth' 80"],
+  ];
+  document.getElementById("bricolage").innerHTML = [reference, ...bricolage].map(fontCard).join("");
+  document.getElementById("others").innerHTML = [reference, ...others].map(fontCard).join("");
+  document.getElementById("grid").innerHTML = variants.map(([title, note, cls, name]) => `
+    <section class="card">
+      <h2>${title}</h2>
+      <p>${note}</p>
+      <div style="margin-bottom:18px">${mark(cls, name, "big")}</div>
+      <div class="row">
+        <div class="on light">${mark(cls, name)}<small>header, light</small></div>
+        <div class="on dark">${mark(cls, name)}<small style="color:#b9b093">header, dark</small></div>
+        <div class="on share-bg">${mark(cls, name, "share")}<small>share card</small></div>
+      </div>
+    </section>`).join("");
+</script>
+</body>
+</html>

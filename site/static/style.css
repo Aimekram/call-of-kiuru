@@ -12,6 +12,14 @@
   font-weight: 100 900;
   font-display: swap;
 }
+/* The name next to the logo only: Bold, optical size 96, cut down to the
+   letters of "Call of Kiuru". */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url(fonts/bricolage-wordmark.woff2) format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
 
 :root {
   color-scheme: light dark;
@@ -26,6 +34,7 @@
   --late: light-dark(#1777b8, #4b99d7);
   --display: "Fraunces", Georgia, serif;
   --text: "Outfit", system-ui, sans-serif;
+  --wordmark: "Bricolage Grotesque", var(--text);
 }
 
 body {
@@ -51,15 +60,17 @@ a:hover { text-decoration-color: currentColor; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 h1, h2 { font-family: var(--display); line-height: 1.1; letter-spacing: -0.01em; }
-h1 { font-size: clamp(2rem, 7vw, 2.75rem); font-weight: 900; margin: 0 0 1.25rem; }
+h1 { font-size: clamp(2rem, 8vw, 3.1rem); font-weight: 900; margin: 0 0 1.25rem; }
+/* The ranking's title, the site's front page, is the biggest. */
+h1.front { font-size: clamp(2rem, 8vw, 3.6rem); }
 h1 em { white-space: nowrap; font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
 h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; scroll-margin-top: 1.5rem; }
 h3 { font: 700 1.05rem/1.2 var(--display); margin: 1.5rem 0 0.25rem; }
 
 /* Header */
-.site { margin-bottom: 2rem; }
-.site a { display: inline-flex; align-items: center; gap: 0.5rem; font: 700 1.05rem/1 var(--display); text-decoration: none; }
-.site svg { width: 1.75rem; height: 1.75rem; color: var(--brand); }
+.site { margin-bottom: 2.25rem; }
+.site a { display: inline-flex; align-items: center; gap: 0.6rem; font: 700 1.3rem/1 var(--wordmark); text-decoration: none; }
+.site svg { width: 2.25rem; height: 2.25rem; color: var(--brand); }
 /* Hover: a line grows under the name and the rings light up outwards, once. */
 .site .name { position: relative; }
 .site .name::after {
