@@ -310,9 +310,12 @@ class Built(unittest.TestCase):
         page = Page((self.directory / "accuracy" / "index.html").read_text())
         self.assertEqual(page.errors, [])
         self.assertIn("../method/#model", page.links)
-        # The observers' data are credited where they are used.
-        self.assertIn("based on data from Deutscher Wetterdienst (CC BY 4.0) and from "
-                      "SLU Naturens Kalender (CC0).", page.plain)
+        # The observers' data are credited where they are used, each licence
+        # linked to its text.
+        self.assertIn("based on data from Deutscher Wetterdienst ( CC BY 4.0 ) and from "
+                      "SLU Naturens Kalender ( CC0 ).", page.plain)
+        self.assertIn("https://creativecommons.org/licenses/by/4.0/", page.links)
+        self.assertIn("https://creativecommons.org/publicdomain/zero/1.0/", page.links)
         # The bloom test's by-country figures (run_bloom_test.py, 20 cities, 2026-10-20).
         for figure in ("0.92 0.89–0.95", "0.72 0.54–0.87", "0.82 0.73–0.88",
                        "0.52 0.25–0.75", "3.8 days 3.2–4.3", "3.9 days 2.6–4.8"):
