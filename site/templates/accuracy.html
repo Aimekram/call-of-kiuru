@@ -7,7 +7,7 @@
 <p>Every date on this site comes from a model, not from observations (<a href="{{ root }}method/#model">why</a>). This page shows how closely the model matches observed lilac bloom, how each city is graded, and <a href="#limitations">where the evidence is thin</a>.</p>
 <!-- Figures from the bloom test (run_bloom_test.py), 20 cities, 2026-10-20: SI-x bloom
      against the median observed lilac first bloom near each city. -->
-<p>We compared the model with observed first lilac bloom near each city, the median of the nearby observers each year. Nothing in the model was fitted to these observations.</p>
+<p>The model was compared with observed first lilac bloom near each city, the median of the nearby observers each year. Nothing in the model was fitted to these observations.</p>
 <div class="card">
 <table>
 <caption>Model against observed lilac bloom, 95% ranges below each figure</caption>
@@ -56,7 +56,7 @@
 <li><strong>Fair</strong>: above 0, so better than simply guessing an average spring every year.</li>
 <li><strong>Not yet confirmed</strong>: not shown to beat that guess. So far this happens only in Sweden, where the records are short. The number is still shown, because the same model is confirmed in {{ confirmed }} of the {{ cities|length }} cities.</li>
 </ul>
-<p>A city is shown once it has at least {{ min_springs }} springs with nearby observations. The skill score is standard (<a target="_blank" rel="noopener" href="https://doi.org/10.1175/1520-0493(1988)116%3C2417:SSBOTM%3E2.0.CO;2">Murphy, 1988</a>): 1 is perfect, 0 is no better than guessing an average spring every year. The lines at 0 and 0.5 are our choice.</p>
+<p>A city is shown once it has at least {{ min_springs }} springs with nearby observations. The skill score is standard (<a target="_blank" rel="noopener" href="https://doi.org/10.1175/1520-0493(1988)116%3C2417:SSBOTM%3E2.0.CO;2">Murphy, 1988</a>): 1 is perfect, 0 is no better than guessing an average spring every year. The lines at 0 and 0.5 are this site's choice, not part of the standard.</p>
 <p id="range">The 95% range is a 95% confidence interval from bootstrap resampling: the springs checked are drawn again at random 10,000 times, the score is worked out each time, and the middle 95% of those scores is kept. It is approximate, and somewhat narrow for short records, so with Sweden's 16 or 17 springs a city near a line could fall on either side of it.</p>
 <ul class="grade-summary">
 {% for group in grade_summary %}
