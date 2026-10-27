@@ -49,7 +49,7 @@ Limits:
   papers that define the model.
 
 The results by country, with their limitations, are on the site's
-[method page](https://callofkiuru.eu/method/). The full report and an audit
+[accuracy page](https://callofkiuru.eu/accuracy/). The full report and an audit
 of what was claimed, what held up and what is still unverified are kept in
 a private repository for now.
 
@@ -94,7 +94,7 @@ runs for the cities whose ERA5 download is present and is skipped otherwise.
 
    It downloads the lilac observations (about 60 MB) and ERA5 temperatures
    for each city (about 5 MB and 90 seconds each), then writes
-   `data/bloom_multiyear.csv` (committed: the method page draws it) and a
+   `data/bloom_multiyear.csv` (committed: the accuracy page draws it) and a
    report, `bloom_multiyear.md`, into `../call-of-kiuru-docs/docs/` (the
    private docs repo, if you have it).
 
@@ -143,7 +143,7 @@ pipeline/
   era5.py, bloom.py      temperature loading and the calculation
   check_recent.py        years after the validation period vs observations
   build_site.py          turns data/bloom.json into the static site, and
-                         data/bloom_multiyear.csv into the method page's charts
+                         data/bloom_multiyear.csv into the accuracy page's charts
   share_cards.py         share images via Chrome: link previews and Instagram posts
 site/
   templates/, static/    page templates, stylesheet, table sorter

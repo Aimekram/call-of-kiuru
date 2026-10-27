@@ -135,7 +135,7 @@ class Built(unittest.TestCase):
         return Page((self.directory / path).read_text())
 
     def test_one_page_per_city_a_ranking_and_the_method(self):
-        expected = {"index.html", "method/index.html", "privacy/index.html", "about/index.html"} | {
+        expected = {"index.html", "method/index.html", "accuracy/index.html", "privacy/index.html", "about/index.html"} | {
             f"{c['slug']}/index.html" for c in self.result["cities"]}
         self.assertEqual({str(p.relative_to(self.directory)) for p in self.written}, expected)
         self.assertTrue((self.directory / "static" / "style.css").exists())
@@ -254,8 +254,6 @@ class Built(unittest.TestCase):
                       f"{build_site.whole_days(max(gaps))} days later than the 1991–2020 one",
                       page.plain)
         self.assertGreater(min(gaps), 0)
-        self.assertIn("based on data from Deutscher Wetterdienst (CC BY 4.0) and from "
-                      "SLU Naturens Kalender (CC0).", page.plain)
         self.assertTrue(any("wmo.int" in link for link in page.links))
 
     def test_privacy_page_names_who_and_what(self):
@@ -300,24 +298,33 @@ class Built(unittest.TestCase):
             self.assertIn("site", names)
         shutil.rmtree(self.directory / "_cards")
 
-    def test_method_page_shows_the_validation(self):
+    def test_method_page_explains_the_model(self):
         page = Page((self.directory / "method" / "index.html").read_text())
         ids = {a.get("id") for _, a in page.attributes}
-        self.assertLessEqual({"model", "validation", "coverage", "baseline"}, ids)
+        self.assertLessEqual({"model", "coverage", "baseline"}, ids)
+        self.assertTrue(any("usanpn.org" in link for link in page.links))
+        self.assertIn("https://doi.org/10.1002/joc.3625", page.links)
+        self.assertIn("../accuracy/", page.links)
+
+    def test_accuracy_page_shows_the_validation(self):
+        page = Page((self.directory / "accuracy" / "index.html").read_text())
+        self.assertEqual(page.errors, [])
+        self.assertIn("../method/#model", page.links)
+        # The observers' data are credited where they are used.
+        self.assertIn("based on data from Deutscher Wetterdienst (CC BY 4.0) and from "
+                      "SLU Naturens Kalender (CC0).", page.plain)
         # The bloom test's by-country figures (run_bloom_test.py, 20 cities, 2026-10-20).
         for figure in ("0.92 0.89–0.95", "0.72 0.54–0.87", "0.82 0.73–0.88",
                        "0.52 0.25–0.75", "3.8 days 3.2–4.3", "3.9 days 2.6–4.8"):
             self.assertIn(figure, page.plain)
-        self.assertTrue(any("usanpn.org" in link for link in page.links))
-        # The model's paper and the European benchmark are linked.
-        self.assertIn("https://doi.org/10.1002/joc.3625", page.links)
+        # The European benchmark is linked.
         self.assertIn("https://www.nature.com/articles/s41597-024-03710-5", page.links)
 
-    def test_method_page_charts_each_city_against_observed_bloom(self):
+    def test_accuracy_page_charts_each_city_against_observed_bloom(self):
         rows = build_site.check_rows()
         self.assertEqual(set(rows), {c["slug"] for c in self.result["cities"]})
         low, high = build_site.check_scale(rows)
-        source = (self.directory / "method" / "index.html").read_text()
+        source = (self.directory / "accuracy" / "index.html").read_text()
         self.assertEqual(Page(source).errors, [])
         self.assertEqual(source.count("data-check"), len(rows))
         self.assertEqual(source.count('class="hit"'), sum(len(years) for years in rows.values()))
@@ -348,15 +355,15 @@ class Built(unittest.TestCase):
             label, shown = build_site.GRADE_LABELS[g["grade"]], build_site.cautious_score(low, g["grade"])
             self.assertIn(f"Track record {label}", Page(source).plain)
             self.assertIn(f"Skill score {build_site.score(float(g['skill']))} "
-                          f'(<a href="../method/#range">95% range</a> {shown} to', source)
+                          f'(<a href="../accuracy/#range">95% range</a> {shown} to', source)
             self.assertIn(f"<strong>{label}</strong>. Even at the cautious end of the range ({shown}), "
                           f"{escape(build_site.GRADE_REASONS[g['grade']])}.", source)
             # Signal bars, in the facts row and the section.
             self.assertEqual(source.count('class="on"'), 2 * build_site.GRADE_LEVELS[g["grade"]])
 
-    def test_method_page_explains_the_grades(self):
+    def test_accuracy_page_explains_the_grades(self):
         grades = self.grades()
-        source = (self.directory / "method" / "index.html").read_text()
+        source = (self.directory / "accuracy" / "index.html").read_text()
         page = Page(source)
         self.assertIn("grades", {a.get("id") for _, a in page.attributes})
         self.assertIn("https://doi.org/10.1175/1520-0493(1988)116%3C2417:SSBOTM%3E2.0.CO;2", page.links)

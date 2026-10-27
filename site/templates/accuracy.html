@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% from "macros.html" import grade_bars %}
+{% block title %}How well the model does – {{ site_name }}{% endblock %}
+{% block description %}How closely the modelled spring bloom matches observed lilac bloom in Germany and Sweden, how each city is graded, and where the evidence is thin.{% endblock %}
+{% block content %}
+<h1>How well the model does</h1>
+<p>Every date on this site comes from a model, not from observations (<a href="{{ root }}method/#model">why</a>). This page shows how closely the model matches observed lilac bloom, how each city is graded, and <a href="#limitations">where the evidence is thin</a>.</p>
+<!-- Figures from the bloom test (run_bloom_test.py), 20 cities, 2026-10-20: SI-x bloom
+     against the median observed lilac first bloom near each city. -->
+<p>We compared the model with observed first lilac bloom near each city, the median of the nearby observers each year. Nothing in the model was fitted to these observations.</p>
+<div class="card">
+<table>
+<caption>Model against observed lilac bloom, 95% ranges below each figure</caption>
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col">Germany</th>
+<th scope="col">Sweden</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Springs checked</th>
+<td>74<small>1951–2024</small></td>
+<td>17<small>2008–2024</small></td>
+</tr>
+<tr>
+<th scope="row">How closely early and late years match<small>correlation, 1 is perfect</small></th>
+<td>0.92<small>0.89–0.95</small></td>
+<td>0.72<small>0.54–0.87</small></td>
+</tr>
+<tr>
+<th scope="row">The model's typical miss, in how early or late spring was</th>
+<td>3.8 days<small>3.2–4.3</small></td>
+<td>3.9 days<small>2.6–4.8</small></td>
+</tr>
+<tr>
+<th scope="row">The same, guessing an average spring every year</th>
+<td>8.9 days</td>
+<td>5.6 days</td>
+</tr>
+<tr>
+<th scope="row">Skill score<small>1 is perfect, 0 no better than guessing an average spring every year</small></th>
+<td>0.82<small>0.73–0.88</small></td>
+<td>0.52<small>0.25–0.75</small></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The ranges come from resampling whole springs. Cities share each year's weather, so the evidence is the number of springs, not of city-years.</p>
+<p>In Germany the model's dates run early, by 2.8 days on average; in Sweden they are 0.1 days late. The model averages a lilac and two honeysuckles, and the honeysuckles bloom earlier, while the observations are lilac only. Its lilac part alone is 0.7 days off in Germany. The offset does not change the numbers on this site, because each city is compared with <a href="{{ root }}method/#calculation">the model's own average</a> for that city.</p>
+<h2 id="grades">How each city is graded</h2>
+<p>Each city's track record comes from its own check: the model's skill score, at the cautious end of its 95% range, so that a few lucky springs can't make a city look better than it is.</p>
+<ul>
+<li><strong>Good</strong>: 0.5 or more.</li>
+<li><strong>Fair</strong>: above 0, so better than simply guessing an average spring every year.</li>
+<li><strong>Not yet confirmed</strong>: not shown to beat that guess. So far this happens only in Sweden, where the records are short. The number is still shown, because the same model is confirmed in {{ confirmed }} of the {{ cities|length }} cities.</li>
+</ul>
+<p>A city is shown once it has at least {{ min_springs }} springs with nearby observations. The skill score is standard (<a target="_blank" rel="noopener" href="https://doi.org/10.1175/1520-0493(1988)116%3C2417:SSBOTM%3E2.0.CO;2">Murphy, 1988</a>): 1 is perfect, 0 is no better than guessing an average spring every year. The lines at 0 and 0.5 are our choice.</p>
+<p id="range">The 95% range is a 95% confidence interval from bootstrap resampling: the springs checked are drawn again at random 10,000 times, the score is worked out each time, and the middle 95% of those scores is kept. It is approximate, and somewhat narrow for short records, so with Sweden's 16 or 17 springs a city near a line could fall on either side of it.</p>
+<ul class="grade-summary">
+{% for group in grade_summary %}
+<li>{{ grade_bars(group.level) }}<strong>{{ group.label|capitalize }}</strong>: {{ group.cities }}</li>
+{% endfor %}
+</ul>
+<h2 id="by-city">City by city</h2>
+<p>One chart per city: the observed date of first lilac bloom each spring checked, and the model's date. Higher on the chart means later in the year. The grades above measure how well the model's line follows the observed one up and down, including how far. Where the model's line sits lower overall, the model is early: that is the offset. It doesn't count against the grade, because each city is compared with the model's own average, where a steady offset cancels out.</p>
+<div class="card checks">
+<p class="key"><span><i class="observed"></i>Observed: median of nearby observers</span><span><i class="model"></i>Model</span></p>
+{% for country in checks %}
+<h3>{{ country.name }}, {{ country.first_year }}–{{ country.last_year }}</h3>
+<div class="check-grid">
+{% for chart in country.charts %}
+{% include "check_chart.html" %}
+{% endfor %}
+</div>
+{% endfor %}
+<p class="note">Every value is in <a target="_blank" rel="noopener" href="{{ check_file_url }}">bloom_multiyear.csv</a></p>
+</div>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Sweden's evidence is thinner: 17 springs, with a median of 3 to 4.5 observations per city and year in Stockholm, Gothenburg and Malmö and 8 to 8.5 in the other three, in some years one. The first two years, 2008 and 2009, pull it down. From 2010 on, the correlation is 0.82 (0.68–0.91).</li>
+<li>Years before 1951 in Germany and before 2008 in Sweden are modelled only. There are too few observations to check them.</li>
+<li>Against single lilac bushes rather than local medians, a European study found the model about a week off on average (<a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41597-024-03710-5">Izquierdo-Verdiguier and Zurita-Milla, 2024</a>).</li>
+</ul>
+<h2 id="data">The data and the code</h2>
+<p>The observations are based on data from <a target="_blank" rel="noopener" href="https://opendata.dwd.de/">Deutscher Wetterdienst</a> (CC BY 4.0) and from <a target="_blank" rel="noopener" href="https://researchdata.se/en/catalogue/dataset/2022-86-1">SLU Naturens Kalender</a> (CC0).</p>
+<p>The code behind the model and this comparison was written with AI assistance. It is checked in two ways: it gives exactly the same days as <a target="_blank" rel="noopener" href="https://github.com/usa-npn/gridded_models">USA-NPN's own code</a>, and its results are compared with observed bloom, above. The code, its tests and each city's numbers are <a target="_blank" rel="noopener" href="{{ repo_url }}">open on GitHub</a>.</p>
+<p><a href="{{ root }}method/">How it works</a> · <a href="{{ root }}">All cities</a></p>
+{% endblock %}
+{% block scripts %}<script src="{{ root }}static/chart.js" defer></script>
+{% endblock %}

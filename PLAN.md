@@ -453,15 +453,17 @@ adding the 12 cities):
   caption. Its wording now
   matches the city pages ("guessing an average spring every year").
 - The grade in the ranking.
-- Split the method page: validation (the by-country table, the grades and
-  the 10-spring floor, the 20 city charts) on its own page. The method page
-  is about 6,100px tall on desktop with 20 charts.
-- Two AI lines, raised then (reminder requested): on the method page, that
-  no AI or machine learning produces the dates (the model is a published
-  temperature formula, checked against observations and USA-NPN's code);
-  on the about page under "The build", that it is built with AI coding
-  assistance (Claude) and the numbers don't depend on it. No commentary on
-  AI companies.
+- Split the method page (2026-10-27): "How it works" (`method/`: why a
+  model, why only Germany and Sweden, the average) for the curious
+  visitor, and "How well the model does" (`accuracy/`: the by-country
+  table, the grades and the 10-spring floor, the 20 city charts, the
+  limitations, the data and the code) for the skeptic. The method page was
+  about 6,100px tall on desktop with 20 charts.
+- Two AI lines (2026-10-27), no commentary on AI companies: in "How it
+  works", that no AI produces the dates (SI-x is a fixed set of published
+  equations, and our code gives exactly USA-NPN's days); in "How well the
+  model does", that the code was written with AI assistance, checked
+  against USA-NPN's code and observed bloom, and open with its tests.
 
 ---
 

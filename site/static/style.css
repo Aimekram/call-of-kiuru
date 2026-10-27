@@ -166,6 +166,8 @@ table.rows-link thead tr > :first-child { padding-left: 0.5rem; }
 .about h2 { font-size: 1rem; color: var(--ink); margin-top: 0; }
 .about p { margin: 0.5rem 0; }
 .about p:last-child { margin-bottom: 0; }
+/* Links stay whole: the line breaks between them, not inside one. */
+.about a { white-space: nowrap; }
 .about strong { color: var(--ink); font-weight: 600; }
 
 .site-footer {
@@ -211,7 +213,7 @@ td:has(> time), td.date { white-space: nowrap; }
 .chart-tip span { grid-column: 2; color: var(--muted); }
 
 /* Model against observed, per city. Ink and green: not early or late. */
-.checks h4 { margin: 1.25rem 0 0; font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+.checks h3 { margin: 1.25rem 0 0; font: 600 0.875rem/normal var(--text); color: var(--muted); }
 .checks .key { display: flex; margin: 0; } /* also on phones */
 .checks .note { margin-top: 1rem; }
 .key .observed, .chart-tip i.observed { background: var(--ink); }

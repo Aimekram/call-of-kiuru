@@ -538,12 +538,14 @@ def build(result, output_dir=OUTPUT_DIR):
           privacy_updated=PRIVACY_UPDATED,
           controller=CONTROLLER, address=ADDRESS)
     write("method/index.html", "method.html", root="../", card="site", card_alt=SITE_CARD_ALT,
-          cities=sorted(cities, key=lambda c: c["sort_usual"]), checks=check_charts(cities),
-          grade_summary=grade_summary(cities), min_springs=bloom_stats.MIN_SPRINGS,
-          confirmed=sum(c["check"]["grade"] != "unconfirmed" for c in cities),
-          check_file_url=f"{REPO_URL}/blob/main/data/{CHECK_FILE.name}",
+          cities=sorted(cities, key=lambda c: c["sort_usual"]),
           earlier="{}–{}".format(*EARLIER_YEARS),
           earlier_gap_least=whole_days(min(gaps)), earlier_gap_most=whole_days(max(gaps)))
+    write("accuracy/index.html", "accuracy.html", root="../", card="site", card_alt=SITE_CARD_ALT,
+          cities=cities, checks=check_charts(cities),
+          grade_summary=grade_summary(cities), min_springs=bloom_stats.MIN_SPRINGS,
+          confirmed=sum(c["check"]["grade"] != "unconfirmed" for c in cities),
+          check_file_url=f"{REPO_URL}/blob/main/data/{CHECK_FILE.name}")
     # Served by GitHub Pages at any address that has no page, so its links
     # start at the site root. Not indexed, and not in the sitemap.
     (output_dir / "404.html").write_text(templates.get_template("404.html").render(
