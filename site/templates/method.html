@@ -4,7 +4,7 @@
 {% block description %}Why the spring bloom comes from a model, how well it matches observed bloom, why only Germany and Sweden, and how each city's {{ baseline }} average is calculated.{% endblock %}
 {% block content %}
 <h1>How it works</h1>
-<p>Every page shows a modelled spring bloom and compares it with that city's {{ baseline }} average. Spring bloom means full spring in the <a target="_blank" rel="noopener" href="https://www.dwd.de/SharedDocs/broschueren/DE/presse/phaeno_faltblatt.pdf">phenological calendar</a> of Germany's weather service, DWD: early spring starts with hazel bloom, first spring with forsythia, full spring with apple bloom. Lilac first blooms about a week after the apples, well inside full spring. The model is the first-bloom index of the Extended Spring Indices (SI-x), published by <a target="_blank" rel="noopener" href="https://doi.org/10.1002/joc.3625">Schwartz, Ault and Betancourt (2013)</a> and used unchanged. This page explains why it is modelled, how well the model matches observed bloom, and how the average is calculated.</p>
+<p>Every page shows a modelled spring bloom and compares it with that city's {{ baseline }} average. Spring bloom means full spring in the <a target="_blank" rel="noopener" href="https://www.dwd.de/SharedDocs/broschueren/DE/presse/phaeno_faltblatt.pdf">phenological calendar</a> of Germany's weather service, DWD: early spring starts with hazel bloom, first spring with forsythia, full spring with apple bloom. Lilac first blooms about a week after the apples, well inside full spring. The model is the first-bloom index of the Extended Spring Indices (SI-x), published by <a target="_blank" rel="noopener" href="https://doi.org/10.1002/joc.3625">Schwartz, Ault and Betancourt (2013)</a> and used unchanged. No AI produces the dates: SI-x is a fixed set of published equations on daily temperatures, and in our tests the code gives exactly the same days as USA-NPN's own. This page explains why it is modelled, how well the model matches observed bloom, and how the average is calculated.</p>
 <h2 id="model">Why a model, not observations</h2>
 <p>Observed bloom is the ground truth: it is what the model is checked against, <a href="#validation">below</a>. The model adds what observations alone can't give:</p>
 <ul>
@@ -86,7 +86,7 @@
 <p class="note">Every value is in <a target="_blank" rel="noopener" href="{{ check_file_url }}">bloom_multiyear.csv</a></p>
 </div>
 <p>The observations are based on data from <a target="_blank" rel="noopener" href="https://opendata.dwd.de/">Deutscher Wetterdienst</a> (CC BY 4.0) and from <a target="_blank" rel="noopener" href="https://researchdata.se/en/catalogue/dataset/2022-86-1">SLU Naturens Kalender</a> (CC0).</p>
-<p>The code behind the model and this comparison is <a target="_blank" rel="noopener" href="{{ repo_url }}">on GitHub</a>, along with each city's numbers.</p>
+<p>The code behind the model and this comparison was written with AI assistance. It is checked in two ways: it gives exactly the same days as USA-NPN's own code, and its results are compared with observed bloom, above. The code, its tests and each city's numbers are <a target="_blank" rel="noopener" href="{{ repo_url }}">open on GitHub</a>.</p>
 <h3>Limitations</h3>
 <ul>
 <li>Sweden's evidence is thinner: 17 springs, with a median of 3 to 4.5 observations per city and year in Stockholm, Gothenburg and Malmö and 8 to 8.5 in the other three, in some years one. The first two years, 2008 and 2009, pull it down. From 2010 on, the correlation is 0.82 (0.68–0.91).</li>
