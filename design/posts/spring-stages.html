@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spring, bloom by bloom</title>
+<!-- Instagram post, 1080x1350, in the share cards' style. The dates are
+     Germany-wide medians of DWD's start-of-flowering observations
+     (phase 5), 1991-2020; the seasons are DWD's phenological calendar
+     (phaeno_faltblatt.pdf). Rendered with headless Chrome at 1080x1350. -->
+<link rel="stylesheet" href="../../site/static/style.css">
+<style>
+  :root { color-scheme: light; }
+  html, body { margin: 0; width: 1080px; height: 1350px; overflow: hidden; }
+  /* The wider side margin keeps the shadow in view in the profile grid's 3:4 crop. */
+  body { --m: 36px; --mx: 70px; --s: 12px; max-width: none; box-sizing: border-box; padding: var(--m) calc(var(--mx) + var(--s)) calc(var(--m) + var(--s)) var(--mx); display: flex; background: var(--paper); }
+  .frame { flex: 1; display: flex; flex-direction: column; box-sizing: border-box; padding: 48px 52px 44px; background: var(--card); border: 5px solid var(--ink); border-radius: 30px; box-shadow: var(--s) var(--s) 0 var(--ink); }
+  .top { display: flex; justify-content: space-between; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 16px; font: 700 34px/1 var(--wordmark); }
+  .brand svg { width: 59px; height: 59px; color: var(--brand); }
+  .url { font: 500 26px/1 var(--text); color: var(--muted); }
+  .eyebrow { margin: 56px 0 12px; font-size: 32px; color: var(--muted); }
+  h1 { font-size: 76px; line-height: 1.05; margin: 0; white-space: nowrap; }
+  /* The timeline: days from 1 February, drawn to scale. */
+  .timeline { position: relative; flex: 1; margin: 44px 0 28px; }
+  .months span { position: absolute; left: 0; transform: translateY(-50%); font: 500 22px/1 var(--text); color: var(--muted); }
+  /* Month lines stop short of the labels, so they never cross the text. */
+  .months i { position: absolute; left: 70px; width: 110px; border-top: 1px solid var(--line); }
+  .band { position: absolute; left: 118px; width: 18px; border-radius: 9px; }
+  .dot { position: absolute; left: 127px; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: var(--card); border: 5px solid var(--ink); box-sizing: border-box; }
+  .dot.ours { background: var(--brand); }
+  .leader { position: absolute; left: 142px; height: 0; border-top: 2px solid var(--ink); transform-origin: 0 0; }
+  .event { position: absolute; left: 230px; right: 0; transform: translateY(-50%); display: grid; grid-template-columns: 150px 1fr; align-items: baseline; column-gap: 20px; }
+  .event .date { font: 700 30px/1.1 var(--text); font-variant-numeric: tabular-nums; }
+  .event .plant { font: 800 42px/1.05 var(--display); }
+  .event .plant em { font-style: normal; background: linear-gradient(transparent 60%, color-mix(in oklch, var(--brand) 45%, transparent) 60%); }
+  .event .what { grid-column: 2; font-size: 26px; line-height: 1.25; color: var(--muted); margin-top: 4px; }
+  .note { margin: 0; font-size: 21px; line-height: 1.35; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="top">
+    <span class="brand"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><clipPath id="logo-card"><rect x="6" y="6" width="82" height="82" rx="15"/></clipPath><path id="logo-leaf" d="M0,0 C8,-15 34,-17 50,-2 C34,10 10,12 0,0Z"/></defs><rect x="12" y="12" width="82" height="82" rx="15" fill="var(--ink)" stroke="var(--ink)" stroke-width="3.5"/><rect x="6" y="6" width="82" height="82" rx="15" fill="var(--card)"/><g clip-path="url(#logo-card)"><g fill="none" stroke="currentColor"><circle cx="28" cy="68" r="27" stroke-width="9" opacity=".82"/><circle cx="28" cy="68" r="43" stroke-width="7" opacity=".64"/><circle cx="28" cy="68" r="60" stroke-width="9" opacity=".48"/></g><g fill="currentColor"><use href="#logo-leaf" transform="translate(17 75) rotate(-16) scale(.5 -.5)"/><use href="#logo-leaf" transform="translate(17 75) rotate(-58) scale(.42)" stroke="var(--card)" stroke-width="5.7" stroke-linejoin="round" paint-order="stroke"/></g><path d="M3 91L17.5 74.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></g><rect x="6" y="6" width="82" height="82" rx="15" fill="none" stroke="var(--ink)" stroke-width="3.5"/></svg>Call of Kiuru</span>
+    <span class="url">callofkiuru.eu</span>
+  </div>
+  <p class="eyebrow">Germany's phenological calendar</p>
+  <h1>Spring, bloom by bloom</h1>
+  <div class="timeline" id="timeline"></div>
+  <p class="note">Start of flowering, median of the Deutscher Wetterdienst's observations across Germany, <span style="white-space: nowrap">1991–2020</span>. Each season begins with its marker bloom.<br>Based on data from Deutscher Wetterdienst</p>
+</div>
+<script>
+  // Day of the year (2001, not a leap year) and what each bloom marks.
+  const events = [
+    { day: 46,  date: "15 Feb", plant: "Hazel",     what: "Early spring begins" },
+    { day: 86,  date: "27 Mar", plant: "Forsythia", what: "First spring begins" },
+    { day: 118, date: "28 Apr", plant: "Apple",     what: "Full spring begins" },
+    { day: 125, date: "5 May",  plant: "Lilac",     what: "Full spring: the bloom we track", ours: true },
+    { day: 148, date: "28 May", plant: "Elder",     what: "Early summer begins" },
+  ];
+  const months = [["Feb", 32], ["Mar", 60], ["Apr", 91], ["May", 121], ["Jun", 152]];
+  const first = 32, last = 160;
+  const el = document.getElementById("timeline");
+  const height = el.clientHeight;
+  const y = day => (day - first) / (last - first) * height;
+
+  let html = months.map(([name, day]) => `<span style="top:${y(day)}px">${name}</span><i style="top:${y(day)}px"></i>`).join("");
+  html = `<div class="months">${html}</div>`;
+  // The seasons as bands of green, lighter to fuller.
+  const bands = [[46, 86, 0.25], [86, 118, 0.5], [118, 148, 0.85], [148, last, 0.4]];
+  html += bands.map(([a, b, o]) => `<div class="band" style="top:${y(a)}px;height:${y(b) - y(a)}px;background:color-mix(in oklch, var(--brand) ${o * 100}%, var(--card))"></div>`).join("");
+  // Labels sit at their dates, pushed apart where two come within a week.
+  const gap = 112;
+  const ly = events.map(e => y(e.day));
+  for (let i = 1; i < ly.length; i++) ly[i] = Math.max(ly[i], ly[i - 1] + gap);
+  ly[ly.length - 1] = Math.min(ly[ly.length - 1], height - 40);
+  for (let i = ly.length - 2; i >= 0; i--) ly[i] = Math.min(ly[i], ly[i + 1] - gap);
+  events.forEach((e, i) => {
+    const dy = ly[i] - y(e.day), dx = 70;
+    const len = Math.hypot(dx, dy), angle = Math.atan2(dy, dx) * 180 / Math.PI;
+    html += `<div class="leader" style="top:${y(e.day)}px;width:${len}px;transform:rotate(${angle}deg)"></div>`;
+    html += `<div class="dot${e.ours ? " ours" : ""}" style="top:${y(e.day)}px"></div>`;
+    html += `<div class="event" style="top:${ly[i]}px"><span class="date">${e.date}</span><span class="plant">${e.ours ? `<em>${e.plant}</em>` : e.plant}</span><span class="what">${e.what}</span></div>`;
+  });
+  el.innerHTML = html;
+</script>
+</body>
+</html>
