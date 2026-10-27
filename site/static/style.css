@@ -68,7 +68,7 @@ h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.5rem; scroll-margin-
 h3 { font: 700 1.05rem/1.2 var(--display); margin: 1.5rem 0 0.25rem; }
 
 /* Header */
-.site { margin-bottom: 2.25rem; }
+.site { margin-bottom: 1.5rem; }
 .site a { display: inline-flex; align-items: center; gap: 0.6rem; font: 700 1.3rem/1 var(--wordmark); text-decoration: none; }
 .site svg { width: 2.25rem; height: 2.25rem; color: var(--brand); }
 /* Hover: a line grows under the name and the rings light up outwards, once. */
@@ -88,7 +88,7 @@ h3 { font: 700 1.05rem/1.2 var(--display); margin: 1.5rem 0 0.25rem; }
   .site a:is(:hover, :focus-visible) .ring { animation: none; }
 }
 
-.eyebrow { margin: 0 0 1rem; font-size: 0.875rem; color: var(--muted); }
+.eyebrow { margin: 0 0 0.6rem; font-size: 0.875rem; color: var(--muted); }
 .eyebrow a { white-space: nowrap; }
 .lede { margin: 0 0 1.5rem; color: var(--muted); }
 .lede a { white-space: nowrap; }
@@ -164,11 +164,13 @@ table.rows-link thead tr > :first-child { padding-left: 0.5rem; }
 /* About the data, closing every page's content */
 .about { margin-top: 3rem; padding-top: 1rem; border-top: 2px solid var(--ink); font-size: 0.875rem; color: var(--muted); }
 .about h2 { font-size: 1rem; color: var(--ink); margin-top: 0; }
+.about p { margin: 0.5rem 0; }
+.about p:last-child { margin-bottom: 0; }
 .about strong { color: var(--ink); font-weight: 600; }
 
 .site-footer {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1.5rem;
-  margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line);
   font-size: 0.8125rem; color: var(--muted);
 }
 .site-footer p { margin: 0; }
